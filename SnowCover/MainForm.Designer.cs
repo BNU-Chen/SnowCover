@@ -46,8 +46,8 @@
             this.btn_AddMapLayer = new DevExpress.XtraBars.BarButtonItem();
             this.btn_ExportMapPic = new DevExpress.XtraBars.BarButtonItem();
             this.btn_AnalystSC_DateRange = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_Data_OriginalImage = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_SnowCover_OneDate = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_SnowCover_OriginalImage = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_SnowCover_Everyday = new DevExpress.XtraBars.BarButtonItem();
             this.btn_SnowCover_DateRange = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Data_StatisticTables = new DevExpress.XtraBars.BarButtonItem();
             this.btn_PublishDisasterDoc = new DevExpress.XtraBars.BarButtonItem();
@@ -60,11 +60,11 @@
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
-            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
-            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
+            this.xtraTabControl_Left = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPage_MapLayers = new DevExpress.XtraTab.XtraTabPage();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
-            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabControl2 = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPage_DataNav = new DevExpress.XtraTab.XtraTabPage();
+            this.xtraTabControl_Center = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.xtraTabPage4 = new DevExpress.XtraTab.XtraTabPage();
@@ -74,12 +74,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
-            this.xtraTabControl1.SuspendLayout();
-            this.xtraTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Left)).BeginInit();
+            this.xtraTabControl_Left.SuspendLayout();
+            this.xtraTabPage_MapLayers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl2)).BeginInit();
-            this.xtraTabControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Center)).BeginInit();
+            this.xtraTabControl_Center.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             this.xtraTabPage4.SuspendLayout();
@@ -108,8 +108,8 @@
             this.btn_AddMapLayer,
             this.btn_ExportMapPic,
             this.btn_AnalystSC_DateRange,
-            this.btn_Data_OriginalImage,
-            this.btn_SnowCover_OneDate,
+            this.btn_SnowCover_OriginalImage,
+            this.btn_SnowCover_Everyday,
             this.btn_SnowCover_DateRange,
             this.btn_Data_StatisticTables,
             this.btn_PublishDisasterDoc});
@@ -192,6 +192,7 @@
             this.btn_Settings.Id = 16;
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_Settings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Settings_ItemClick);
             // 
             // btn_HelpDocument
             // 
@@ -200,6 +201,7 @@
             this.btn_HelpDocument.Id = 17;
             this.btn_HelpDocument.Name = "btn_HelpDocument";
             this.btn_HelpDocument.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_HelpDocument.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_HelpDocument_ItemClick);
             // 
             // btn_About
             // 
@@ -208,6 +210,7 @@
             this.btn_About.Id = 18;
             this.btn_About.Name = "btn_About";
             this.btn_About.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_About.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_About_ItemClick);
             // 
             // btn_MapPointNull
             // 
@@ -224,6 +227,7 @@
             this.btn_InitRSImage.Id = 20;
             this.btn_InitRSImage.Name = "btn_InitRSImage";
             this.btn_InitRSImage.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_InitRSImage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_InitRSImage_ItemClick);
             // 
             // btn_OpenMapFile
             // 
@@ -259,30 +263,34 @@
             this.btn_AnalystSC_DateRange.Id = 24;
             this.btn_AnalystSC_DateRange.Name = "btn_AnalystSC_DateRange";
             this.btn_AnalystSC_DateRange.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_AnalystSC_DateRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_AnalystSC_DateRange_ItemClick);
             // 
-            // btn_Data_OriginalImage
+            // btn_SnowCover_OriginalImage
             // 
-            this.btn_Data_OriginalImage.Caption = "原始影像";
-            this.btn_Data_OriginalImage.Glyph = global::SnowCover.Properties.Resources.Satellite;
-            this.btn_Data_OriginalImage.Id = 25;
-            this.btn_Data_OriginalImage.Name = "btn_Data_OriginalImage";
-            this.btn_Data_OriginalImage.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_SnowCover_OriginalImage.Caption = "原始影像";
+            this.btn_SnowCover_OriginalImage.Glyph = global::SnowCover.Properties.Resources.Satellite;
+            this.btn_SnowCover_OriginalImage.Id = 25;
+            this.btn_SnowCover_OriginalImage.Name = "btn_SnowCover_OriginalImage";
+            this.btn_SnowCover_OriginalImage.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_SnowCover_OriginalImage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SnowCover_OriginalImage_ItemClick);
             // 
-            // btn_SnowCover_OneDate
+            // btn_SnowCover_Everyday
             // 
-            this.btn_SnowCover_OneDate.Caption = "每日积雪";
-            this.btn_SnowCover_OneDate.Glyph = global::SnowCover.Properties.Resources.today_64;
-            this.btn_SnowCover_OneDate.Id = 26;
-            this.btn_SnowCover_OneDate.Name = "btn_SnowCover_OneDate";
-            this.btn_SnowCover_OneDate.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_SnowCover_Everyday.Caption = "每日积雪";
+            this.btn_SnowCover_Everyday.Glyph = global::SnowCover.Properties.Resources.today_64;
+            this.btn_SnowCover_Everyday.Id = 26;
+            this.btn_SnowCover_Everyday.Name = "btn_SnowCover_Everyday";
+            this.btn_SnowCover_Everyday.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_SnowCover_Everyday.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SnowCover_Everyday_ItemClick);
             // 
             // btn_SnowCover_DateRange
             // 
-            this.btn_SnowCover_DateRange.Caption = "统计积雪";
+            this.btn_SnowCover_DateRange.Caption = "时段积雪";
             this.btn_SnowCover_DateRange.Glyph = global::SnowCover.Properties.Resources.Layers;
             this.btn_SnowCover_DateRange.Id = 27;
             this.btn_SnowCover_DateRange.Name = "btn_SnowCover_DateRange";
             this.btn_SnowCover_DateRange.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_SnowCover_DateRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SnowCover_DateRange_ItemClick);
             // 
             // btn_Data_StatisticTables
             // 
@@ -291,6 +299,7 @@
             this.btn_Data_StatisticTables.Id = 28;
             this.btn_Data_StatisticTables.Name = "btn_Data_StatisticTables";
             this.btn_Data_StatisticTables.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_Data_StatisticTables.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Data_StatisticTables_ItemClick);
             // 
             // btn_PublishDisasterDoc
             // 
@@ -299,6 +308,7 @@
             this.btn_PublishDisasterDoc.Id = 29;
             this.btn_PublishDisasterDoc.Name = "btn_PublishDisasterDoc";
             this.btn_PublishDisasterDoc.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_PublishDisasterDoc.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_PublishDisasterDoc_ItemClick);
             // 
             // ribbonPage3
             // 
@@ -322,8 +332,8 @@
             // 
             // ribbonPageGroup5
             // 
-            this.ribbonPageGroup5.ItemLinks.Add(this.btn_Data_OriginalImage);
-            this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_OneDate);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_OriginalImage);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_Everyday);
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_DateRange);
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_Data_StatisticTables);
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_PublishDisasterDoc);
@@ -355,7 +365,7 @@
             this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup6});
             this.ribbonPage2.Name = "ribbonPage2";
-            this.ribbonPage2.Text = "帮助";
+            this.ribbonPage2.Text = "设置与帮助";
             // 
             // ribbonPageGroup6
             // 
@@ -370,35 +380,35 @@
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 147);
             this.splitContainerControl1.Name = "splitContainerControl1";
-            this.splitContainerControl1.Panel1.Controls.Add(this.xtraTabControl1);
+            this.splitContainerControl1.Panel1.Controls.Add(this.xtraTabControl_Left);
             this.splitContainerControl1.Panel1.Text = "Panel1";
-            this.splitContainerControl1.Panel2.Controls.Add(this.xtraTabControl2);
+            this.splitContainerControl1.Panel2.Controls.Add(this.xtraTabControl_Center);
             this.splitContainerControl1.Panel2.Controls.Add(this.axLicenseControl1);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(990, 648);
-            this.splitContainerControl1.SplitterPosition = 174;
+            this.splitContainerControl1.SplitterPosition = 229;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
             // 
-            // xtraTabControl1
+            // xtraTabControl_Left
             // 
-            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.HeaderLocation = DevExpress.XtraTab.TabHeaderLocation.Bottom;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 0);
-            this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(174, 648);
-            this.xtraTabControl1.TabIndex = 0;
-            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPage1,
-            this.xtraTabPage2});
+            this.xtraTabControl_Left.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraTabControl_Left.HeaderLocation = DevExpress.XtraTab.TabHeaderLocation.Bottom;
+            this.xtraTabControl_Left.Location = new System.Drawing.Point(0, 0);
+            this.xtraTabControl_Left.Name = "xtraTabControl_Left";
+            this.xtraTabControl_Left.SelectedTabPage = this.xtraTabPage_MapLayers;
+            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 648);
+            this.xtraTabControl_Left.TabIndex = 0;
+            this.xtraTabControl_Left.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPage_MapLayers,
+            this.xtraTabPage_DataNav});
             // 
-            // xtraTabPage1
+            // xtraTabPage_MapLayers
             // 
-            this.xtraTabPage1.Controls.Add(this.axTOCControl1);
-            this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(168, 619);
-            this.xtraTabPage1.Text = "图层";
+            this.xtraTabPage_MapLayers.Controls.Add(this.axTOCControl1);
+            this.xtraTabPage_MapLayers.Name = "xtraTabPage_MapLayers";
+            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 619);
+            this.xtraTabPage_MapLayers.Text = "图层";
             // 
             // axTOCControl1
             // 
@@ -406,25 +416,25 @@
             this.axTOCControl1.Location = new System.Drawing.Point(0, 0);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(168, 619);
+            this.axTOCControl1.Size = new System.Drawing.Size(223, 619);
             this.axTOCControl1.TabIndex = 0;
             // 
-            // xtraTabPage2
+            // xtraTabPage_DataNav
             // 
-            this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(168, 619);
-            this.xtraTabPage2.Text = "数据";
+            this.xtraTabPage_DataNav.Name = "xtraTabPage_DataNav";
+            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(168, 619);
+            this.xtraTabPage_DataNav.Text = "数据";
             // 
-            // xtraTabControl2
+            // xtraTabControl_Center
             // 
-            this.xtraTabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl2.HeaderLocation = DevExpress.XtraTab.TabHeaderLocation.Bottom;
-            this.xtraTabControl2.Location = new System.Drawing.Point(0, 0);
-            this.xtraTabControl2.Name = "xtraTabControl2";
-            this.xtraTabControl2.SelectedTabPage = this.xtraTabPage3;
-            this.xtraTabControl2.Size = new System.Drawing.Size(811, 648);
-            this.xtraTabControl2.TabIndex = 2;
-            this.xtraTabControl2.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabControl_Center.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraTabControl_Center.HeaderLocation = DevExpress.XtraTab.TabHeaderLocation.Bottom;
+            this.xtraTabControl_Center.Location = new System.Drawing.Point(0, 0);
+            this.xtraTabControl_Center.Name = "xtraTabControl_Center";
+            this.xtraTabControl_Center.SelectedTabPage = this.xtraTabPage3;
+            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 648);
+            this.xtraTabControl_Center.TabIndex = 2;
+            this.xtraTabControl_Center.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage3,
             this.xtraTabPage4});
             // 
@@ -432,7 +442,7 @@
             // 
             this.xtraTabPage3.Controls.Add(this.axMapControl1);
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(805, 619);
+            this.xtraTabPage3.Size = new System.Drawing.Size(750, 619);
             this.xtraTabPage3.Text = "地图";
             // 
             // axMapControl1
@@ -441,7 +451,7 @@
             this.axMapControl1.Location = new System.Drawing.Point(0, 0);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(805, 619);
+            this.axMapControl1.Size = new System.Drawing.Size(750, 619);
             this.axMapControl1.TabIndex = 0;
             // 
             // xtraTabPage4
@@ -489,15 +499,16 @@
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "减灾中心 - 积雪覆盖分析";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
-            this.xtraTabControl1.ResumeLayout(false);
-            this.xtraTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Left)).EndInit();
+            this.xtraTabControl_Left.ResumeLayout(false);
+            this.xtraTabPage_MapLayers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl2)).EndInit();
-            this.xtraTabControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Center)).EndInit();
+            this.xtraTabControl_Center.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).EndInit();
             this.xtraTabPage4.ResumeLayout(false);
@@ -533,15 +544,15 @@
         private DevExpress.XtraBars.BarButtonItem btn_AnalystSC_DateRange;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
-        private DevExpress.XtraBars.BarButtonItem btn_Data_OriginalImage;
-        private DevExpress.XtraBars.BarButtonItem btn_SnowCover_OneDate;
+        private DevExpress.XtraBars.BarButtonItem btn_SnowCover_OriginalImage;
+        private DevExpress.XtraBars.BarButtonItem btn_SnowCover_Everyday;
         private DevExpress.XtraBars.BarButtonItem btn_SnowCover_DateRange;
         private DevExpress.XtraBars.BarButtonItem btn_Data_StatisticTables;
         private DevExpress.XtraBars.BarButtonItem btn_PublishDisasterDoc;
-        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
-        private DevExpress.XtraTab.XtraTabControl xtraTabControl2;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl_Left;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage_MapLayers;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage_DataNav;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl_Center;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage4;
         private ESRI.ArcGIS.Controls.AxTOCControl axTOCControl1;
