@@ -222,7 +222,7 @@
             // 
             // btn_InitRSImage
             // 
-            this.btn_InitRSImage.Caption = "影像标准化";
+            this.btn_InitRSImage.Caption = "影像初始化";
             this.btn_InitRSImage.Glyph = global::SnowCover.Properties.Resources.map_64;
             this.btn_InitRSImage.Id = 20;
             this.btn_InitRSImage.Name = "btn_InitRSImage";
@@ -422,7 +422,7 @@
             // xtraTabPage_DataNav
             // 
             this.xtraTabPage_DataNav.Name = "xtraTabPage_DataNav";
-            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(168, 619);
+            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(223, 619);
             this.xtraTabPage_DataNav.Text = "数据";
             // 
             // xtraTabControl_Center
@@ -458,7 +458,7 @@
             // 
             this.xtraTabPage4.Controls.Add(this.axPageLayoutControl1);
             this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(805, 619);
+            this.xtraTabPage4.Size = new System.Drawing.Size(750, 619);
             this.xtraTabPage4.Text = "制图输出";
             // 
             // axPageLayoutControl1
@@ -467,7 +467,7 @@
             this.axPageLayoutControl1.Location = new System.Drawing.Point(0, 0);
             this.axPageLayoutControl1.Name = "axPageLayoutControl1";
             this.axPageLayoutControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axPageLayoutControl1.OcxState")));
-            this.axPageLayoutControl1.Size = new System.Drawing.Size(805, 619);
+            this.axPageLayoutControl1.Size = new System.Drawing.Size(750, 619);
             this.axPageLayoutControl1.TabIndex = 0;
             // 
             // axLicenseControl1

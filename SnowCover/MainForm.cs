@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 using System.IO;
 
+using ImageProcessing;
+
+
 namespace SnowCover
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm
@@ -182,7 +185,13 @@ namespace SnowCover
         #region //积雪分析
         private void btn_InitRSImage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-
+            string Pro_Name = "ENVI_AVHRR_INVERtSNOWCOVER";
+            string File_Directory = iniFile.IniReadValue("DataCenter","OrigionDataFolder");
+            string Date_Time = "10011";
+            string EVF_FileName = iniFile.IniReadValue("DataCenter","BoundaryFilePath");
+            string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter","EverydaySnowCoverFolder");            
+            string Snow_FileName = EverydaySnowCoverFolder+"\\Snow_"+Date_Time+".tif";
+            ImageProcessing.IDL.ProcessingOrigionData(Pro_Name, File_Directory, Date_Time, EVF_FileName, Snow_FileName);
         }
 
         private void btn_AnalystSC_DateRange_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

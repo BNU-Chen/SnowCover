@@ -220,6 +220,12 @@
   <ItemGroup>
     <None Include="Resources\pointValue.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageProcessing\ImageProcessing.csproj">
+      <Project>{fcc1df5e-5e90-4f55-880f-585bd11a3d22}</Project>
+      <Name>ImageProcessing</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
