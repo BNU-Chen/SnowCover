@@ -191,7 +191,7 @@ namespace SnowCover
             string EVF_FileName = iniFile.IniReadValue("DataCenter","BoundaryFilePath");
             string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter","EverydaySnowCoverFolder");            
             string Snow_FileName = EverydaySnowCoverFolder+"\\Snow_"+Date_Time+".tif";
-            ImageProcessing.IDL.ProcessingOrigionData(Pro_Name, File_Directory, Date_Time, EVF_FileName, Snow_FileName);
+            ImageProcessing.IDL.ProcessingOrigionData(Pro_Name, File_Directory, Date_Time, EVF_FileName, Snow_FileName,this.axMapControl1);
         }
 
         private void btn_AnalystSC_DateRange_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

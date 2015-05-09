@@ -350,7 +350,7 @@ namespace SnowCover.DataHandle
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Error , unable to backup!");
+                MessageBox.Show("Error , unable to backup! \n"+ex.Message);
             }
         }
 
