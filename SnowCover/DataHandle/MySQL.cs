@@ -382,7 +382,7 @@ namespace SnowCover.DataHandle
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Error , unable to Restore!");
+                MessageBox.Show("Error , unable to Restore!\n"+ex.Message);
             }
         }
         

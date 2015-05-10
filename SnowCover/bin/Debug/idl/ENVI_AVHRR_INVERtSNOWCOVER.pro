@@ -1,19 +1,20 @@
-PRO ENVI_AVHRR_INVERtSNOWCOVER, File_Directory, Date_Time, EVF_FileName, SNOW_FILENAME
+PRO ENVI_AVHRR_INVERTSNOWCOVER, File_Directory, Date_Time, EVF_FileName, SNOW_FILENAME
   COMPILE_OPT idl2
   ENVI, /RESTORE_BASE_SAVE_FILES
   ENVI_BATCH_INIT,LOG_FILE='batch.log'
   ;初始变量
-  ;File_Directory='E:\IDL\LYQ\AVHRR\YSJ'
-  ;Date_Time ='10011'
+  ;file_dir='E:\IDL\LYQ\AVHRR\YSJ'
+  ;date ='10011'
   ;EVF_FileName ='E:\IDL\LYQ\AVHRR\YSJ\bou1_4p_.evf'
   ;SNOW_FILENAME='E:\IDL\LYQ\AVHRR\test\snow.tif'
   ;设置系统路径
-  CD,File_Directory
+  ;CD,File_Directory
   ;搜索文件
-  Files = FILE_SEARCH("*"+Date_Time+"*.MM")
+  ;Files = FILE_SEARCH("*"+Date_Time+"*.MM")
+  Files = FILE_SEARCH(File_Directory,'*'+Date_Time+'*.MM')
   FileCount = N_ELEMENTS(Files)
   IF (FileCount EQ 0) THEN BEGIN
-    ENVI_BATCH_EXIT
+    ;ENVI_BATCH_EXIT
     RETURN
   ENDIF
   ;打开文件，记录fid
@@ -24,12 +25,12 @@ PRO ENVI_AVHRR_INVERtSNOWCOVER, File_Directory, Date_Time, EVF_FileName, SNOW_FI
     ;打开文件
     ENVI_OPEN_DATA_FILE, FileName, r_fid=temp_fid, /AVHRR
     IF (temp_fid EQ -1) THEN BEGIN
-      ENVI_BATCH_EXIT
+      ;ENVI_BATCH_EXIT
       RETURN
     ENDIF
     Avhrr_Warp, temp_fid, R_Fid=warp_fid
     IF (warp_fid EQ -1) THEN BEGIN
-      ENVI_BATCH_EXIT
+      ;ENVI_BATCH_EXIT
       RETURN
     ENDIF
     WARP_FIDS[NX]=warp_fid
@@ -38,7 +39,7 @@ PRO ENVI_AVHRR_INVERtSNOWCOVER, File_Directory, Date_Time, EVF_FileName, SNOW_FI
   ENDFOR
   AVHRR_MOSAIC,WARP_FIDS,R_FID=temp_fid
   IF (temp_fid EQ -1) THEN BEGIN
-    ENVI_BATCH_EXIT
+    ;ENVI_BATCH_EXIT
     RETURN
   ENDIF
   MOSAIC_FID=temp_fid
@@ -49,13 +50,13 @@ PRO ENVI_AVHRR_INVERtSNOWCOVER, File_Directory, Date_Time, EVF_FileName, SNOW_FI
   ENDFOR
   MaskAvHRRVithEvf,MOSAIC_FID,EVF_FileName,R_FID=temp_fid
   IF (temp_fid EQ -1) THEN BEGIN
-    ENVI_BATCH_EXIT
+    ;ENVI_BATCH_EXIT
     RETURN
   ENDIF
   MASK_FID=temp_fid
   AVHRR_BANDMATH_SNOWCOVER,MASK_FID,SNOW_FILENAME,R_FID=temp_fid
   IF (temp_fid EQ -1) THEN BEGIN
-    ENVI_BATCH_EXIT
+    ;ENVI_BATCH_EXIT
     RETURN
   ENDIF
 END
@@ -205,4 +206,8 @@ PRO Avhrr_Warp,AVHRR_FID,R_Fid=R_Fid
     method=6, degree=1, background=0, grid=[50,50], proj=proj, $
     pixel_size=point_size, r_fid=R_Fid
   ;RETURN temp_fid
+END
+
+PRO MATH_DOIT_RECORD,_extra=extra
+
 END

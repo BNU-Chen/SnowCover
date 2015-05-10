@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.check_DateFilter = new DevExpress.XtraEditors.CheckEdit();
             this.dateEdit1 = new DevExpress.XtraEditors.DateEdit();
             this.TextEdit_Filter = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.treeList1 = new DevExpress.XtraTreeList.TreeList();
+            this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.check_DateFilter.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextEdit_Filter.Properties)).BeginInit();
@@ -45,44 +47,32 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Controls.Add(this.button2);
-            this.panelControl1.Controls.Add(this.button1);
+            this.panelControl1.Controls.Add(this.check_DateFilter);
             this.panelControl1.Controls.Add(this.dateEdit1);
             this.panelControl1.Controls.Add(this.TextEdit_Filter);
             this.panelControl1.Controls.Add(this.labelControl1);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(246, 75);
+            this.panelControl1.Size = new System.Drawing.Size(246, 72);
             this.panelControl1.TabIndex = 6;
             // 
-            // button2
+            // check_DateFilter
             // 
-            this.button2.Location = new System.Drawing.Point(13, 42);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(20, 20);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "<";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(216, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(20, 20);
-            this.button1.TabIndex = 6;
-            this.button1.Text = ">";
-            this.button1.UseVisualStyleBackColor = true;
+            this.check_DateFilter.Location = new System.Drawing.Point(9, 41);
+            this.check_DateFilter.Name = "check_DateFilter";
+            this.check_DateFilter.Properties.Caption = "";
+            this.check_DateFilter.Size = new System.Drawing.Size(20, 19);
+            this.check_DateFilter.TabIndex = 7;
+            this.check_DateFilter.CheckedChanged += new System.EventHandler(this.check_DateFilter_CheckedChanged);
             // 
             // dateEdit1
             // 
             this.dateEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateEdit1.EditValue = null;
-            this.dateEdit1.Location = new System.Drawing.Point(35, 42);
+            this.dateEdit1.EditValue = new System.DateTime(2015, 5, 10, 13, 56, 47, 450);
+            this.dateEdit1.Location = new System.Drawing.Point(35, 40);
             this.dateEdit1.Name = "dateEdit1";
             this.dateEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -90,8 +80,10 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEdit1.Properties.CalendarTimeProperties.CloseUpKey = new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.F4);
             this.dateEdit1.Properties.CalendarTimeProperties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.Default;
-            this.dateEdit1.Size = new System.Drawing.Size(178, 20);
+            this.dateEdit1.Size = new System.Drawing.Size(204, 20);
             this.dateEdit1.TabIndex = 5;
+            this.dateEdit1.DateTimeChanged += new System.EventHandler(this.dateEdit1_DateTimeChanged);
+            this.dateEdit1.Popup += new System.EventHandler(this.dateEdit1_Popup);
             // 
             // TextEdit_Filter
             // 
@@ -118,11 +110,16 @@
             // treeList1
             // 
             this.treeList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeList1.Location = new System.Drawing.Point(0, 75);
+            this.treeList1.Location = new System.Drawing.Point(0, 72);
             this.treeList1.Name = "treeList1";
             this.treeList1.OptionsBehavior.Editable = false;
-            this.treeList1.Size = new System.Drawing.Size(246, 446);
+            this.treeList1.Size = new System.Drawing.Size(246, 449);
             this.treeList1.TabIndex = 7;
+            this.treeList1.ToolTipController = this.toolTipController1;
+            // 
+            // toolTipController1
+            // 
+            this.toolTipController1.GetActiveObjectInfo += new DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventHandler(this.toolTipController1_GetActiveObjectInfo);
             // 
             // ucFileNavPanel
             // 
@@ -135,6 +132,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.check_DateFilter.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextEdit_Filter.Properties)).EndInit();
@@ -149,9 +147,9 @@
         private DevExpress.XtraEditors.TextEdit TextEdit_Filter;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.DateEdit dateEdit1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private DevExpress.XtraTreeList.TreeList treeList1;
+        private DevExpress.XtraEditors.CheckEdit check_DateFilter;
+        private DevExpress.Utils.ToolTipController toolTipController1;
 
     }
 }

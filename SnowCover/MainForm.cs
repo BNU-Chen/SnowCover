@@ -143,60 +143,31 @@ namespace SnowCover
             ucFileNavPanel.Dock = DockStyle.Fill;
             this.xtraTabPage_DataNav.Text = button.Caption;
             this.xtraTabControl_Left.SelectedTabPage = this.xtraTabPage_DataNav;
-            
-            DataTable dt = DataHandle.DiskFile.getDataTable(path);
-            if (dt == null)
-            {
-                return;
-            }
-            //if (dt.Rows.Count == 0)
-            //{
-            //    return;
-            //}
-            ucFileNavPanel.TreeList.KeyFieldName = "id";
-            ucFileNavPanel.TreeList.ParentFieldName = "pid";
-            ucFileNavPanel.TreeList.DataSource = dt;
 
-            //按名称排序
-            ucFileNavPanel.TreeList.BeginSort();
-            ucFileNavPanel.TreeList.Columns["type"].SortOrder = SortOrder.Descending;
-            ucFileNavPanel.TreeList.Columns["name"].SortOrder = SortOrder.Ascending;
-            ucFileNavPanel.TreeList.EndSort();
-
-            //隐藏除"name"的列
-            for (int i = 0; i < ucFileNavPanel.TreeList.Columns.Count; i++)
-            {
-                if (ucFileNavPanel.TreeList.Columns[i].FieldName != "name")
-                {
-                    ucFileNavPanel.TreeList.Columns[i].Visible = false;
-                }
-            }
-            if (dt.Rows.Count < 100)
-            {
-                this.ucFileNavPanel.TreeList.ExpandAll();
-            }
-            if(ucFileNavPanel.TreeList.Columns.Count >0)
-            {
-                ucFileNavPanel.TreeList.Columns[0].Caption = "名称";
-            }            
+            DateTime date = DateTime.Now;
+            this.ucFileNavPanel.Path = path;
+            this.ucFileNavPanel.DateEdit.DateTime = date;
         }
         #endregion
 
         #region //积雪分析
         private void btn_InitRSImage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            string Pro_Name = "ENVI_AVHRR_INVERtSNOWCOVER";
+        {            
             string File_Directory = iniFile.IniReadValue("DataCenter","OrigionDataFolder");
             string Date_Time = "10011";
             string EVF_FileName = iniFile.IniReadValue("DataCenter","BoundaryFilePath");
-            string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter","EverydaySnowCoverFolder");            
+            string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
             string Snow_FileName = EverydaySnowCoverFolder+"\\Snow_"+Date_Time+".tif";
-            ImageProcessing.IDL.ProcessingOrigionData(Pro_Name, File_Directory, Date_Time, EVF_FileName, Snow_FileName,this.axMapControl1);
+            ImageProcessing.IDL.ProcessingOrigionData(File_Directory, Date_Time, EVF_FileName, Snow_FileName,this.axMapControl1);
         }
 
         private void btn_AnalystSC_DateRange_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-
+            string File_Directory = iniFile.IniReadValue("DataCenter", "OrigionDataFolder");
+            string Date_Time = "10011";
+            string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
+            ImageProcessing.IDL.Processing_CSharp_Test(File_Directory, Date_Time, EverydaySnowCoverFolder);
+            //MessageBox.Show(result);
         }
         #endregion
 
