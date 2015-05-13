@@ -1,0 +1,16 @@
+原始影像处理主程序：
+ENVI_AVHRRtoSNOWCOVER
+输入变量：
+In_Directory：原始数据路径，如：E:\IDL\LYQ\AVHRR\YSJ
+Date_Time：日期，如：10011
+EVF_FileName： 裁剪用Evf文件路径，如：E:\IDL\LYQ\AVHRR\MB\bou1_4p_.evf
+Out_Directory: 处理文件输出路径，如：E:\IDL\LYQ\AVHRR\test\OutFile
+SNOW_Directory： 最终积雪文件输出路径，如：E:\IDL\LYQ\AVHRR\test\SnowFile
+注意：
+处理文件输出路径下文件较多，数据量大，以10011期数据为例，生成30个文件（数据文件+头文件），875M,若再生成金字塔文件，将跟多、大，所以建议为每一期数据单独建立一个文件夹，如：E:\IDL\LYQ\AVHRR\test\OutFile\10011
+
+积雪信息统计主程序：
+SNOWCOVER_STATISTIC
+输入变量：
+IN_FILES：输入文件，字符串数组，如：['E:\IDL\LYQ\AVHRR\test\SnowFile\D10011_sc.tif','E:\IDL\LYQ\AVHRR\test\SnowFile\D10012_sc.tif','E:\IDL\LYQ\AVHRR\test\SnowFile\D10013_sc.tif']
+OUT_NAME：输出文件，字符串，如：E:\IDL\LYQ\AVHRR\test\SnowFile\Statistic\D10011_D10013.tif

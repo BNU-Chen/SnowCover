@@ -48,18 +48,18 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_OpenPublishDisaster = new System.Windows.Forms.Button();
             this.btn_OpenEverydaySnowCoverFolder = new System.Windows.Forms.Button();
-            this.btn_OpenDateRangeSnowCoverFolder = new System.Windows.Forms.Button();
+            this.btn_OpenStatisticSnowCoverFolder = new System.Windows.Forms.Button();
             this.btn_OpenBoundaryFilePath = new System.Windows.Forms.Button();
             this.btn_OpenOrigionDataFolder = new System.Windows.Forms.Button();
             this.btn_SetPublishDisaster = new System.Windows.Forms.Button();
             this.btn_SetEverydaySnowCoverFolder = new System.Windows.Forms.Button();
-            this.btn_SetDateRangeSnowCoverFolder = new System.Windows.Forms.Button();
+            this.btn_SetStatisticSnowCoverFolder = new System.Windows.Forms.Button();
             this.btn_SetBoundaryFilePath = new System.Windows.Forms.Button();
             this.btn_SetOrigionDataFolder = new System.Windows.Forms.Button();
             this.txt_PublishDisasterDoc = new System.Windows.Forms.TextBox();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.txt_EverydaySnowCoverFolder = new System.Windows.Forms.TextBox();
-            this.txt_DateRangeSnowCoverFolder = new System.Windows.Forms.TextBox();
+            this.txt_StatisticSnowCoverFolder = new System.Windows.Forms.TextBox();
             this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.txt_BoundaryFilePath = new System.Windows.Forms.TextBox();
@@ -71,6 +71,10 @@
             this.txt_DataCenterFolder = new System.Windows.Forms.TextBox();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.txt_PreprocessingSnowCoverFolder = new System.Windows.Forms.TextBox();
+            this.btn_SetPreprocessingSnowCoverFolder = new System.Windows.Forms.Button();
+            this.btn_OpenPreprocessingSnowCoverFolder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
@@ -153,7 +157,7 @@
             this.labelControl10.Name = "labelControl10";
             this.labelControl10.Size = new System.Drawing.Size(168, 14);
             this.labelControl10.TabIndex = 5;
-            this.labelControl10.Text = "有些设置需要重新软件以生效。";
+            this.labelControl10.Text = "有些设置需要重启软件以生效。";
             // 
             // groupBox2
             // 
@@ -166,7 +170,7 @@
             this.groupBox2.Controls.Add(this.labelControl7);
             this.groupBox2.Controls.Add(this.txt_DatabaseServerName);
             this.groupBox2.Controls.Add(this.labelControl6);
-            this.groupBox2.Location = new System.Drawing.Point(11, 254);
+            this.groupBox2.Location = new System.Drawing.Point(11, 280);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(560, 82);
             this.groupBox2.TabIndex = 4;
@@ -247,19 +251,23 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btn_OpenPublishDisaster);
+            this.groupBox1.Controls.Add(this.btn_OpenPreprocessingSnowCoverFolder);
             this.groupBox1.Controls.Add(this.btn_OpenEverydaySnowCoverFolder);
-            this.groupBox1.Controls.Add(this.btn_OpenDateRangeSnowCoverFolder);
+            this.groupBox1.Controls.Add(this.btn_OpenStatisticSnowCoverFolder);
             this.groupBox1.Controls.Add(this.btn_OpenBoundaryFilePath);
             this.groupBox1.Controls.Add(this.btn_OpenOrigionDataFolder);
             this.groupBox1.Controls.Add(this.btn_SetPublishDisaster);
+            this.groupBox1.Controls.Add(this.btn_SetPreprocessingSnowCoverFolder);
             this.groupBox1.Controls.Add(this.btn_SetEverydaySnowCoverFolder);
-            this.groupBox1.Controls.Add(this.btn_SetDateRangeSnowCoverFolder);
+            this.groupBox1.Controls.Add(this.btn_SetStatisticSnowCoverFolder);
             this.groupBox1.Controls.Add(this.btn_SetBoundaryFilePath);
             this.groupBox1.Controls.Add(this.btn_SetOrigionDataFolder);
             this.groupBox1.Controls.Add(this.txt_PublishDisasterDoc);
+            this.groupBox1.Controls.Add(this.txt_PreprocessingSnowCoverFolder);
             this.groupBox1.Controls.Add(this.labelControl5);
             this.groupBox1.Controls.Add(this.txt_EverydaySnowCoverFolder);
-            this.groupBox1.Controls.Add(this.txt_DateRangeSnowCoverFolder);
+            this.groupBox1.Controls.Add(this.labelControl12);
+            this.groupBox1.Controls.Add(this.txt_StatisticSnowCoverFolder);
             this.groupBox1.Controls.Add(this.labelControl11);
             this.groupBox1.Controls.Add(this.labelControl4);
             this.groupBox1.Controls.Add(this.txt_BoundaryFilePath);
@@ -268,14 +276,14 @@
             this.groupBox1.Controls.Add(this.labelControl2);
             this.groupBox1.Location = new System.Drawing.Point(11, 49);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(560, 186);
+            this.groupBox1.Size = new System.Drawing.Size(560, 220);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "数据目录设置";
             // 
             // btn_OpenPublishDisaster
             // 
-            this.btn_OpenPublishDisaster.Location = new System.Drawing.Point(517, 154);
+            this.btn_OpenPublishDisaster.Location = new System.Drawing.Point(517, 186);
             this.btn_OpenPublishDisaster.Name = "btn_OpenPublishDisaster";
             this.btn_OpenPublishDisaster.Size = new System.Drawing.Size(38, 23);
             this.btn_OpenPublishDisaster.TabIndex = 5;
@@ -285,7 +293,7 @@
             // 
             // btn_OpenEverydaySnowCoverFolder
             // 
-            this.btn_OpenEverydaySnowCoverFolder.Location = new System.Drawing.Point(517, 88);
+            this.btn_OpenEverydaySnowCoverFolder.Location = new System.Drawing.Point(517, 120);
             this.btn_OpenEverydaySnowCoverFolder.Name = "btn_OpenEverydaySnowCoverFolder";
             this.btn_OpenEverydaySnowCoverFolder.Size = new System.Drawing.Size(38, 23);
             this.btn_OpenEverydaySnowCoverFolder.TabIndex = 5;
@@ -293,15 +301,15 @@
             this.btn_OpenEverydaySnowCoverFolder.UseVisualStyleBackColor = true;
             this.btn_OpenEverydaySnowCoverFolder.Click += new System.EventHandler(this.btn_OpenEverydaySnowCoverFolder_Click);
             // 
-            // btn_OpenDateRangeSnowCoverFolder
+            // btn_OpenStatisticSnowCoverFolder
             // 
-            this.btn_OpenDateRangeSnowCoverFolder.Location = new System.Drawing.Point(517, 121);
-            this.btn_OpenDateRangeSnowCoverFolder.Name = "btn_OpenDateRangeSnowCoverFolder";
-            this.btn_OpenDateRangeSnowCoverFolder.Size = new System.Drawing.Size(38, 23);
-            this.btn_OpenDateRangeSnowCoverFolder.TabIndex = 5;
-            this.btn_OpenDateRangeSnowCoverFolder.Text = "打开";
-            this.btn_OpenDateRangeSnowCoverFolder.UseVisualStyleBackColor = true;
-            this.btn_OpenDateRangeSnowCoverFolder.Click += new System.EventHandler(this.btn_OpenDateRangeSnowCoverFolder_Click);
+            this.btn_OpenStatisticSnowCoverFolder.Location = new System.Drawing.Point(517, 153);
+            this.btn_OpenStatisticSnowCoverFolder.Name = "btn_OpenStatisticSnowCoverFolder";
+            this.btn_OpenStatisticSnowCoverFolder.Size = new System.Drawing.Size(38, 23);
+            this.btn_OpenStatisticSnowCoverFolder.TabIndex = 5;
+            this.btn_OpenStatisticSnowCoverFolder.Text = "打开";
+            this.btn_OpenStatisticSnowCoverFolder.UseVisualStyleBackColor = true;
+            this.btn_OpenStatisticSnowCoverFolder.Click += new System.EventHandler(this.btn_OpenStatisticSnowCoverFolder_Click);
             // 
             // btn_OpenBoundaryFilePath
             // 
@@ -325,7 +333,7 @@
             // 
             // btn_SetPublishDisaster
             // 
-            this.btn_SetPublishDisaster.Location = new System.Drawing.Point(473, 154);
+            this.btn_SetPublishDisaster.Location = new System.Drawing.Point(473, 186);
             this.btn_SetPublishDisaster.Name = "btn_SetPublishDisaster";
             this.btn_SetPublishDisaster.Size = new System.Drawing.Size(38, 23);
             this.btn_SetPublishDisaster.TabIndex = 6;
@@ -335,7 +343,7 @@
             // 
             // btn_SetEverydaySnowCoverFolder
             // 
-            this.btn_SetEverydaySnowCoverFolder.Location = new System.Drawing.Point(473, 88);
+            this.btn_SetEverydaySnowCoverFolder.Location = new System.Drawing.Point(473, 120);
             this.btn_SetEverydaySnowCoverFolder.Name = "btn_SetEverydaySnowCoverFolder";
             this.btn_SetEverydaySnowCoverFolder.Size = new System.Drawing.Size(38, 23);
             this.btn_SetEverydaySnowCoverFolder.TabIndex = 6;
@@ -343,15 +351,15 @@
             this.btn_SetEverydaySnowCoverFolder.UseVisualStyleBackColor = true;
             this.btn_SetEverydaySnowCoverFolder.Click += new System.EventHandler(this.btn_SetEverydaySnowCoverFolder_Click);
             // 
-            // btn_SetDateRangeSnowCoverFolder
+            // btn_SetStatisticSnowCoverFolder
             // 
-            this.btn_SetDateRangeSnowCoverFolder.Location = new System.Drawing.Point(473, 121);
-            this.btn_SetDateRangeSnowCoverFolder.Name = "btn_SetDateRangeSnowCoverFolder";
-            this.btn_SetDateRangeSnowCoverFolder.Size = new System.Drawing.Size(38, 23);
-            this.btn_SetDateRangeSnowCoverFolder.TabIndex = 6;
-            this.btn_SetDateRangeSnowCoverFolder.Text = "浏览";
-            this.btn_SetDateRangeSnowCoverFolder.UseVisualStyleBackColor = true;
-            this.btn_SetDateRangeSnowCoverFolder.Click += new System.EventHandler(this.btn_SetDateRangeSnowCoverFolder_Click);
+            this.btn_SetStatisticSnowCoverFolder.Location = new System.Drawing.Point(473, 153);
+            this.btn_SetStatisticSnowCoverFolder.Name = "btn_SetStatisticSnowCoverFolder";
+            this.btn_SetStatisticSnowCoverFolder.Size = new System.Drawing.Size(38, 23);
+            this.btn_SetStatisticSnowCoverFolder.TabIndex = 6;
+            this.btn_SetStatisticSnowCoverFolder.Text = "浏览";
+            this.btn_SetStatisticSnowCoverFolder.UseVisualStyleBackColor = true;
+            this.btn_SetStatisticSnowCoverFolder.Click += new System.EventHandler(this.btn_SetStatisticSnowCoverFolder_Click);
             // 
             // btn_SetBoundaryFilePath
             // 
@@ -375,14 +383,14 @@
             // 
             // txt_PublishDisasterDoc
             // 
-            this.txt_PublishDisasterDoc.Location = new System.Drawing.Point(97, 155);
+            this.txt_PublishDisasterDoc.Location = new System.Drawing.Point(97, 187);
             this.txt_PublishDisasterDoc.Name = "txt_PublishDisasterDoc";
             this.txt_PublishDisasterDoc.Size = new System.Drawing.Size(370, 21);
             this.txt_PublishDisasterDoc.TabIndex = 4;
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(7, 158);
+            this.labelControl5.Location = new System.Drawing.Point(7, 190);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(84, 14);
             this.labelControl5.TabIndex = 3;
@@ -390,21 +398,21 @@
             // 
             // txt_EverydaySnowCoverFolder
             // 
-            this.txt_EverydaySnowCoverFolder.Location = new System.Drawing.Point(97, 89);
+            this.txt_EverydaySnowCoverFolder.Location = new System.Drawing.Point(97, 121);
             this.txt_EverydaySnowCoverFolder.Name = "txt_EverydaySnowCoverFolder";
             this.txt_EverydaySnowCoverFolder.Size = new System.Drawing.Size(370, 21);
             this.txt_EverydaySnowCoverFolder.TabIndex = 4;
             // 
-            // txt_DateRangeSnowCoverFolder
+            // txt_StatisticSnowCoverFolder
             // 
-            this.txt_DateRangeSnowCoverFolder.Location = new System.Drawing.Point(97, 122);
-            this.txt_DateRangeSnowCoverFolder.Name = "txt_DateRangeSnowCoverFolder";
-            this.txt_DateRangeSnowCoverFolder.Size = new System.Drawing.Size(370, 21);
-            this.txt_DateRangeSnowCoverFolder.TabIndex = 4;
+            this.txt_StatisticSnowCoverFolder.Location = new System.Drawing.Point(97, 154);
+            this.txt_StatisticSnowCoverFolder.Name = "txt_StatisticSnowCoverFolder";
+            this.txt_StatisticSnowCoverFolder.Size = new System.Drawing.Size(370, 21);
+            this.txt_StatisticSnowCoverFolder.TabIndex = 4;
             // 
             // labelControl11
             // 
-            this.labelControl11.Location = new System.Drawing.Point(7, 92);
+            this.labelControl11.Location = new System.Drawing.Point(7, 124);
             this.labelControl11.Name = "labelControl11";
             this.labelControl11.Size = new System.Drawing.Size(84, 14);
             this.labelControl11.TabIndex = 3;
@@ -412,11 +420,11 @@
             // 
             // labelControl4
             // 
-            this.labelControl4.Location = new System.Drawing.Point(7, 125);
+            this.labelControl4.Location = new System.Drawing.Point(7, 157);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(84, 14);
             this.labelControl4.TabIndex = 3;
-            this.labelControl4.Text = "时段积雪目录：";
+            this.labelControl4.Text = "积雪统计目录：";
             // 
             // txt_BoundaryFilePath
             // 
@@ -489,6 +497,41 @@
             this.xtraTabPage2.Size = new System.Drawing.Size(578, 433);
             this.xtraTabPage2.Text = "积雪覆盖分析";
             // 
+            // labelControl12
+            // 
+            this.labelControl12.Location = new System.Drawing.Point(6, 92);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(96, 14);
+            this.labelControl12.TabIndex = 3;
+            this.labelControl12.Text = "影像预处理目录：";
+            // 
+            // txt_PreprocessingSnowCoverFolder
+            // 
+            this.txt_PreprocessingSnowCoverFolder.Location = new System.Drawing.Point(96, 89);
+            this.txt_PreprocessingSnowCoverFolder.Name = "txt_PreprocessingSnowCoverFolder";
+            this.txt_PreprocessingSnowCoverFolder.Size = new System.Drawing.Size(370, 21);
+            this.txt_PreprocessingSnowCoverFolder.TabIndex = 4;
+            // 
+            // btn_SetPreprocessingSnowCoverFolder
+            // 
+            this.btn_SetPreprocessingSnowCoverFolder.Location = new System.Drawing.Point(472, 88);
+            this.btn_SetPreprocessingSnowCoverFolder.Name = "btn_SetPreprocessingSnowCoverFolder";
+            this.btn_SetPreprocessingSnowCoverFolder.Size = new System.Drawing.Size(38, 23);
+            this.btn_SetPreprocessingSnowCoverFolder.TabIndex = 6;
+            this.btn_SetPreprocessingSnowCoverFolder.Text = "浏览";
+            this.btn_SetPreprocessingSnowCoverFolder.UseVisualStyleBackColor = true;
+            this.btn_SetPreprocessingSnowCoverFolder.Click += new System.EventHandler(this.btn_SetPreprocessingSnowCoverFolder_Click);
+            // 
+            // btn_OpenPreprocessingSnowCoverFolder
+            // 
+            this.btn_OpenPreprocessingSnowCoverFolder.Location = new System.Drawing.Point(516, 88);
+            this.btn_OpenPreprocessingSnowCoverFolder.Name = "btn_OpenPreprocessingSnowCoverFolder";
+            this.btn_OpenPreprocessingSnowCoverFolder.Size = new System.Drawing.Size(38, 23);
+            this.btn_OpenPreprocessingSnowCoverFolder.TabIndex = 5;
+            this.btn_OpenPreprocessingSnowCoverFolder.Text = "打开";
+            this.btn_OpenPreprocessingSnowCoverFolder.UseVisualStyleBackColor = true;
+            this.btn_OpenPreprocessingSnowCoverFolder.Click += new System.EventHandler(this.btn_OpenPreprocessingSnowCoverFolder_Click);
+            // 
             // frmSysSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -527,14 +570,14 @@
         private System.Windows.Forms.TextBox txt_OrigionDataFolder;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private System.Windows.Forms.Button btn_OpenPublishDisaster;
-        private System.Windows.Forms.Button btn_OpenDateRangeSnowCoverFolder;
+        private System.Windows.Forms.Button btn_OpenStatisticSnowCoverFolder;
         private System.Windows.Forms.Button btn_OpenBoundaryFilePath;
         private System.Windows.Forms.Button btn_SetPublishDisaster;
-        private System.Windows.Forms.Button btn_SetDateRangeSnowCoverFolder;
+        private System.Windows.Forms.Button btn_SetStatisticSnowCoverFolder;
         private System.Windows.Forms.Button btn_SetBoundaryFilePath;
         private System.Windows.Forms.TextBox txt_PublishDisasterDoc;
         private DevExpress.XtraEditors.LabelControl labelControl5;
-        private System.Windows.Forms.TextBox txt_DateRangeSnowCoverFolder;
+        private System.Windows.Forms.TextBox txt_StatisticSnowCoverFolder;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private System.Windows.Forms.TextBox txt_BoundaryFilePath;
         private DevExpress.XtraEditors.LabelControl labelControl3;
@@ -557,5 +600,9 @@
         private System.Windows.Forms.Button btn_SetEverydaySnowCoverFolder;
         private System.Windows.Forms.TextBox txt_EverydaySnowCoverFolder;
         private DevExpress.XtraEditors.LabelControl labelControl11;
+        private System.Windows.Forms.Button btn_OpenPreprocessingSnowCoverFolder;
+        private System.Windows.Forms.Button btn_SetPreprocessingSnowCoverFolder;
+        private System.Windows.Forms.TextBox txt_PreprocessingSnowCoverFolder;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
     }
 }

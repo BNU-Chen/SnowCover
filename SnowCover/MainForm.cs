@@ -152,22 +152,16 @@ namespace SnowCover
 
         #region //积雪分析
         private void btn_InitRSImage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {            
-            string File_Directory = iniFile.IniReadValue("DataCenter","OrigionDataFolder");
-            string Date_Time = "10011";
-            string EVF_FileName = iniFile.IniReadValue("DataCenter","BoundaryFilePath");
-            string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
-            string Snow_FileName = EverydaySnowCoverFolder+"\\Snow_"+Date_Time+".tif";
-            ImageProcessing.IDL.ProcessingOrigionData(File_Directory, Date_Time, EVF_FileName, Snow_FileName,this.axMapControl1);
+        {
+            frmSetSnowCoverInitDate setInitDate = new frmSetSnowCoverInitDate(this.axMapControl1);
+            setInitDate.ShowDialog();
+            
         }
 
-        private void btn_AnalystSC_DateRange_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btn_AnalystSC_Statistic_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            string File_Directory = iniFile.IniReadValue("DataCenter", "OrigionDataFolder");
-            string Date_Time = "10011";
-            string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
-            ImageProcessing.IDL.Processing_CSharp_Test(File_Directory, Date_Time, EverydaySnowCoverFolder);
-            //MessageBox.Show(result);
+            frmSetStatisticSnowCoverDate frmSetStatistic = new frmSetStatisticSnowCoverDate(this.axMapControl1);
+            frmSetStatistic.ShowDialog();
         }
         #endregion
 

@@ -1,5 +1,6 @@
 PRO ENVI_AVHRR_INVERTSNOWCOVER, File_Directory, Date_Time, EVF_FileName, SNOW_FILENAME
   COMPILE_OPT idl2
+  e.ENVI()
   ENVI, /RESTORE_BASE_SAVE_FILES
   ENVI_BATCH_INIT,LOG_FILE='batch.log'
   ;初始变量
@@ -206,8 +207,4 @@ PRO Avhrr_Warp,AVHRR_FID,R_Fid=R_Fid
     method=6, degree=1, background=0, grid=[50,50], proj=proj, $
     pixel_size=point_size, r_fid=R_Fid
   ;RETURN temp_fid
-END
-
-PRO MATH_DOIT_RECORD,_extra=extra
-
 END

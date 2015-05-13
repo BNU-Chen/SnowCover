@@ -75,11 +75,13 @@ namespace SnowCover
                 {
                     return;
                 }
+                //获取
                 string DataCenterFolder = iniFile.IniReadValue("DataCenter", "DataCenterFolder");
                 string OrigionDataFolder = iniFile.IniReadValue("DataCenter", "OrigionDataFolder");
-                string BoundaryFilePath = iniFile.IniReadValue("DataCenter", "BoundaryFilePath");                
+                string BoundaryFilePath = iniFile.IniReadValue("DataCenter", "BoundaryFilePath");
+                string PreprocessingSnowCoverFolder = iniFile.IniReadValue("DataCenter", "PreprocessingSnowCoverFolder");
                 string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
-                string DateRangeSnowCoverFolder = iniFile.IniReadValue("DataCenter", "DateRangeSnowCoverFolder");
+                string StatisticSnowCoverFolder = iniFile.IniReadValue("DataCenter", "StatisticSnowCoverFolder");
                 string PublishDisasterDoc = iniFile.IniReadValue("DataCenter", "PublishDisasterDoc");
 
                 string DatabaseServerName = iniFile.IniReadValue("DatabaseConn", "DatabaseServerName");
@@ -87,11 +89,13 @@ namespace SnowCover
                 string DatabaseUsername = iniFile.IniReadValue("DatabaseConn", "DatabaseUsername");
                 string DatabasePassword = iniFile.IniReadValue("DatabaseConn", "DatabasePassword");
 
+                //设置
                 this.txt_DataCenterFolder.Text = DataCenterFolder;
                 this.txt_OrigionDataFolder.Text = OrigionDataFolder;
                 this.txt_BoundaryFilePath.Text = BoundaryFilePath;
+                this.txt_PreprocessingSnowCoverFolder.Text = PreprocessingSnowCoverFolder;
                 this.txt_EverydaySnowCoverFolder.Text = EverydaySnowCoverFolder;
-                this.txt_DateRangeSnowCoverFolder.Text = DateRangeSnowCoverFolder;
+                this.txt_StatisticSnowCoverFolder.Text = StatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = PublishDisasterDoc;
 
                 this.txt_DatabaseServerName.Text = DatabaseServerName;
@@ -115,8 +119,9 @@ namespace SnowCover
                 string DataCenterFolder = this.txt_DataCenterFolder.Text.Trim();
                 string OrigionDataFolder = this.txt_OrigionDataFolder.Text.Trim();
                 string BoundaryFilePath = this.txt_BoundaryFilePath.Text.Trim();
+                string PreprocessingSnowCoverFolder = this.txt_PreprocessingSnowCoverFolder.Text.Trim();
                 string EverydaySnowCoverFolder = this.txt_EverydaySnowCoverFolder.Text.Trim();
-                string DateRangeSnowCoverFolder = this.txt_DateRangeSnowCoverFolder.Text.Trim();
+                string StatisticSnowCoverFolder = this.txt_StatisticSnowCoverFolder.Text.Trim();
                 string PublishDisasterDoc = this.txt_PublishDisasterDoc.Text.Trim();
 
                 string DatabaseServerName = this.txt_DatabaseServerName.Text.Trim();
@@ -127,8 +132,9 @@ namespace SnowCover
                 iniFile.IniWriteValue("DataCenter", "DataCenterFolder", DataCenterFolder);
                 iniFile.IniWriteValue("DataCenter", "OrigionDataFolder", OrigionDataFolder);
                 iniFile.IniWriteValue("DataCenter", "BoundaryFilePath", BoundaryFilePath);
+                iniFile.IniWriteValue("DataCenter", "PreprocessingSnowCoverFolder", PreprocessingSnowCoverFolder);                
                 iniFile.IniWriteValue("DataCenter", "EverydaySnowCoverFolder", EverydaySnowCoverFolder);
-                iniFile.IniWriteValue("DataCenter", "DateRangeSnowCoverFolder", DateRangeSnowCoverFolder);
+                iniFile.IniWriteValue("DataCenter", "StatisticSnowCoverFolder", StatisticSnowCoverFolder);
                 iniFile.IniWriteValue("DataCenter", "PublishDisasterDoc", PublishDisasterDoc);
 
                 iniFile.IniWriteValue("DatabaseConn", "DatabaseServerName", DatabaseServerName);
@@ -146,14 +152,19 @@ namespace SnowCover
                     MessageBox.Show("边界文件不存在，请检查后重试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false; ;
                 }
+                if (!CreateFolder(PreprocessingSnowCoverFolder))
+                {
+                    MessageBox.Show("影像预处理目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false; ;
+                }
                 if (!CreateFolder(EverydaySnowCoverFolder))
                 {
                     MessageBox.Show("每日积雪数据目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false; ;
                 }
-                if (!CreateFolder(DateRangeSnowCoverFolder))
+                if (!CreateFolder(StatisticSnowCoverFolder))
                 {
-                    MessageBox.Show("时段积雪数据目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("统计积雪数据目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false; ;
                 }
                 if (!CreateFolder(PublishDisasterDoc))
@@ -173,8 +184,9 @@ namespace SnowCover
                 string startPath = Application.StartupPath;
                 this.txt_OrigionDataFolder.Text = startPath + "\\OrigionData";
                 this.txt_BoundaryFilePath.Text = startPath + "\\OrigionData\\bou1_4p_.evf";
+                this.txt_PreprocessingSnowCoverFolder.Text = startPath + "\\PreprocessingSnowCover";
                 this.txt_EverydaySnowCoverFolder.Text = startPath + "\\EverydaySnowCover";
-                this.txt_DateRangeSnowCoverFolder.Text = startPath + "\\DateRangeSnowCover";
+                this.txt_StatisticSnowCoverFolder.Text = startPath + "\\StatisticSnowCover";
                 this.txt_PublishDisasterDoc.Text = startPath + "\\PublishDisasterDoc";
             }
             catch
@@ -234,8 +246,9 @@ namespace SnowCover
                     //设置其他文件夹
                     this.txt_OrigionDataFolder.Text = dataCenterFolder + "\\OrigionData";
                     this.txt_BoundaryFilePath.Text = dataCenterFolder + "\\OrigionData\\bou1_4p_.evf";
+                    this.txt_PreprocessingSnowCoverFolder.Text = dataCenterFolder + "\\PreprocessingSnowCover";
                     this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\EverydaySnowCover";
-                    this.txt_DateRangeSnowCoverFolder.Text = dataCenterFolder + "\\DateRangeSnowCover";
+                    this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\StatisticSnowCover";
                     this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\PublishDisasterDoc";
                 }
             }
@@ -332,6 +345,35 @@ namespace SnowCover
                 { }
             }
         }
+
+        //影像预处理目录
+        private void btn_SetPreprocessingSnowCoverFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                fbd.Description = "设置影像预处理数据目录";
+                fbd.ShowNewFolderButton = true;
+                if (Directory.Exists(dataCenter))
+                {
+                    fbd.SelectedPath = dataCenter;
+                }
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string selectFolder = fbd.SelectedPath;
+                    this.txt_PreprocessingSnowCoverFolder.Text = selectFolder;
+                }
+            }
+            catch
+            { }
+        }
+
+        private void btn_OpenPreprocessingSnowCoverFolder_Click(object sender, EventArgs e)
+        {
+            OpenTextBoxPath(this.txt_PreprocessingSnowCoverFolder);
+        }
+
         //每日积雪
         private void btn_SetEverydaySnowCoverFolder_Click(object sender, EventArgs e)
         {
@@ -359,14 +401,14 @@ namespace SnowCover
         {
             OpenTextBoxPath(this.txt_EverydaySnowCoverFolder);
         }
-        //时段积雪
-        private void btn_SetDateRangeSnowCoverFolder_Click(object sender, EventArgs e)
+        //统计积雪
+        private void btn_SetStatisticSnowCoverFolder_Click(object sender, EventArgs e)
         {
             try
             {
                 string dataCenter = this.txt_DataCenterFolder.Text.Trim();
                 FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "设置时段积雪数据目录";
+                fbd.Description = "设置统计积雪数据目录";
                 fbd.ShowNewFolderButton = true;
                 if (Directory.Exists(dataCenter))
                 {
@@ -375,16 +417,16 @@ namespace SnowCover
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     string selectFolder = fbd.SelectedPath;
-                    this.txt_DateRangeSnowCoverFolder.Text = selectFolder;
+                    this.txt_StatisticSnowCoverFolder.Text = selectFolder;
                 }
             }
             catch
             { }
         }
 
-        private void btn_OpenDateRangeSnowCoverFolder_Click(object sender, EventArgs e)
+        private void btn_OpenStatisticSnowCoverFolder_Click(object sender, EventArgs e)
         {
-            OpenTextBoxPath(this.txt_DateRangeSnowCoverFolder);
+            OpenTextBoxPath(this.txt_StatisticSnowCoverFolder);
         }
         //公报灾情
         private void btn_SetPublishDisaster_Click(object sender, EventArgs e)

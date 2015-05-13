@@ -37,10 +37,17 @@
   <ItemGroup>
     <Reference Include="DevExpress.Data.v13.1" />
     <Reference Include="DevExpress.Printing.v13.1.Core" />
+    <Reference Include="DevExpress.SpellChecker.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v13.1" />
     <Reference Include="DevExpress.XtraBars.v13.1" />
     <Reference Include="DevExpress.Sparkline.v13.1.Core" />
     <Reference Include="DevExpress.XtraEditors.v13.1" />
+    <Reference Include="DevExpress.XtraLayout.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v13.1.Extensions, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraSpellChecker.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -108,11 +115,29 @@
     <Compile Include="DataHandle\DiskFile.cs" />
     <Compile Include="DataHandle\INIFile.cs" />
     <Compile Include="DataHandle\MySQL.cs" />
+    <Compile Include="frmSetSnowCoverInitDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetSnowCoverInitDate.Designer.cs">
+      <DependentUpon>frmSetSnowCoverInitDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSetStatisticSnowCoverDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetStatisticSnowCoverDate.Designer.cs">
+      <DependentUpon>frmSetStatisticSnowCoverDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSysSetting.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSysSetting.Designer.cs">
       <DependentUpon>frmSysSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTest.Designer.cs">
+      <DependentUpon>frmTest.cs</DependentUpon>
     </Compile>
     <Compile Include="GISTools.cs" />
     <Compile Include="MainForm.cs">
@@ -129,8 +154,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmSetSnowCoverInitDate.resx">
+      <DependentUpon>frmSetSnowCoverInitDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSetStatisticSnowCoverDate.resx">
+      <DependentUpon>frmSetStatisticSnowCoverDate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSysSetting.resx">
       <DependentUpon>frmSysSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTest.resx">
+      <DependentUpon>frmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

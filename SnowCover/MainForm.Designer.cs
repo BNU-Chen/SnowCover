@@ -45,7 +45,7 @@
             this.btn_OpenMapFile = new DevExpress.XtraBars.BarButtonItem();
             this.btn_AddMapLayer = new DevExpress.XtraBars.BarButtonItem();
             this.btn_ExportMapPic = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_AnalystSC_DateRange = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_AnalystSC_Statistic = new DevExpress.XtraBars.BarButtonItem();
             this.btn_SnowCover_OriginalImage = new DevExpress.XtraBars.BarButtonItem();
             this.btn_SnowCover_Everyday = new DevExpress.XtraBars.BarButtonItem();
             this.btn_SnowCover_DateRange = new DevExpress.XtraBars.BarButtonItem();
@@ -107,7 +107,7 @@
             this.btn_OpenMapFile,
             this.btn_AddMapLayer,
             this.btn_ExportMapPic,
-            this.btn_AnalystSC_DateRange,
+            this.btn_AnalystSC_Statistic,
             this.btn_SnowCover_OriginalImage,
             this.btn_SnowCover_Everyday,
             this.btn_SnowCover_DateRange,
@@ -256,14 +256,14 @@
             this.btn_ExportMapPic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_ExportMapPic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ExportMapPic_ItemClick);
             // 
-            // btn_AnalystSC_DateRange
+            // btn_AnalystSC_Statistic
             // 
-            this.btn_AnalystSC_DateRange.Caption = "按时段分析";
-            this.btn_AnalystSC_DateRange.Glyph = global::SnowCover.Properties.Resources.datepicker_64;
-            this.btn_AnalystSC_DateRange.Id = 24;
-            this.btn_AnalystSC_DateRange.Name = "btn_AnalystSC_DateRange";
-            this.btn_AnalystSC_DateRange.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btn_AnalystSC_DateRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_AnalystSC_DateRange_ItemClick);
+            this.btn_AnalystSC_Statistic.Caption = "时段积雪统计";
+            this.btn_AnalystSC_Statistic.Glyph = global::SnowCover.Properties.Resources.datepicker_64;
+            this.btn_AnalystSC_Statistic.Id = 24;
+            this.btn_AnalystSC_Statistic.Name = "btn_AnalystSC_Statistic";
+            this.btn_AnalystSC_Statistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_AnalystSC_Statistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_AnalystSC_Statistic_ItemClick);
             // 
             // btn_SnowCover_OriginalImage
             // 
@@ -285,7 +285,7 @@
             // 
             // btn_SnowCover_DateRange
             // 
-            this.btn_SnowCover_DateRange.Caption = "时段积雪";
+            this.btn_SnowCover_DateRange.Caption = "统计积雪";
             this.btn_SnowCover_DateRange.Glyph = global::SnowCover.Properties.Resources.Layers;
             this.btn_SnowCover_DateRange.Id = 27;
             this.btn_SnowCover_DateRange.Name = "btn_SnowCover_DateRange";
@@ -356,7 +356,7 @@
             // 
             // ribbonPageGroup4
             // 
-            this.ribbonPageGroup4.ItemLinks.Add(this.btn_AnalystSC_DateRange);
+            this.ribbonPageGroup4.ItemLinks.Add(this.btn_AnalystSC_Statistic);
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
             this.ribbonPageGroup4.Text = "积雪分析";
             // 
@@ -541,7 +541,7 @@
         private DevExpress.XtraBars.BarButtonItem btn_OpenMapFile;
         private DevExpress.XtraBars.BarButtonItem btn_AddMapLayer;
         private DevExpress.XtraBars.BarButtonItem btn_ExportMapPic;
-        private DevExpress.XtraBars.BarButtonItem btn_AnalystSC_DateRange;
+        private DevExpress.XtraBars.BarButtonItem btn_AnalystSC_Statistic;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
         private DevExpress.XtraBars.BarButtonItem btn_SnowCover_OriginalImage;

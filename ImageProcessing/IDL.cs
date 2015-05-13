@@ -20,12 +20,14 @@ namespace ImageProcessing
     {
         private static string IDL_Path = Application.StartupPath + "\\idl\\";
 
-        private static string Pro_ProcessingOrigionData = "ENVI_AVHRR_INVERtSNOWCOVER";
+        private static string Pro_ProcessingOrigionData = "ENVI_AVHRRtoSNOWCOVER";
+        private static string Pro_StatisticSnowCover = "SNOWCOVER_STATISTIC";
+
         private static string Pro_CSharp_Test = "CSharp_Test";
         private static string Pro_EXCHANGEARRt = "EXCHANGEARR";
 
-        //原始影像初始化
-        public static void ProcessingOrigionData(string File_Directory, string Date_Time, string EVF_FileName, string SNOW_FILENAME,AxMapControl _MapControl)
+        //原始影像初始化                
+        public static void ProcessingOrigionData(string In_Directory, string Date_Time, string EVF_FileName, string Out_Directory, string SNOW_Directory, AxMapControl _MapControl)
         {
             string Pro_Path = IDL_Path + Pro_ProcessingOrigionData+".pro";
             if (!File.Exists(Pro_Path))
@@ -41,19 +43,56 @@ namespace ImageProcessing
                 oComIDL.CreateObject(0, 0, 0);
                 //oComIDL.CreateObjectEx(0,0, 0, 0);
 
-                oComIDL.SetIDLVariable("File_Directory", File_Directory);
+                oComIDL.SetIDLVariable("In_Directory", In_Directory);
                 oComIDL.SetIDLVariable("Date_Time", Date_Time);
                 oComIDL.SetIDLVariable("EVF_FileName", EVF_FileName);
-                oComIDL.SetIDLVariable("SNOW_FILENAME", SNOW_FILENAME);
+                oComIDL.SetIDLVariable("Out_Directory", Out_Directory);
+                oComIDL.SetIDLVariable("SNOW_Directory", SNOW_Directory);
                 oComIDL.ExecuteString(".compile '" + Pro_Path + "'");
-                //string exeStr = Pro_Name + "," + File_Directory + "," + Date_Time + "," + EVF_FileName + "," + SNOW_FILENAME;                
-                //string exeStr = Pro_Name;
-                //string exeStr = "obj = Obj_New('" + Pro_Name + ",File_Directory,Date_Time,EVF_FileName,SNOW_FILENAME" + ")";
+                oComIDL.ExecuteString(".compile '" + IDL_Path + "Avhrr_Pretreatment_SnowCover.pro'");
+                oComIDL.ExecuteString(".compile '" + IDL_Path + "MASK_WITH_EVF.pro'");
+                oComIDL.ExecuteString(".compile '" + IDL_Path + "MOSAIC_FILES.pro'");
 
-                string exeStr = Pro_ProcessingOrigionData + ", File_Directory, Date_Time, EVF_FileName, SNOW_FILENAME";
+                string exeStr = Pro_ProcessingOrigionData + ", In_Directory, Date_Time, EVF_FileName, Out_Directory, SNOW_Directory,SNOWCOVER = SNOWCOVER";
                 oComIDL.ExecuteString(exeStr);
 
-                OpenRaster(SNOW_FILENAME, _MapControl);
+                //获取IDL下变量arr
+                object SNOWCOVER = oComIDL.GetIDLVariable("SNOWCOVER");
+                string path = Convert.ToString(SNOWCOVER);
+                OpenRaster(path, _MapControl);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public static void StatisticSnowCover(string[] IN_FILES, string OUT_NAME, AxMapControl _MapControl)
+        {           
+            string pro_Path = Application.StartupPath + "\\idl\\" + Pro_StatisticSnowCover + ".pro";
+            if (!File.Exists(pro_Path))
+            {
+                return;
+            }
+
+            try
+            {
+                COM_IDL_connectLib.COM_IDL_connect oComIDL = new COM_IDL_connect();
+                
+                //对象初始化
+                oComIDL.CreateObject(0, 0, 0);
+                //oComIDL.CreateObjectEx(0,0, 0, 0);
+
+                oComIDL.SetIDLVariable("IN_FILES", IN_FILES);
+                oComIDL.SetIDLVariable("OUT_NAME", OUT_NAME);
+                oComIDL.ExecuteString(".compile '" + pro_Path + "'");
+
+                string exeStr = Pro_StatisticSnowCover + ",IN_FILES,OUT_NAME=OUT_NAME";
+                oComIDL.ExecuteString(exeStr);
+                //获取IDL下变量
+                object statistic = oComIDL.GetIDLVariable("OUT_NAME");
+                string path = Convert.ToString(statistic);
+                OpenRaster(path, _MapControl);
             }
             catch (Exception ex)
             {
