@@ -8,7 +8,7 @@ using System.IO;
 using System.Diagnostics;
 using MySql.Data.MySqlClient;
 
-namespace SnowCover.DataHandle
+namespace SystemBase
 {
     public class MySQL
     {

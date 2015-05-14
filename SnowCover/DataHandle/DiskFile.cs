@@ -6,6 +6,8 @@ using System.Text;
 using System.Data;
 using System.IO;
 
+using SystemBase;
+
 namespace SnowCover.DataHandle
 {
     public class DiskFile
@@ -65,13 +67,20 @@ namespace SnowCover.DataHandle
                         {
                             continue;
                         }
+                        string extension = file.Extension.ToLower();
+                        //是否支持打开该类地图文件
+                        if (!SystemBase.GISLayers.IsSupportLayerType(extension))
+                        {
+                            continue;
+                        }
                         DataRow dr = dt.NewRow();
                         dr["id"] = id;
                         dr["pid"] = pid;
                         dr["name"] = Path.GetFileName(file.FullName);  //文件名 
-                        dr["ext"] = file.Extension.Substring(1, file.Extension.Length - 1).ToLower();      //拓展名，包含“.”
+                        dr["ext"] = extension;   //.Substring(1, file.Extension.Length - 1).ToLower();      //拓展名，包含“.”
                         dr["type"] = "File";
                         dr["path"] = file.FullName;         //全路径
+                                                
                         dt.Rows.Add(dr);
                     }
                     //对于子目录，进行递归调用

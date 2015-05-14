@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowCover", "SnowCover\Snow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessing", "ImageProcessing\ImageProcessing.csproj", "{FCC1DF5E-5E90-4F55-880F-585BD11A3D22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemBase", "SystemBase\SystemBase.csproj", "{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,16 @@ Global
 		{FCC1DF5E-5E90-4F55-880F-585BD11A3D22}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FCC1DF5E-5E90-4F55-880F-585BD11A3D22}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FCC1DF5E-5E90-4F55-880F-585BD11A3D22}.Release|x86.ActiveCfg = Release|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{48DEE3DF-3CD2-41CB-8097-36FE2CE960D7}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

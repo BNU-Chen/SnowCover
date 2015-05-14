@@ -9,8 +9,11 @@ using System.Windows.Forms;
 
 using System.IO;
 
+using ESRI.ArcGIS.Controls;
+
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.ViewInfo;
+using DevExpress.XtraTreeList.Nodes;
 using DevExpress.XtraEditors;
 
 
@@ -20,6 +23,8 @@ namespace SnowCover.Modules
     {
         private string path = "";
         private bool isDateTimePickerPopup = false;
+        private AxMapControl axMapControl = null;
+        private DataTable dataTable = null;
 
         public string Path
         {
@@ -38,9 +43,10 @@ namespace SnowCover.Modules
             //set { this.treeList1 = value; }
         }
 
-        public ucFileNavPanel()
+        public ucFileNavPanel(AxMapControl _AxMapControl)
         {
             InitializeComponent();
+            axMapControl = _AxMapControl;
             Init();
         }
 
@@ -115,8 +121,8 @@ namespace SnowCover.Modules
             this.dateEdit1.DateTime = date;
             
 
-            DataTable dt = DataHandle.DiskFile.getDataTable(path,this.check_DateFilter.Checked,date);
-            if (dt == null)
+            dataTable = DataHandle.DiskFile.getDataTable(path,this.check_DateFilter.Checked,date);
+            if (dataTable == null)
             {
                 return;
             }
@@ -125,8 +131,8 @@ namespace SnowCover.Modules
             //    return;
             //}
             this.treeList1.KeyFieldName = "id";
-            this.treeList1.ParentFieldName = "pid";
-            this.treeList1.DataSource = dt;
+            this.treeList1.ParentFieldName = "pid";            
+            this.treeList1.DataSource = dataTable;
 
             //按名称排序
             this.treeList1.BeginSort();
@@ -142,7 +148,7 @@ namespace SnowCover.Modules
                     this.treeList1.Columns[i].Visible = false;
                 }
             }
-            if (dt.Rows.Count < 100)
+            if (dataTable.Rows.Count < 100)
             {
                 this.treeList1.ExpandAll();
             }
@@ -193,6 +199,87 @@ namespace SnowCover.Modules
         private void dateEdit1_Popup(object sender, EventArgs e)
         {
             isDateTimePickerPopup = true;
+        }
+
+        private void treeList1_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraTreeList.TreeList tree = sender as DevExpress.XtraTreeList.TreeList;
+
+                if (e.Button == MouseButtons.Right && ModifierKeys == Keys.None && tree.State == TreeListState.Regular)
+                {
+                    Point pt = tree.PointToClient(MousePosition);
+                    TreeListHitInfo info = tree.CalcHitInfo(pt);
+                    if (info.HitInfoType == HitInfoType.Cell)
+                    {                        
+                        tree.FocusedNode = info.Node;
+                       // NeedRestoreFocused = true;
+                       // popupMenuNodes.ShowPopup(MousePosition);
+                        
+                    }
+
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void treeList1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                DevExpress.XtraTreeList.TreeList tree = sender as DevExpress.XtraTreeList.TreeList;
+
+                DevExpress.XtraTreeList.TreeListHitInfo info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
+                if (info.HitInfoType == DevExpress.XtraTreeList.HitInfoType.Cell)
+                {                    
+                    TreeListNode node = info.Node;
+                    if(node == null)
+                    {
+                        return;
+                    }
+                    tree.FocusedNode = node;
+                    if(node.Nodes.Count>0)
+                    {
+                        return;
+                    }
+                    if(dataTable == null)
+                    {
+                        return;
+                    }
+                    if(dataTable.Rows.Count <1)
+                    {
+                        return;
+                    }
+                    int id = node.Id;
+                    DataRow row = dataTable.Rows[id];
+                    string path = (string)row["path"];
+                    if(!File.Exists(path))
+                    {
+                        MessageBox.Show("文件不存在，请检查文件后重试。","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        return;
+                    }
+                    string extension = System.IO.Path.GetExtension(path).ToLower();
+                    if(extension == "mxd")
+                    {
+                        this.axMapControl.LoadMxFile(path);
+                    }
+                    else if(SystemBase.GISLayers.IsSupportLayerType(extension))
+                    {
+                        SystemBase.GISLayers.OpenRaster(path, this.axMapControl);
+                    }
+                    else
+                    {
+                        MessageBox.Show("暂不支持打开[*"+extension+"]格式的文件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+            }
         }
 
 

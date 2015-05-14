@@ -113,9 +113,12 @@
             this.treeList1.Location = new System.Drawing.Point(0, 72);
             this.treeList1.Name = "treeList1";
             this.treeList1.OptionsBehavior.Editable = false;
+            this.treeList1.RowHeight = 25;
             this.treeList1.Size = new System.Drawing.Size(246, 449);
             this.treeList1.TabIndex = 7;
             this.treeList1.ToolTipController = this.toolTipController1;
+            this.treeList1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeList1_MouseDoubleClick);
+            this.treeList1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeList1_MouseUp);
             // 
             // toolTipController1
             // 

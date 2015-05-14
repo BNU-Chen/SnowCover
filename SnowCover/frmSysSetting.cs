@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using System.IO;
+using SystemBase;
 
 
 namespace SnowCover
@@ -15,25 +16,24 @@ namespace SnowCover
     public partial class frmSysSetting : Form
     {
         private string iniFilePath = "";
-        private DataHandle.INIFile iniFile = null;
+        private SystemBase.SystemConfig config = null;
 
         public frmSysSetting()
         {
             InitializeComponent();
+            config = new SystemConfig();
         }
 
 
         private void frmSysSetting_Load(object sender, EventArgs e)
-        {
-            iniFilePath = DataHandle.INIFile.GetINIFilePath();
-            if (!File.Exists(iniFilePath))
+        {            
+            if (config.IniFile == null)
             {
-                MessageBox.Show("配置文件丢失，系统将使用默认配置参数。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("配置文件丢失，请检查系统根目录“"+config.IniFileName+"”文件是否存在。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);                
                 return;
             }
             else
-            {
-                iniFile = new DataHandle.INIFile(iniFilePath);
+            {                
                 LoadSetting();
             }
         }
@@ -66,28 +66,25 @@ namespace SnowCover
         {
             try
             {
-                if (!File.Exists(iniFilePath))
+                if (config.IniFile == null)
                 {
                     MessageBox.Show("配置文件丢失，系统将使用默认配置参数。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                if (iniFile == null)
-                {
-                    return;
-                }
+                
                 //获取
-                string DataCenterFolder = iniFile.IniReadValue("DataCenter", "DataCenterFolder");
-                string OrigionDataFolder = iniFile.IniReadValue("DataCenter", "OrigionDataFolder");
-                string BoundaryFilePath = iniFile.IniReadValue("DataCenter", "BoundaryFilePath");
-                string PreprocessingSnowCoverFolder = iniFile.IniReadValue("DataCenter", "PreprocessingSnowCoverFolder");
-                string EverydaySnowCoverFolder = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
-                string StatisticSnowCoverFolder = iniFile.IniReadValue("DataCenter", "StatisticSnowCoverFolder");
-                string PublishDisasterDoc = iniFile.IniReadValue("DataCenter", "PublishDisasterDoc");
+                string DataCenterFolder = config.DataCenterFolderPath;
+                string OrigionDataFolder = config.OrigionDataFolderPath;
+                string BoundaryFilePath = config.BoundaryFilePath;
+                string PreprocessingSnowCoverFolder = config.PreprocessingSnowCoverFolderPath;
+                string EverydaySnowCoverFolder = config.EverydaySnowCoverFolderPath;
+                string StatisticSnowCoverFolder = config.StatisticSnowCoverFolderPath;
+                string PublishDisasterDoc = config.PublishDisasterDocPath;
 
-                string DatabaseServerName = iniFile.IniReadValue("DatabaseConn", "DatabaseServerName");
-                string DatabaseCatalog = iniFile.IniReadValue("DatabaseConn", "DatabaseCatalog");
-                string DatabaseUsername = iniFile.IniReadValue("DatabaseConn", "DatabaseUsername");
-                string DatabasePassword = iniFile.IniReadValue("DatabaseConn", "DatabasePassword");
+                string DatabaseServerName = config.DatabaseServerName;
+                string DatabaseCatalog = config.DatabaseCatalog;
+                string DatabaseUsername = config.DatabaseUsername;
+                string DatabasePassword = config.DatabasePassword;
 
                 //设置
                 this.txt_DataCenterFolder.Text = DataCenterFolder;
@@ -111,9 +108,9 @@ namespace SnowCover
         {
             try
             {
-                if (iniFile == null)
+                if (config.IniFile == null)
                 {
-                    iniFile = new DataHandle.INIFile(iniFilePath);
+                    config.IniFile = new SystemBase.INIFile(config.IniFilePath);
                 }
                 //获取配置信息
                 string DataCenterFolder = this.txt_DataCenterFolder.Text.Trim();
@@ -129,18 +126,19 @@ namespace SnowCover
                 string DatabaseUsername = this.txt_DatabaseUsername.Text.Trim();
                 string DatabasePassword = this.txt_DatabasePassword.Text.Trim();
                 //写入配置信息
-                iniFile.IniWriteValue("DataCenter", "DataCenterFolder", DataCenterFolder);
-                iniFile.IniWriteValue("DataCenter", "OrigionDataFolder", OrigionDataFolder);
-                iniFile.IniWriteValue("DataCenter", "BoundaryFilePath", BoundaryFilePath);
-                iniFile.IniWriteValue("DataCenter", "PreprocessingSnowCoverFolder", PreprocessingSnowCoverFolder);                
-                iniFile.IniWriteValue("DataCenter", "EverydaySnowCoverFolder", EverydaySnowCoverFolder);
-                iniFile.IniWriteValue("DataCenter", "StatisticSnowCoverFolder", StatisticSnowCoverFolder);
-                iniFile.IniWriteValue("DataCenter", "PublishDisasterDoc", PublishDisasterDoc);
+                config.DataCenterFolderPath = DataCenterFolder;
+                config.OrigionDataFolderPath = OrigionDataFolder;
+                config.BoundaryFilePath = BoundaryFilePath;
+                config.PreprocessingSnowCoverFolderPath = PreprocessingSnowCoverFolder;
+                config.EverydaySnowCoverFolderPath = EverydaySnowCoverFolder;
+                config.StatisticSnowCoverFolderPath = StatisticSnowCoverFolder;
+                config.PublishDisasterDocPath = PublishDisasterDoc;
 
-                iniFile.IniWriteValue("DatabaseConn", "DatabaseServerName", DatabaseServerName);
-                iniFile.IniWriteValue("DatabaseConn", "DatabaseCatalog", DatabaseCatalog);
-                iniFile.IniWriteValue("DatabaseConn", "DatabaseUsername", DatabaseUsername);
-                iniFile.IniWriteValue("DatabaseConn", "DatabasePassword", DatabasePassword);
+                config.DatabaseServerName = DatabaseServerName;
+                config.DatabaseCatalog = DatabaseCatalog;
+                config.DatabaseUsername = DatabaseUsername;
+                config.DatabasePassword = DatabasePassword;
+                                
                 //创建文件夹                
                 if (!CreateFolder(OrigionDataFolder))
                 {
@@ -182,12 +180,12 @@ namespace SnowCover
             try
             {
                 string startPath = Application.StartupPath;
-                this.txt_OrigionDataFolder.Text = startPath + "\\OrigionData";
-                this.txt_BoundaryFilePath.Text = startPath + "\\OrigionData\\bou1_4p_.evf";
-                this.txt_PreprocessingSnowCoverFolder.Text = startPath + "\\PreprocessingSnowCover";
-                this.txt_EverydaySnowCoverFolder.Text = startPath + "\\EverydaySnowCover";
-                this.txt_StatisticSnowCoverFolder.Text = startPath + "\\StatisticSnowCover";
-                this.txt_PublishDisasterDoc.Text = startPath + "\\PublishDisasterDoc";
+                this.txt_OrigionDataFolder.Text = startPath + "\\"+config.IniOrigionDataFolder;
+                this.txt_BoundaryFilePath.Text = startPath + "\\" + config.IniOrigionDataFolder + "\\" + config.IniBoundaryFileName;
+                this.txt_PreprocessingSnowCoverFolder.Text = startPath + "\\"+config.IniPreprocessingSnowCoverFolder;
+                this.txt_EverydaySnowCoverFolder.Text = startPath + "\\"+config.IniEverydaySnowCoverFolder;
+                this.txt_StatisticSnowCoverFolder.Text = startPath + "\\"+config.IniStatisticSnowCoverFolder;
+                this.txt_PublishDisasterDoc.Text = startPath + "\\"+config.IniPublishDisasterDoc;
             }
             catch
             { }
@@ -244,12 +242,19 @@ namespace SnowCover
                     this.txt_DataCenterFolder.Text = dataCenterFolder;
 
                     //设置其他文件夹
-                    this.txt_OrigionDataFolder.Text = dataCenterFolder + "\\OrigionData";
-                    this.txt_BoundaryFilePath.Text = dataCenterFolder + "\\OrigionData\\bou1_4p_.evf";
-                    this.txt_PreprocessingSnowCoverFolder.Text = dataCenterFolder + "\\PreprocessingSnowCover";
-                    this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\EverydaySnowCover";
-                    this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\StatisticSnowCover";
-                    this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\PublishDisasterDoc";
+                    //this.txt_OrigionDataFolder.Text = dataCenterFolder + "\\OrigionData";
+                    //this.txt_BoundaryFilePath.Text = dataCenterFolder + "\\OrigionData\\bou1_4p_.evf";
+                    //this.txt_PreprocessingSnowCoverFolder.Text = dataCenterFolder + "\\PreprocessingSnowCover";
+                    //this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\EverydaySnowCover";
+                    //this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\StatisticSnowCover";
+                    //this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\PublishDisasterDoc";
+
+                    this.txt_OrigionDataFolder.Text = dataCenterFolder + "\\" + config.IniOrigionDataFolder;
+                    this.txt_BoundaryFilePath.Text = dataCenterFolder + "\\" + config.IniOrigionDataFolder + "\\" + config.IniBoundaryFileName;
+                    this.txt_PreprocessingSnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniPreprocessingSnowCoverFolder;
+                    this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniEverydaySnowCoverFolder;
+                    this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniStatisticSnowCoverFolder;
+                    this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\" + config.IniPublishDisasterDoc;
                 }
             }
             catch
@@ -505,7 +510,7 @@ namespace SnowCover
                     MessageBox.Show("请将数据库信息填写完整,", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                DataHandle.MySQL.TestConnection(server, catalog, username, password);
+                SystemBase.MySQL.TestConnection(server, catalog, username, password);
             }
             catch
             { }

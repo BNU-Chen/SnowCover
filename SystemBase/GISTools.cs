@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 using System.Windows.Forms;
 
 using ESRI.ArcGIS.Controls;
@@ -13,8 +14,7 @@ using ESRI.ArcGIS.Output;
 using ESRI.ArcGIS.esriSystem;
 using ESRI.ArcGIS.Display;
 
-
-namespace SnowCover
+namespace SystemBase
 {
     public class GISTools
     {

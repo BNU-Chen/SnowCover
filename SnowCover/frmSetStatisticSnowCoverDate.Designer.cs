@@ -41,6 +41,8 @@
             this.btn_SelectStartDate = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_Submit = new System.Windows.Forms.Button();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_IsDataExist = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dateNavigator1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -61,6 +63,8 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.labelControl1);
+            this.panelControl1.Controls.Add(this.lbl_IsDataExist);
             this.panelControl1.Controls.Add(this.lbl_EndDate);
             this.panelControl1.Controls.Add(this.lbl_StartDate);
             this.panelControl1.Controls.Add(this.label4);
@@ -183,6 +187,24 @@
             this.btn_Submit.UseVisualStyleBackColor = true;
             this.btn_Submit.Click += new System.EventHandler(this.btn_Submit_Click);
             // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(37, 51);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(132, 14);
+            this.labelControl1.TabIndex = 19;
+            this.labelControl1.Text = "积雪覆盖数据是否存在：";
+            // 
+            // lbl_IsDataExist
+            // 
+            this.lbl_IsDataExist.AutoSize = true;
+            this.lbl_IsDataExist.ForeColor = System.Drawing.Color.Red;
+            this.lbl_IsDataExist.Location = new System.Drawing.Point(170, 53);
+            this.lbl_IsDataExist.Name = "lbl_IsDataExist";
+            this.lbl_IsDataExist.Size = new System.Drawing.Size(17, 12);
+            this.lbl_IsDataExist.TabIndex = 18;
+            this.lbl_IsDataExist.Text = "否";
+            // 
             // frmSetStatisticSnowCoverDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -218,5 +240,7 @@
         private DevExpress.XtraEditors.LabelControl lbl_StartDate;
         private DevExpress.XtraEditors.LabelControl lbl_EndDate;
         private System.Windows.Forms.Button btn_SelectEndDate;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.Label lbl_IsDataExist;
     }
 }

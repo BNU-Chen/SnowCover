@@ -113,8 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHandle\DiskFile.cs" />
-    <Compile Include="DataHandle\INIFile.cs" />
-    <Compile Include="DataHandle\MySQL.cs" />
     <Compile Include="frmSetSnowCoverInitDate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,7 +137,6 @@
     <Compile Include="frmTest.Designer.cs">
       <DependentUpon>frmTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="GISTools.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,6 +255,10 @@
     <ProjectReference Include="..\ImageProcessing\ImageProcessing.csproj">
       <Project>{fcc1df5e-5e90-4f55-880f-585bd11a3d22}</Project>
       <Name>ImageProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemBase\SystemBase.csproj">
+      <Project>{48dee3df-3cd2-41cb-8097-36fe2ce960d7}</Project>
+      <Name>SystemBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

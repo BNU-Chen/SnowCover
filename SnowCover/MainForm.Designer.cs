@@ -40,7 +40,7 @@
             this.btn_Settings = new DevExpress.XtraBars.BarButtonItem();
             this.btn_HelpDocument = new DevExpress.XtraBars.BarButtonItem();
             this.btn_About = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_MapPointNull = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_MapPointValue = new DevExpress.XtraBars.BarButtonItem();
             this.btn_InitRSImage = new DevExpress.XtraBars.BarButtonItem();
             this.btn_OpenMapFile = new DevExpress.XtraBars.BarButtonItem();
             this.btn_AddMapLayer = new DevExpress.XtraBars.BarButtonItem();
@@ -48,7 +48,7 @@
             this.btn_AnalystSC_Statistic = new DevExpress.XtraBars.BarButtonItem();
             this.btn_SnowCover_OriginalImage = new DevExpress.XtraBars.BarButtonItem();
             this.btn_SnowCover_Everyday = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_SnowCover_DateRange = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_SnowCover_Statistic = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Data_StatisticTables = new DevExpress.XtraBars.BarButtonItem();
             this.btn_PublishDisasterDoc = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -102,7 +102,7 @@
             this.btn_Settings,
             this.btn_HelpDocument,
             this.btn_About,
-            this.btn_MapPointNull,
+            this.btn_MapPointValue,
             this.btn_InitRSImage,
             this.btn_OpenMapFile,
             this.btn_AddMapLayer,
@@ -110,7 +110,7 @@
             this.btn_AnalystSC_Statistic,
             this.btn_SnowCover_OriginalImage,
             this.btn_SnowCover_Everyday,
-            this.btn_SnowCover_DateRange,
+            this.btn_SnowCover_Statistic,
             this.btn_Data_StatisticTables,
             this.btn_PublishDisasterDoc});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
@@ -212,13 +212,14 @@
             this.btn_About.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_About.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_About_ItemClick);
             // 
-            // btn_MapPointNull
+            // btn_MapPointValue
             // 
-            this.btn_MapPointNull.Caption = "像元值";
-            this.btn_MapPointNull.Glyph = global::SnowCover.Properties.Resources.pointValue;
-            this.btn_MapPointNull.Id = 19;
-            this.btn_MapPointNull.Name = "btn_MapPointNull";
-            this.btn_MapPointNull.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_MapPointValue.Caption = "像元值";
+            this.btn_MapPointValue.Glyph = global::SnowCover.Properties.Resources.pointValue;
+            this.btn_MapPointValue.Id = 19;
+            this.btn_MapPointValue.Name = "btn_MapPointValue";
+            this.btn_MapPointValue.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_MapPointValue.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_MapPointValuel_ItemClick);
             // 
             // btn_InitRSImage
             // 
@@ -258,7 +259,7 @@
             // 
             // btn_AnalystSC_Statistic
             // 
-            this.btn_AnalystSC_Statistic.Caption = "时段积雪统计";
+            this.btn_AnalystSC_Statistic.Caption = "积雪统计";
             this.btn_AnalystSC_Statistic.Glyph = global::SnowCover.Properties.Resources.datepicker_64;
             this.btn_AnalystSC_Statistic.Id = 24;
             this.btn_AnalystSC_Statistic.Name = "btn_AnalystSC_Statistic";
@@ -283,14 +284,14 @@
             this.btn_SnowCover_Everyday.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_SnowCover_Everyday.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SnowCover_Everyday_ItemClick);
             // 
-            // btn_SnowCover_DateRange
+            // btn_SnowCover_Statistic
             // 
-            this.btn_SnowCover_DateRange.Caption = "统计积雪";
-            this.btn_SnowCover_DateRange.Glyph = global::SnowCover.Properties.Resources.Layers;
-            this.btn_SnowCover_DateRange.Id = 27;
-            this.btn_SnowCover_DateRange.Name = "btn_SnowCover_DateRange";
-            this.btn_SnowCover_DateRange.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btn_SnowCover_DateRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SnowCover_DateRange_ItemClick);
+            this.btn_SnowCover_Statistic.Caption = "统计积雪";
+            this.btn_SnowCover_Statistic.Glyph = global::SnowCover.Properties.Resources.Layers;
+            this.btn_SnowCover_Statistic.Id = 27;
+            this.btn_SnowCover_Statistic.Name = "btn_SnowCover_Statistic";
+            this.btn_SnowCover_Statistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_SnowCover_Statistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SnowCover_Statistic_ItemClick);
             // 
             // btn_Data_StatisticTables
             // 
@@ -321,7 +322,7 @@
             // ribbonPageGroup1
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.btn_Pan);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btn_MapPointNull);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btn_MapPointValue);
             this.ribbonPageGroup1.ItemLinks.Add(this.buttongroup, true);
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonGroup2);
             this.ribbonPageGroup1.ItemLinks.Add(this.btn_OpenMapFile, true);
@@ -334,7 +335,7 @@
             // 
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_OriginalImage);
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_Everyday);
-            this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_DateRange);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btn_SnowCover_Statistic);
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_Data_StatisticTables);
             this.ribbonPageGroup5.ItemLinks.Add(this.btn_PublishDisasterDoc);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
@@ -536,7 +537,7 @@
         private DevExpress.XtraBars.BarButtonItem btn_Settings;
         private DevExpress.XtraBars.BarButtonItem btn_HelpDocument;
         private DevExpress.XtraBars.BarButtonItem btn_About;
-        private DevExpress.XtraBars.BarButtonItem btn_MapPointNull;
+        private DevExpress.XtraBars.BarButtonItem btn_MapPointValue;
         private DevExpress.XtraBars.BarButtonItem btn_InitRSImage;
         private DevExpress.XtraBars.BarButtonItem btn_OpenMapFile;
         private DevExpress.XtraBars.BarButtonItem btn_AddMapLayer;
@@ -546,7 +547,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
         private DevExpress.XtraBars.BarButtonItem btn_SnowCover_OriginalImage;
         private DevExpress.XtraBars.BarButtonItem btn_SnowCover_Everyday;
-        private DevExpress.XtraBars.BarButtonItem btn_SnowCover_DateRange;
+        private DevExpress.XtraBars.BarButtonItem btn_SnowCover_Statistic;
         private DevExpress.XtraBars.BarButtonItem btn_Data_StatisticTables;
         private DevExpress.XtraBars.BarButtonItem btn_PublishDisasterDoc;
         private DevExpress.XtraTab.XtraTabControl xtraTabControl_Left;

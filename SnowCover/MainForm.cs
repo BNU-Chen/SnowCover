@@ -10,21 +10,22 @@ using System.Windows.Forms;
 using System.IO;
 
 using ImageProcessing;
+using SystemBase;
 
 
 namespace SnowCover
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        private DataHandle.INIFile iniFile = null;
-        public Modules.ucFileNavPanel ucFileNavPanel = new Modules.ucFileNavPanel();
+        private SystemConfig config = null;
+        public Modules.ucFileNavPanel ucFileNavPanel = null;
         public MainForm()
         {
             InitializeComponent();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            iniFile = new DataHandle.INIFile(DataHandle.INIFile.GetINIFilePath());
+            config = new SystemBase.SystemConfig();
         }
 
         #region //GIS Map Tools
@@ -46,39 +47,45 @@ namespace SnowCover
                 }
             }
         }
+
+        private void btn_MapPointValuel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SystemBase.GISTools.IdentifyTool(this.axMapControl1);
+        }
+
         private void btn_ExportMapPic_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.ExportImage(this.axMapControl1.ActiveView);
+            SystemBase.GISTools.ExportImage(this.axMapControl1.ActiveView);
         }
 
         private void btn_AddMapLayer_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.AddData(this.axMapControl1);
+            SystemBase.GISTools.AddData(this.axMapControl1);
         }
 
         private void btn_Pan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.Pan(this.axMapControl1);
+            SystemBase.GISTools.Pan(this.axMapControl1);
         }
 
         private void btn_ZoomIn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.ZoomIn(axMapControl1);
+            SystemBase.GISTools.ZoomIn(axMapControl1);
         }
 
         private void btn_ZoomOut_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.ZoomOut(axMapControl1);
+            SystemBase.GISTools.ZoomOut(axMapControl1);
         }
 
         private void btn_ScaleIn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.ZoomInFix(axMapControl1);
+            SystemBase.GISTools.ZoomInFix(axMapControl1);
         }
 
         private void btn_ScaleOut_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GISTools.ZoomOutFix(axMapControl1);
+            SystemBase.GISTools.ZoomOutFix(axMapControl1);
         }
         #endregion
 
@@ -93,9 +100,9 @@ namespace SnowCover
             ShowFileNavPanel(this.btn_SnowCover_Everyday);
         }
 
-        private void btn_SnowCover_DateRange_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btn_SnowCover_Statistic_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            ShowFileNavPanel(this.btn_SnowCover_DateRange);
+            ShowFileNavPanel(this.btn_SnowCover_Statistic);
         }
 
         private void btn_Data_StatisticTables_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -110,12 +117,12 @@ namespace SnowCover
 
         private void ShowFileNavPanel(DevExpress.XtraBars.BarButtonItem button)
         {
-            if (iniFile == null)
+            if (config.IniFile == null)
             {
                 if(MessageBox.Show("配置文件不存在，请重新制定。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     frmSysSetting frmSetting = new frmSysSetting();
-                    frmSetting.ShowDialog();                    
+                    frmSetting.ShowDialog(); 
                 }
                 return;
             }
@@ -124,19 +131,19 @@ namespace SnowCover
             switch(button.Name)
             {
                 case "btn_SnowCover_OriginalImage":
-                    path = iniFile.IniReadValue("DataCenter", "OrigionDataFolder");
+                    path = config.OrigionDataFolderPath;
                     break;
                 case "btn_SnowCover_Everyday":
-                    path = iniFile.IniReadValue("DataCenter", "EverydaySnowCoverFolder");
+                    path = config.EverydaySnowCoverFolderPath;
                     break;
-                case "btn_SnowCover_DateRange":
-                    path = iniFile.IniReadValue("DataCenter", "DateRangeSnowCoverFolder");
+                case "btn_SnowCover_Statistic":
+                    path = config.StatisticSnowCoverFolderPath;
                     break;
                 case "btn_PublishDisasterDoc":
-                    path = iniFile.IniReadValue("DataCenter", "PublishDisasterDoc");
-                    break;
-               
+                    path = config.PublishDisasterDocPath;
+                    break;               
             }
+            ucFileNavPanel = new Modules.ucFileNavPanel(this.axMapControl1);
 
             this.xtraTabPage_DataNav.Controls.Clear();
             this.xtraTabPage_DataNav.Controls.Add(ucFileNavPanel);
@@ -154,8 +161,7 @@ namespace SnowCover
         private void btn_InitRSImage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             frmSetSnowCoverInitDate setInitDate = new frmSetSnowCoverInitDate(this.axMapControl1);
-            setInitDate.ShowDialog();
-            
+            setInitDate.ShowDialog();            
         }
 
         private void btn_AnalystSC_Statistic_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -182,5 +188,6 @@ namespace SnowCover
 
         }
         #endregion 
+
     }
 }

@@ -37,6 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_DayOfYear = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_IsOrigionDataExist = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dateNavigator1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +88,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(41, 498);
+            this.label1.Location = new System.Drawing.Point(14, 498);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 9;
@@ -95,7 +97,7 @@
             // lbl_SelectionDate
             // 
             this.lbl_SelectionDate.Appearance.ForeColor = System.Drawing.Color.Red;
-            this.lbl_SelectionDate.Location = new System.Drawing.Point(124, 497);
+            this.lbl_SelectionDate.Location = new System.Drawing.Point(97, 497);
             this.lbl_SelectionDate.Name = "lbl_SelectionDate";
             this.lbl_SelectionDate.Size = new System.Drawing.Size(24, 14);
             this.lbl_SelectionDate.TabIndex = 10;
@@ -104,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(234, 498);
+            this.label2.Location = new System.Drawing.Point(188, 498);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 11;
@@ -114,7 +116,7 @@
             // 
             this.lbl_DayOfYear.AutoSize = true;
             this.lbl_DayOfYear.ForeColor = System.Drawing.Color.Red;
-            this.lbl_DayOfYear.Location = new System.Drawing.Point(296, 498);
+            this.lbl_DayOfYear.Location = new System.Drawing.Point(250, 498);
             this.lbl_DayOfYear.Name = "lbl_DayOfYear";
             this.lbl_DayOfYear.Size = new System.Drawing.Size(23, 12);
             this.lbl_DayOfYear.TabIndex = 11;
@@ -123,18 +125,38 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(325, 498);
+            this.label4.Location = new System.Drawing.Point(279, 498);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 12);
             this.label4.TabIndex = 11;
             this.label4.Text = "天";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(319, 497);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(132, 14);
+            this.labelControl1.TabIndex = 12;
+            this.labelControl1.Text = "原始影像数据是否存在：";
+            // 
+            // lbl_IsOrigionDataExist
+            // 
+            this.lbl_IsOrigionDataExist.AutoSize = true;
+            this.lbl_IsOrigionDataExist.ForeColor = System.Drawing.Color.Red;
+            this.lbl_IsOrigionDataExist.Location = new System.Drawing.Point(452, 499);
+            this.lbl_IsOrigionDataExist.Name = "lbl_IsOrigionDataExist";
+            this.lbl_IsOrigionDataExist.Size = new System.Drawing.Size(17, 12);
+            this.lbl_IsOrigionDataExist.TabIndex = 11;
+            this.lbl_IsOrigionDataExist.Text = "否";
             // 
             // frmSetSnowCoverInitDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(826, 524);
+            this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbl_IsOrigionDataExist);
             this.Controls.Add(this.lbl_DayOfYear);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbl_SelectionDate);
@@ -165,6 +187,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_DayOfYear;
         private System.Windows.Forms.Label label4;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.Label lbl_IsOrigionDataExist;
 
     }
 }
