@@ -36,6 +36,9 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.treeList1 = new DevExpress.XtraTreeList.TreeList();
             this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_AddLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_OpenFolder = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.check_DateFilter.Properties)).BeginInit();
@@ -43,6 +46,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextEdit_Filter.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.treeList1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -109,6 +113,7 @@
             // 
             // treeList1
             // 
+            this.treeList1.ContextMenuStrip = this.contextMenuStrip1;
             this.treeList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeList1.Location = new System.Drawing.Point(0, 72);
             this.treeList1.Name = "treeList1";
@@ -123,6 +128,27 @@
             // toolTipController1
             // 
             this.toolTipController1.GetActiveObjectInfo += new DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventHandler(this.toolTipController1_GetActiveObjectInfo);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_AddLayer,
+            this.tsmi_OpenFolder});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(169, 70);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
+            // 
+            // tsmi_AddLayer
+            // 
+            this.tsmi_AddLayer.Name = "tsmi_AddLayer";
+            this.tsmi_AddLayer.Size = new System.Drawing.Size(168, 22);
+            this.tsmi_AddLayer.Text = "添加到地图(&A)";
+            // 
+            // tsmi_OpenFolder
+            // 
+            this.tsmi_OpenFolder.Name = "tsmi_OpenFolder";
+            this.tsmi_OpenFolder.Size = new System.Drawing.Size(168, 22);
+            this.tsmi_OpenFolder.Text = "打开所在目录(&M)";
             // 
             // ucFileNavPanel
             // 
@@ -140,6 +166,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextEdit_Filter.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.treeList1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -153,6 +180,9 @@
         private DevExpress.XtraTreeList.TreeList treeList1;
         private DevExpress.XtraEditors.CheckEdit check_DateFilter;
         private DevExpress.Utils.ToolTipController toolTipController1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_AddLayer;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_OpenFolder;
 
     }
 }

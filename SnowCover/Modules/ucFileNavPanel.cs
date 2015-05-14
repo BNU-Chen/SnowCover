@@ -25,6 +25,7 @@ namespace SnowCover.Modules
         private bool isDateTimePickerPopup = false;
         private AxMapControl axMapControl = null;
         private DataTable dataTable = null;
+        private TreeListNode clickNode = null;
 
         public string Path
         {
@@ -209,16 +210,15 @@ namespace SnowCover.Modules
 
                 if (e.Button == MouseButtons.Right && ModifierKeys == Keys.None && tree.State == TreeListState.Regular)
                 {
-                    Point pt = tree.PointToClient(MousePosition);
-                    TreeListHitInfo info = tree.CalcHitInfo(pt);
+                    Point ptTreeList = tree.PointToClient(MousePosition);
+                    Point pt = Control.MousePosition;
+                    TreeListHitInfo info = tree.CalcHitInfo(ptTreeList);
                     if (info.HitInfoType == HitInfoType.Cell)
-                    {                        
-                        tree.FocusedNode = info.Node;
-                       // NeedRestoreFocused = true;
-                       // popupMenuNodes.ShowPopup(MousePosition);
-                        
+                    {
+                        clickNode = info.Node;
+                        tree.FocusedNode = clickNode;
+                        this.contextMenuStrip1.Show(pt);                        
                     }
-
                 }
             }
             catch
@@ -236,49 +236,69 @@ namespace SnowCover.Modules
                 if (info.HitInfoType == DevExpress.XtraTreeList.HitInfoType.Cell)
                 {                    
                     TreeListNode node = info.Node;
-                    if(node == null)
-                    {
-                        return;
-                    }
+                    
                     tree.FocusedNode = node;
-                    if(node.Nodes.Count>0)
-                    {
-                        return;
-                    }
-                    if(dataTable == null)
-                    {
-                        return;
-                    }
-                    if(dataTable.Rows.Count <1)
-                    {
-                        return;
-                    }
-                    int id = node.Id;
-                    DataRow row = dataTable.Rows[id];
-                    string path = (string)row["path"];
-                    if(!File.Exists(path))
-                    {
-                        MessageBox.Show("文件不存在，请检查文件后重试。","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                        return;
-                    }
-                    string extension = System.IO.Path.GetExtension(path).ToLower();
-                    if(extension == "mxd")
-                    {
-                        this.axMapControl.LoadMxFile(path);
-                    }
-                    else if(SystemBase.GISLayers.IsSupportLayerType(extension))
-                    {
-                        SystemBase.GISLayers.OpenRaster(path, this.axMapControl);
-                    }
-                    else
-                    {
-                        MessageBox.Show("暂不支持打开[*"+extension+"]格式的文件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+                    AddLayerToMapControl(node);
                 }
             }
             catch
             {
+            }
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string itemName = e.ClickedItem.Name;
+            switch(itemName)
+            {
+                case "tsmi_AddLayer":
+                    AddLayerToMapControl(clickNode);
+                    break;
+                case "tsmi_OpenFolder":
+                    break;
+
+            }
+        }
+
+        private void AddLayerToMapControl(TreeListNode node)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            if (node.Nodes.Count > 0)
+            {
+                return;
+            }
+            if (dataTable == null)
+            {
+                return;
+            }
+            if (dataTable.Rows.Count < 1)
+            {
+                return;
+            }
+            int id = node.Id;
+            DataRow row = dataTable.Rows[id];
+            string path = (string)row["path"];
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("文件不存在，请检查文件后重试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string extension = System.IO.Path.GetExtension(path).ToLower();
+            if (extension == "mxd")
+            {
+                this.axMapControl.LoadMxFile(path);
+            }
+            else if (SystemBase.GISLayers.IsSupportLayerType(extension))
+            {
+                SystemBase.GISLayers.OpenRaster(path, this.axMapControl);
+            }
+            else
+            {
+                MessageBox.Show("暂不支持打开[*" + extension + "]格式的文件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
         }
 
