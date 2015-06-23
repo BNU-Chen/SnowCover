@@ -54,6 +54,59 @@ namespace SnowCover
             }
         }
 
+
+        //图层右键菜单
+        private void contextMenuStrip_TOCControl_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name)
+            {
+                case "tsmi_ZoomToLayer":
+                    if (this.axMapControl1.Map.LayerCount == 0)
+                    {
+                        return;
+                    }
+
+                    ESRI.ArcGIS.Carto.ILayer layer = SystemBase.GISLayers.GetLayerFromTOCControl(this.axTOCControl1);
+                    ESRI.ArcGIS.Carto.IActiveView activeView = this.axMapControl1.ActiveView;
+
+                    // Zoom to the extent of the layer and refresh the map
+                    activeView.Extent = layer.AreaOfInterest;
+                    activeView.Refresh();
+                    break;
+                case "tsmi_RemoveLayer":
+                    ESRI.ArcGIS.Carto.ILayer layerRemove = SystemBase.GISLayers.GetLayerFromTOCControl(this.axTOCControl1);
+                    if (null != layerRemove)
+                    {
+                        ((IDataLayer2)layerRemove).Disconnect();
+                        ((IMapLayers)this.axMapControl1.ActiveView).DeleteLayer(layerRemove);
+                    }
+                    this.axTOCControl1.Refresh();
+                    this.axMapControl1.ActiveView.Refresh();
+                    break;
+                case "tsmi_ProjectToWGS1984":
+                    ESRI.ArcGIS.Carto.ILayer layerProject = SystemBase.GISLayers.GetLayerFromTOCControl(this.axTOCControl1);
+                    if (null != layerProject)
+                    {
+                        SystemBase.GISLayers.TestProjection(layerProject);
+                        this.axMapControl1.ActiveView.Refresh();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void axTOCControl1_OnMouseUp(object sender, ESRI.ArcGIS.Controls.ITOCControlEvents_OnMouseUpEvent e)
+        {
+            if (e.button == 2)
+            {
+                Control control = (Control)sender;
+                Point pt = control.PointToScreen(new Point(e.x, e.y));
+                this.contextMenuStrip_TOCControl.Show(pt);
+            }
+        }
+
+        //GIS工具
         private void btn_MapPointValuel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SystemBase.GISTools.IdentifyTool(this.axMapControl1);
@@ -184,6 +237,12 @@ namespace SnowCover
             settingForm.Show();
         }
 
+        private void btn_logFile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            string logPath = Application.StartupPath + "\\log.txt";
+            System.Diagnostics.Process.Start(logPath);
+        }
+
         private void btn_HelpDocument_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
@@ -195,56 +254,9 @@ namespace SnowCover
         }
         #endregion 
 
-        //图层右键菜单
-        private void contextMenuStrip_TOCControl_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            switch (e.ClickedItem.Name)
-            {
-                case "tsmi_ZoomToLayer":
-                    if (this.axMapControl1.Map.LayerCount == 0)
-                    {
-                        return;
-                    }
+        
 
-                    ESRI.ArcGIS.Carto.ILayer layer = SystemBase.GISLayers.GetLayerFromTOCControl(this.axTOCControl1);
-                    ESRI.ArcGIS.Carto.IActiveView activeView = this.axMapControl1.ActiveView;
-
-                    // Zoom to the extent of the layer and refresh the map
-                    activeView.Extent = layer.AreaOfInterest;
-                    activeView.Refresh();
-                    break;
-                case "tsmi_RemoveLayer":
-                    ESRI.ArcGIS.Carto.ILayer layerRemove = SystemBase.GISLayers.GetLayerFromTOCControl(this.axTOCControl1);
-                    if (null != layerRemove)
-                    {
-                        ((IDataLayer2)layerRemove).Disconnect();
-                        ((IMapLayers)this.axMapControl1.ActiveView).DeleteLayer(layerRemove);
-                    }
-                    this.axTOCControl1.Refresh();
-                    this.axMapControl1.ActiveView.Refresh();
-                    break;
-                case "tsmi_ProjectToWGS1984":
-                    ESRI.ArcGIS.Carto.ILayer layerProject = SystemBase.GISLayers.GetLayerFromTOCControl(this.axTOCControl1);
-                    if (null != layerProject)
-                    {
-                        SystemBase.GISLayers.TestProjection(layerProject);
-                        this.axMapControl1.ActiveView.Refresh();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void axTOCControl1_OnMouseUp(object sender, ESRI.ArcGIS.Controls.ITOCControlEvents_OnMouseUpEvent e)
-        {
-            if (e.button == 2)
-            {
-                Control control = (Control)sender;
-                Point pt = control.PointToScreen(new Point(e.x, e.y));
-                this.contextMenuStrip_TOCControl.Show(pt);
-            }
-        }
+       
 
     }
 }
