@@ -9,3 +9,4 @@ D:\Develop\GitHub\SnowCover\SnowCover\obj\x86\Debug\SnowCover.exe.licenses
 D:\Develop\GitHub\SnowCover\SnowCover\obj\x86\Debug\SnowCover.exe
 D:\Develop\GitHub\SnowCover\SnowCover\obj\x86\Debug\SnowCover.pdb
 D:\Develop\GitHub\SnowCover\SnowCover\obj\x86\Debug\SnowCover.frmSysSetting.resources
+D:\Develop\SourceTree\SnowCover\SnowCover\bin\Debug\DevExpress.Printing.v13.1.Core.dll

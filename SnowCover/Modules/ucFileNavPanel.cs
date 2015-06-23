@@ -171,22 +171,22 @@ namespace SnowCover.Modules
                     object cellInfo = new TreeListCellToolTipInfo(hit.Node, hit.Column, null);
 
                     string name = (string)hit.Node[hit.Column];
-                    string toolTip = "";                    
+                    string toolTip = "";
                     if (name.Length >= 18)
                     {
-                        string dayOfYearStr = name.Substring(15, 3);    //截取天数
-                        string yearStr = name.Substring(13, 2);         //截取年份
-                        int dayOfYear = 0;
-                        int year = 0;                        
-                        if (int.TryParse(dayOfYearStr, out dayOfYear))
-                        {
-                            if (int.TryParse(yearStr, out year))
-                            {
-                                DateTime date = new DateTime(2000 + year, 1, 1).AddDays(dayOfYear - 1);
-                                string dateStr = date.ToString("yyyy年MM月dd日");
-                                toolTip = string.Format("{0} ({1})", hit.Node[hit.Column], dateStr);
-                            }
-                        }
+                        string dateStr = ConvertYearDayToDateStr(name, 13);
+                        toolTip = string.Format("{0} ({1})", hit.Node[hit.Column], dateStr);
+                    }
+                    else if (name.Length == 13)
+                    {
+                        string dateStr = ConvertYearDayToDateStr(name, 1);
+                        toolTip = string.Format("{0} ({1})", hit.Node[hit.Column], dateStr);
+                    }
+                    else if (name.Length == 16)
+                    {
+                        string dateStr1 = ConvertYearDayToDateStr(name, 1);
+                        string dateStr2 = ConvertYearDayToDateStr(name, 7);
+                        toolTip = string.Format("{0} ({1},{2})", hit.Node[hit.Column], dateStr1, dateStr2);
                     }
                     else
                     {
@@ -256,7 +256,6 @@ namespace SnowCover.Modules
                     break;
                 case "tsmi_OpenFolder":
                     break;
-
             }
         }
 
@@ -302,7 +301,27 @@ namespace SnowCover.Modules
             }
         }
 
-
+        private string ConvertYearDayToDateStr(string yearDayStr,int start)
+        {
+            string dateStr = "";
+            try
+            {
+                string dayOfYearStr = yearDayStr.Substring(start+2, 3);    //截取天数
+                string yearStr = yearDayStr.Substring(start, 2);         //截取年份
+                int dayOfYear = 0;
+                int year = 0;
+                if (int.TryParse(dayOfYearStr, out dayOfYear))
+                {
+                    if (int.TryParse(yearStr, out year))
+                    {
+                        DateTime date = new DateTime(2000 + year, 1, 1).AddDays(dayOfYear - 1);
+                        dateStr = date.ToString("yyyy-MM-dd");                        
+                    }
+                }
+            }
+            catch { }
+            return dateStr;
+        }
 
 
 

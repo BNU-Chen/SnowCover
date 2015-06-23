@@ -126,7 +126,7 @@ namespace SnowCover
                 string yearEndStr  = endDate.Year.ToString();
                 string startDay = startDate.DayOfYear.ToString("D3");
                 string endDay = endDate.DayOfYear.ToString("D3");
-                string StatisticFile = StatisticFolder + "\\Sta" + yearStartStr.Substring(2, 2) + startDay + "_" + yearEndStr.Substring(2, 2) + endDay + ".tif";
+                string StatisticFile = StatisticFolder + "\\S" + yearStartStr.Substring(2, 2) + startDay + "_" + yearEndStr.Substring(2, 2) + endDay + ".tif";
                 ImageProcessing.IDL.StatisticSnowCover(IN_FILES, StatisticFile, this.axMapControl);                
             }
             catch

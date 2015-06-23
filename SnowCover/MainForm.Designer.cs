@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btn_Pan = new DevExpress.XtraBars.BarButtonItem();
@@ -63,6 +64,9 @@
             this.xtraTabControl_Left = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage_MapLayers = new DevExpress.XtraTab.XtraTabPage();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
+            this.contextMenuStrip_TOCControl = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_ZoomToLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_RemoveLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.xtraTabPage_DataNav = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabControl_Center = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
@@ -71,6 +75,7 @@
             this.axPageLayoutControl1 = new ESRI.ArcGIS.Controls.AxPageLayoutControl();
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.tsmi_ProjectToWGS1984 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -78,6 +83,7 @@
             this.xtraTabControl_Left.SuspendLayout();
             this.xtraTabPage_MapLayers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
+            this.contextMenuStrip_TOCControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Center)).BeginInit();
             this.xtraTabControl_Center.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
@@ -115,7 +121,7 @@
             this.btn_PublishDisasterDoc});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(5);
-            this.ribbonControl1.MaxItemId = 30;
+            this.ribbonControl1.MaxItemId = 31;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage3,
@@ -413,12 +419,36 @@
             // 
             // axTOCControl1
             // 
+            this.axTOCControl1.ContextMenuStrip = this.contextMenuStrip_TOCControl;
             this.axTOCControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.axTOCControl1.Location = new System.Drawing.Point(0, 0);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
             this.axTOCControl1.Size = new System.Drawing.Size(223, 619);
             this.axTOCControl1.TabIndex = 0;
+            this.axTOCControl1.OnMouseUp += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseUpEventHandler(this.axTOCControl1_OnMouseUp);
+            // 
+            // contextMenuStrip_TOCControl
+            // 
+            this.contextMenuStrip_TOCControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_ZoomToLayer,
+            this.tsmi_RemoveLayer,
+            this.tsmi_ProjectToWGS1984});
+            this.contextMenuStrip_TOCControl.Name = "contextMenuStrip_TOCControl";
+            this.contextMenuStrip_TOCControl.Size = new System.Drawing.Size(149, 70);
+            this.contextMenuStrip_TOCControl.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip_TOCControl_ItemClicked);
+            // 
+            // tsmi_ZoomToLayer
+            // 
+            this.tsmi_ZoomToLayer.Name = "tsmi_ZoomToLayer";
+            this.tsmi_ZoomToLayer.Size = new System.Drawing.Size(152, 22);
+            this.tsmi_ZoomToLayer.Text = "缩放到此图层";
+            // 
+            // tsmi_RemoveLayer
+            // 
+            this.tsmi_RemoveLayer.Name = "tsmi_RemoveLayer";
+            this.tsmi_RemoveLayer.Size = new System.Drawing.Size(152, 22);
+            this.tsmi_RemoveLayer.Text = "移除图层";
             // 
             // xtraTabPage_DataNav
             // 
@@ -488,6 +518,12 @@
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "帮助中心";
             // 
+            // tsmi_ProjectToWGS1984
+            // 
+            this.tsmi_ProjectToWGS1984.Name = "tsmi_ProjectToWGS1984";
+            this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(152, 22);
+            this.tsmi_ProjectToWGS1984.Text = "坐标转换";
+            // 
             // MainForm
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -508,6 +544,7 @@
             this.xtraTabControl_Left.ResumeLayout(false);
             this.xtraTabPage_MapLayers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).EndInit();
+            this.contextMenuStrip_TOCControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Center)).EndInit();
             this.xtraTabControl_Center.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
@@ -563,6 +600,10 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_TOCControl;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_ZoomToLayer;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_RemoveLayer;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_ProjectToWGS1984;
     }
 }
 

@@ -19,6 +19,11 @@ namespace SnowCover
     {
         private SystemConfig config = null;
         private AxMapControl axMapControl = null;
+        private DateTime startDate;
+        private DateTime endDate;
+        private bool isBatHandler = false;
+        
+
 
         public frmSetSnowCoverInitDate(AxMapControl _AxMapControl)
         {
@@ -36,32 +41,101 @@ namespace SnowCover
             this.dateNavigator1.DateTime = today;
             this.dateNavigator1.TodayButton.Text = "今天";
 
+            //初始为单个处理
+            this.Height = 565;
         }
         //确定
         private void btn_Submit_Click(object sender, EventArgs e)
+        {            
+            DateTime date = this.dateNavigator1.DateTime;
+            if (isBatHandler)
+            {
+                if (startDate == null)
+                {
+                    MessageBox.Show("请选择批量处理的起始时间。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (endDate == null)
+                {
+                    MessageBox.Show("请选择批量处理的截止时间。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (startDate > endDate)
+                {
+                    MessageBox.Show("起始时间大于截止时间，请重新选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                string handleSuccessDates = "";
+                string handleFailureDates = "";
+                for (DateTime dateIndex = startDate; dateIndex <= endDate; )
+                {
+                    bool isDataExist = IsOrigionDataExist(date);
+                    if (isDataExist)
+                    {
+                        handleSuccessDates += GetYearDayStr(dateIndex) + ",";
+                        ExeInitSnowCover(dateIndex);
+                    }
+                    else
+                    {
+                        handleFailureDates += GetYearDayStr(dateIndex) + ",";
+                    }
+
+                    dateIndex = dateIndex.AddDays(1);
+                }
+                SystemBase.LogFile.Log(this.Text, "处理成功：" + handleSuccessDates);
+                SystemBase.LogFile.Log(this.Text, "处理失败：" + handleFailureDates);
+                MessageBox.Show("以下数据处理成功：\n" + handleSuccessDates + "\n以下数据处理失败：\n" + handleFailureDates, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (handleSuccessDates == "" && handleFailureDates != "")
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                bool isDataExist = IsOrigionDataExist(date);
+                if (!isDataExist)
+                {
+                    MessageBox.Show("选定日期的原始影像数据不存在。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                ExeInitSnowCover(date);
+                SystemBase.LogFile.Log(this.Text, "处理成功：" + GetYearDayStr(date));
+                this.Close();
+            }
+        }
+        //批量处理
+        private void chkBtn_BatHandler_CheckedChanged(object sender, EventArgs e)
+        {
+            isBatHandler = !isBatHandler;
+            if (isBatHandler)
+            {
+                this.Height = 625;
+            }
+            else
+            {
+                this.Height = 565;
+            }
+        }
+
+        private void btn_SetStartDate_Click(object sender, EventArgs e)
         {
             DateTime date = this.dateNavigator1.DateTime;
-            bool isDataExist = IsOrigionDataExist(date);
-            if (!isDataExist)
-            {
-                MessageBox.Show("选定日期的原始影像数据不存在。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            ExeInitSnowCover(date);
+            int dayOfYear = date.DayOfYear;
+            this.lbl_StartDate.Text = date.ToString("yyyy-MM-dd") + " " + date.Year.ToString().Substring(2, 2) + dayOfYear.ToString("D3");
+
+            startDate = date;
         }
-        //分析今天
-        private void btn_Today_Click(object sender, EventArgs e)
+
+        private void btn_SetEndDate_Click(object sender, EventArgs e)
         {
-            
-            DateTime today = DateTime.Now;
-            bool isDataExist = IsOrigionDataExist(today);
-            if(!isDataExist)
-            {
-                MessageBox.Show("今天的原始影像数据不存在。","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                return;
-            }
-            ExeInitSnowCover(today);
+            DateTime date = this.dateNavigator1.DateTime;
+            int dayOfYear = date.DayOfYear;
+            this.lbl_EndDate.Text = date.ToString("yyyy-MM-dd") + " " + date.Year.ToString().Substring(2, 2) + dayOfYear.ToString("D3");
+
+            endDate = date;
         }
+
         //取消
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
@@ -94,12 +168,16 @@ namespace SnowCover
                         return;
                     }
                 }
-
-                ImageProcessing.IDL.ProcessingOrigionData(In_Directory, Date_Time, EVF_FileName, PreprocessingSnowCover, EverydaySnowCoverFolder, axMapControl);
+                if (isBatHandler)
+                {
+                    ImageProcessing.IDL.ProcessingOrigionData(In_Directory, Date_Time, EVF_FileName, PreprocessingSnowCover, EverydaySnowCoverFolder, null);
+                }else
+                {
+                    ImageProcessing.IDL.ProcessingOrigionData(In_Directory, Date_Time, EVF_FileName, PreprocessingSnowCover, EverydaySnowCoverFolder, axMapControl);
+                }                
             }
             catch
-            { }
-            this.Close();
+            { }            
         }
 
 
@@ -148,6 +226,18 @@ namespace SnowCover
             catch{}
             return isExist;
         }
+
+        private string GetYearDayStr(DateTime date)
+        {            
+            int dayOfYear = date.DayOfYear;
+            string yearDayStr =date.Year.ToString().Substring(2, 2) + dayOfYear.ToString("D3");
+            return yearDayStr;
+        }
+
+       
+
+
+
 
         
     }
