@@ -53,7 +53,7 @@
             this.dateNavigator1.DateTime = new System.DateTime(2015, 5, 13, 0, 0, 0, 0);
             this.dateNavigator1.Dock = System.Windows.Forms.DockStyle.Top;
             this.dateNavigator1.HighlightHolidays = false;
-            this.dateNavigator1.HotDate = null;
+            this.dateNavigator1.HotDate = new System.DateTime(2015, 6, 23, 0, 0, 0, 0);
             this.dateNavigator1.Location = new System.Drawing.Point(0, 0);
             this.dateNavigator1.Multiselect = false;
             this.dateNavigator1.Name = "dateNavigator1";

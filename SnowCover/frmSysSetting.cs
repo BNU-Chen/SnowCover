@@ -14,8 +14,7 @@ using SystemBase;
 namespace SnowCover
 {
     public partial class frmSysSetting : Form
-    {
-        private string iniFilePath = "";
+    {        
         private SystemBase.SystemConfig config = null;
 
         public frmSysSetting()

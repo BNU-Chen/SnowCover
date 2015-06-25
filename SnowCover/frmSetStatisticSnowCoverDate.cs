@@ -21,6 +21,7 @@ namespace SnowCover
         private AxMapControl axMapControl = null;
         private DateTime startDate;
         private DateTime endDate;
+        private DateTime datePre = DateTime.Now;   //上一个选择的日期
         public frmSetStatisticSnowCoverDate(AxMapControl _AxMapControl)
         {
             InitializeComponent();
@@ -91,6 +92,22 @@ namespace SnowCover
             else
             {
                 this.lbl_IsDataExist.Text = "否";
+            }
+            DateTime dateTo = DateTime.Now;
+            if (date.Year != datePre.Year)
+            {
+                string monthDay = "-01-01";
+                if (date.Month == 1 && datePre.Month == 12)
+                {
+                    monthDay = "-12-01";
+                }
+                dateTo = Convert.ToDateTime(date.Year.ToString() + monthDay);//DateTime.Now;                
+            }
+            datePre = date;
+            if (dateTo.DayOfYear != DateTime.Now.DayOfYear)
+            {
+                this.dateNavigator1.DateTime = dateTo;
+                this.dateNavigator1.Refresh();
             }
         }
 

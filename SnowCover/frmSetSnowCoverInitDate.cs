@@ -22,7 +22,8 @@ namespace SnowCover
         private DateTime startDate;
         private DateTime endDate;
         private bool isBatHandler = false;
-        
+
+        private DateTime datePre = DateTime.Now;   //上一个选择的日期
 
 
         public frmSetSnowCoverInitDate(AxMapControl _AxMapControl)
@@ -38,7 +39,7 @@ namespace SnowCover
             DateTime firstDayOfYear = Convert.ToDateTime(today.Year.ToString()+"-01-01");//DateTime.Now;
             this.dateNavigator1.DateTime = firstDayOfYear;
 
-            this.dateNavigator1.DateTime = today;
+            //this.dateNavigator1.DateTime = today;
             this.dateNavigator1.TodayButton.Text = "今天";
 
             //初始为单个处理
@@ -177,7 +178,7 @@ namespace SnowCover
                 }                
             }
             catch
-            { }            
+            { }
         }
 
 
@@ -188,6 +189,7 @@ namespace SnowCover
 
             string dateStr = date.ToString("yyyy-MM-dd");
             this.lbl_SelectionDate.Text = dateStr;
+            System.Console.WriteLine(dateStr);
 
             string dayOfYearStr = date.DayOfYear.ToString("D3");
             this.lbl_DayOfYear.Text = dayOfYearStr;
@@ -200,6 +202,25 @@ namespace SnowCover
             {
                 this.lbl_IsOrigionDataExist.Text = "否";
             }
+            //控制显示一整年的月历
+            DateTime dateTo = DateTime.Now;
+            if (date.Year != datePre.Year)
+            {
+                string monthDay = "-01-01";
+                if (date.Month == 1 && datePre.Month == 12)
+                {
+                    monthDay = "-12-01";
+                }
+                dateTo = Convert.ToDateTime(date.Year.ToString() + monthDay);//DateTime.Now;                
+
+            }
+            datePre = date;
+            if (dateTo.DayOfYear != DateTime.Now.DayOfYear)
+            {
+                this.dateNavigator1.DateTime = dateTo;
+                this.dateNavigator1.Refresh();
+            }
+           
         }
 
         private bool IsOrigionDataExist(DateTime date)
@@ -233,6 +254,7 @@ namespace SnowCover
             string yearDayStr =date.Year.ToString().Substring(2, 2) + dayOfYear.ToString("D3");
             return yearDayStr;
         }
+
 
        
 
