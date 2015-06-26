@@ -22,7 +22,7 @@ namespace ImageProcessing
         private static string IDL_Path = Application.StartupPath + "\\idl\\";
 
         private static string Pro_ProcessingOrigionData = "ENVI_AVHRRtoSNOWCOVER";
-        private static string Pro_StatisticSnowCover = "SNOWCOVER_STATISTIC";
+        private static string Pro_StatisticSnowCover = "SNOWCOVER_CONTINUE";
 
         private static string Pro_CSharp_Test = "CSharp_Test";
         private static string Pro_EXCHANGEARRt = "EXCHANGEARR";
