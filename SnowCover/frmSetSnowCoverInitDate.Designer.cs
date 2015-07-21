@@ -60,6 +60,7 @@
             this.dateNavigator1.Size = new System.Drawing.Size(826, 471);
             this.dateNavigator1.TabIndex = 7;
             this.dateNavigator1.EditDateModified += new System.EventHandler(this.dateNavigator1_EditDateModified);
+            this.dateNavigator1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dateNavigator1_MouseDown);
             // 
             // btn_Submit
             // 

@@ -22,6 +22,8 @@ namespace SnowCover
         private DateTime startDate;
         private DateTime endDate;
         private DateTime datePre = DateTime.Now;   //上一个选择的日期
+        static private bool hasClickedNaviBtn = false;     //标识是否点击日期导航栏的按钮
+
         public frmSetStatisticSnowCoverDate(AxMapControl _AxMapControl)
         {
             InitializeComponent();
@@ -82,6 +84,25 @@ namespace SnowCover
         {
             DateTime date = this.dateNavigator1.DateTime;
             int dayOfYear = date.DayOfYear;
+
+            //如果点击的是导航按钮
+            if (hasClickedNaviBtn)
+            {
+                hasClickedNaviBtn = false;
+
+                string FebMonth = "-01-01";
+                string DecMonth = "-12-31";
+                int year = datePre.Year;
+                year = DateTime.Compare(date, datePre) < 0 ? (year - 1) : (year + 1);  //三目运算符                
+                string dateToFebStr = year.ToString() + FebMonth;
+                string dateToDecStr = year.ToString() + DecMonth;
+                DateTime dateToFeb = Convert.ToDateTime(dateToFebStr);
+                DateTime dateToDec = Convert.ToDateTime(dateToDecStr);
+                this.dateNavigator1.DateTime = dateToDec;
+                this.dateNavigator1.DateTime = dateToFeb;
+                this.dateNavigator1.Refresh();
+                return;
+            }
             this.lbl_SelectionDate.Text = date.ToString("yyyy-MM-dd");
             this.lbl_DayOfYear.Text = dayOfYear.ToString("D3");
 
@@ -93,22 +114,7 @@ namespace SnowCover
             {
                 this.lbl_IsDataExist.Text = "否";
             }
-            DateTime dateTo = DateTime.Now;
-            if (date.Year != datePre.Year)
-            {
-                string monthDay = "-01-01";
-                if (date.Month == 1 && datePre.Month == 12)
-                {
-                    monthDay = "-12-01";
-                }
-                dateTo = Convert.ToDateTime(date.Year.ToString() + monthDay);//DateTime.Now;                
-            }
             datePre = date;
-            if (dateTo.DayOfYear != DateTime.Now.DayOfYear)
-            {
-                this.dateNavigator1.DateTime = dateTo;
-                this.dateNavigator1.Refresh();
-            }
         }
 
         private void ExeInitSnowCover(DateTime startDate,DateTime endDate)
@@ -228,6 +234,14 @@ namespace SnowCover
             }
             catch { }
             return isExist;
+        }
+
+        private void dateNavigator1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Y < 30)
+            {
+                hasClickedNaviBtn = true;
+            }
         }
 
 
