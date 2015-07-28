@@ -412,7 +412,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.xtraTabControl_Center);
             this.splitContainerControl1.Panel2.Controls.Add(this.axLicenseControl1);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(990, 648);
+            this.splitContainerControl1.Size = new System.Drawing.Size(990, 636);
             this.splitContainerControl1.SplitterPosition = 229;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -424,7 +424,7 @@
             this.xtraTabControl_Left.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl_Left.Name = "xtraTabControl_Left";
             this.xtraTabControl_Left.SelectedTabPage = this.xtraTabPage_MapLayers;
-            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 648);
+            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 636);
             this.xtraTabControl_Left.TabIndex = 0;
             this.xtraTabControl_Left.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage_MapLayers,
@@ -434,7 +434,7 @@
             // 
             this.xtraTabPage_MapLayers.Controls.Add(this.axTOCControl1);
             this.xtraTabPage_MapLayers.Name = "xtraTabPage_MapLayers";
-            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 619);
+            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 607);
             this.xtraTabPage_MapLayers.Text = "图层";
             // 
             // axTOCControl1
@@ -444,7 +444,7 @@
             this.axTOCControl1.Location = new System.Drawing.Point(0, 0);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(223, 619);
+            this.axTOCControl1.Size = new System.Drawing.Size(223, 607);
             this.axTOCControl1.TabIndex = 0;
             this.axTOCControl1.OnMouseUp += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseUpEventHandler(this.axTOCControl1_OnMouseUp);
             // 
@@ -455,25 +455,25 @@
             this.tsmi_RemoveLayer,
             this.tsmi_ProjectToWGS1984});
             this.contextMenuStrip_TOCControl.Name = "contextMenuStrip_TOCControl";
-            this.contextMenuStrip_TOCControl.Size = new System.Drawing.Size(149, 70);
+            this.contextMenuStrip_TOCControl.Size = new System.Drawing.Size(147, 70);
             this.contextMenuStrip_TOCControl.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip_TOCControl_ItemClicked);
             // 
             // tsmi_ZoomToLayer
             // 
             this.tsmi_ZoomToLayer.Name = "tsmi_ZoomToLayer";
-            this.tsmi_ZoomToLayer.Size = new System.Drawing.Size(148, 22);
+            this.tsmi_ZoomToLayer.Size = new System.Drawing.Size(146, 22);
             this.tsmi_ZoomToLayer.Text = "缩放到此图层";
             // 
             // tsmi_RemoveLayer
             // 
             this.tsmi_RemoveLayer.Name = "tsmi_RemoveLayer";
-            this.tsmi_RemoveLayer.Size = new System.Drawing.Size(148, 22);
+            this.tsmi_RemoveLayer.Size = new System.Drawing.Size(146, 22);
             this.tsmi_RemoveLayer.Text = "移除图层";
             // 
             // tsmi_ProjectToWGS1984
             // 
             this.tsmi_ProjectToWGS1984.Name = "tsmi_ProjectToWGS1984";
-            this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(148, 22);
+            this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(146, 22);
             this.tsmi_ProjectToWGS1984.Text = "坐标转换";
             // 
             // xtraTabPage_DataNav
@@ -489,7 +489,7 @@
             this.xtraTabControl_Center.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl_Center.Name = "xtraTabControl_Center";
             this.xtraTabControl_Center.SelectedTabPage = this.xtraTabPage3;
-            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 648);
+            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 636);
             this.xtraTabControl_Center.TabIndex = 2;
             this.xtraTabControl_Center.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage3,
@@ -499,7 +499,7 @@
             // 
             this.xtraTabPage3.Controls.Add(this.axMapControl1);
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(750, 619);
+            this.xtraTabPage3.Size = new System.Drawing.Size(750, 607);
             this.xtraTabPage3.Text = "地图";
             // 
             // axMapControl1
@@ -508,7 +508,7 @@
             this.axMapControl1.Location = new System.Drawing.Point(0, 0);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(750, 619);
+            this.axMapControl1.Size = new System.Drawing.Size(750, 607);
             this.axMapControl1.TabIndex = 0;
             // 
             // xtraTabPage4
@@ -549,13 +549,14 @@
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 795);
+            this.ClientSize = new System.Drawing.Size(990, 783);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "MainForm";
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "减灾中心 - 积雪覆盖分析";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
