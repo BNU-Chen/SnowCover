@@ -52,24 +52,20 @@
             this.btn_SnowCover_Statistic = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Data_StatisticTables = new DevExpress.XtraBars.BarButtonItem();
             this.btn_PublishDisasterDoc = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_logFile = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_StatisticTable = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.xtraTabControl_Left = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage_MapLayers = new DevExpress.XtraTab.XtraTabPage();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
-            this.contextMenuStrip_TOCControl = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmi_ZoomToLayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmi_RemoveLayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmi_ProjectToWGS1984 = new System.Windows.Forms.ToolStripMenuItem();
             this.xtraTabPage_DataNav = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabControl_Center = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
@@ -78,6 +74,12 @@
             this.axPageLayoutControl1 = new ESRI.ArcGIS.Controls.AxPageLayoutControl();
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.contextMenuStrip_TOCControl = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_ZoomToLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_RemoveLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_ProjectToWGS1984 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btn_ExcelStatistic = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -85,7 +87,6 @@
             this.xtraTabControl_Left.SuspendLayout();
             this.xtraTabPage_MapLayers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
-            this.contextMenuStrip_TOCControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Center)).BeginInit();
             this.xtraTabControl_Center.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
@@ -93,6 +94,7 @@
             this.xtraTabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axPageLayoutControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).BeginInit();
+            this.contextMenuStrip_TOCControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -121,7 +123,8 @@
             this.btn_SnowCover_Statistic,
             this.btn_Data_StatisticTables,
             this.btn_PublishDisasterDoc,
-            this.btn_logFile});
+            this.btn_StatisticTable,
+            this.btn_ExcelStatistic});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(5);
             this.ribbonControl1.MaxItemId = 32;
@@ -320,21 +323,22 @@
             this.btn_PublishDisasterDoc.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_PublishDisasterDoc.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_PublishDisasterDoc_ItemClick);
             // 
-            // btn_logFile
+            // btn_StatisticTable
             // 
-            this.btn_logFile.Caption = "系统日志";
-            this.btn_logFile.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.btn_logFile.Glyph = global::SnowCover.Properties.Resources.log;
-            this.btn_logFile.Id = 31;
-            this.btn_logFile.Name = "btn_logFile";
-            this.btn_logFile.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btn_logFile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_logFile_ItemClick);
+            this.btn_StatisticTable.Caption = "统计计算";
+            this.btn_StatisticTable.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.btn_StatisticTable.Glyph = global::SnowCover.Properties.Resources.statistic;
+            this.btn_StatisticTable.Id = 30;
+            this.btn_StatisticTable.Name = "btn_StatisticTable";
+            this.btn_StatisticTable.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_StatisticTable.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_StatisticTable_ItemClick);
             // 
             // ribbonPage3
             // 
             this.ribbonPage3.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
-            this.ribbonPageGroup5});
+            this.ribbonPageGroup5,
+            this.ribbonPageGroup8});
             this.ribbonPage3.Name = "ribbonPage3";
             this.ribbonPage3.Text = "地图与数据";
             // 
@@ -364,7 +368,8 @@
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup2,
-            this.ribbonPageGroup4});
+            this.ribbonPageGroup4,
+            this.ribbonPageGroup7});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "积雪分析";
             // 
@@ -380,27 +385,26 @@
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
             this.ribbonPageGroup4.Text = "积雪分析";
             // 
+            // ribbonPageGroup7
+            // 
+            this.ribbonPageGroup7.ItemLinks.Add(this.btn_StatisticTable);
+            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
+            this.ribbonPageGroup7.Text = "分区统计";
+            // 
             // ribbonPage2
             // 
             this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup6,
-            this.ribbonPageGroup7});
+            this.ribbonPageGroup6});
             this.ribbonPage2.Name = "ribbonPage2";
             this.ribbonPage2.Text = "设置与帮助";
             // 
             // ribbonPageGroup6
             // 
             this.ribbonPageGroup6.ItemLinks.Add(this.btn_Settings);
-            this.ribbonPageGroup6.ItemLinks.Add(this.btn_logFile);
+            this.ribbonPageGroup6.ItemLinks.Add(this.btn_HelpDocument);
+            this.ribbonPageGroup6.ItemLinks.Add(this.btn_About);
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
-            this.ribbonPageGroup6.Text = "系统设置";
-            // 
-            // ribbonPageGroup7
-            // 
-            this.ribbonPageGroup7.ItemLinks.Add(this.btn_HelpDocument);
-            this.ribbonPageGroup7.ItemLinks.Add(this.btn_About);
-            this.ribbonPageGroup7.Name = "ribbonPageGroup7";
-            this.ribbonPageGroup7.Text = "帮助";
+            this.ribbonPageGroup6.Text = "ribbonPageGroup6";
             // 
             // splitContainerControl1
             // 
@@ -412,7 +416,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.xtraTabControl_Center);
             this.splitContainerControl1.Panel2.Controls.Add(this.axLicenseControl1);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(990, 636);
+            this.splitContainerControl1.Size = new System.Drawing.Size(990, 628);
             this.splitContainerControl1.SplitterPosition = 229;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -424,7 +428,7 @@
             this.xtraTabControl_Left.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl_Left.Name = "xtraTabControl_Left";
             this.xtraTabControl_Left.SelectedTabPage = this.xtraTabPage_MapLayers;
-            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 636);
+            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 628);
             this.xtraTabControl_Left.TabIndex = 0;
             this.xtraTabControl_Left.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage_MapLayers,
@@ -434,52 +438,23 @@
             // 
             this.xtraTabPage_MapLayers.Controls.Add(this.axTOCControl1);
             this.xtraTabPage_MapLayers.Name = "xtraTabPage_MapLayers";
-            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 607);
+            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 599);
             this.xtraTabPage_MapLayers.Text = "图层";
             // 
             // axTOCControl1
             // 
-            this.axTOCControl1.ContextMenuStrip = this.contextMenuStrip_TOCControl;
             this.axTOCControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.axTOCControl1.Location = new System.Drawing.Point(0, 0);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(223, 607);
+            this.axTOCControl1.Size = new System.Drawing.Size(223, 599);
             this.axTOCControl1.TabIndex = 0;
             this.axTOCControl1.OnMouseUp += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseUpEventHandler(this.axTOCControl1_OnMouseUp);
-            // 
-            // contextMenuStrip_TOCControl
-            // 
-            this.contextMenuStrip_TOCControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmi_ZoomToLayer,
-            this.tsmi_RemoveLayer,
-            this.tsmi_ProjectToWGS1984});
-            this.contextMenuStrip_TOCControl.Name = "contextMenuStrip_TOCControl";
-            this.contextMenuStrip_TOCControl.Size = new System.Drawing.Size(147, 70);
-            this.contextMenuStrip_TOCControl.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip_TOCControl_ItemClicked);
-            // 
-            // tsmi_ZoomToLayer
-            // 
-            this.tsmi_ZoomToLayer.Name = "tsmi_ZoomToLayer";
-            this.tsmi_ZoomToLayer.Size = new System.Drawing.Size(146, 22);
-            this.tsmi_ZoomToLayer.Text = "缩放到此图层";
-            // 
-            // tsmi_RemoveLayer
-            // 
-            this.tsmi_RemoveLayer.Name = "tsmi_RemoveLayer";
-            this.tsmi_RemoveLayer.Size = new System.Drawing.Size(146, 22);
-            this.tsmi_RemoveLayer.Text = "移除图层";
-            // 
-            // tsmi_ProjectToWGS1984
-            // 
-            this.tsmi_ProjectToWGS1984.Name = "tsmi_ProjectToWGS1984";
-            this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(146, 22);
-            this.tsmi_ProjectToWGS1984.Text = "坐标转换";
             // 
             // xtraTabPage_DataNav
             // 
             this.xtraTabPage_DataNav.Name = "xtraTabPage_DataNav";
-            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(223, 619);
+            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(223, 599);
             this.xtraTabPage_DataNav.Text = "数据";
             // 
             // xtraTabControl_Center
@@ -489,7 +464,7 @@
             this.xtraTabControl_Center.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl_Center.Name = "xtraTabControl_Center";
             this.xtraTabControl_Center.SelectedTabPage = this.xtraTabPage3;
-            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 636);
+            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 628);
             this.xtraTabControl_Center.TabIndex = 2;
             this.xtraTabControl_Center.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage3,
@@ -499,7 +474,7 @@
             // 
             this.xtraTabPage3.Controls.Add(this.axMapControl1);
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(750, 607);
+            this.xtraTabPage3.Size = new System.Drawing.Size(750, 599);
             this.xtraTabPage3.Text = "地图";
             // 
             // axMapControl1
@@ -508,14 +483,14 @@
             this.axMapControl1.Location = new System.Drawing.Point(0, 0);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(750, 607);
+            this.axMapControl1.Size = new System.Drawing.Size(750, 599);
             this.axMapControl1.TabIndex = 0;
             // 
             // xtraTabPage4
             // 
             this.xtraTabPage4.Controls.Add(this.axPageLayoutControl1);
             this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(750, 619);
+            this.xtraTabPage4.Size = new System.Drawing.Size(750, 599);
             this.xtraTabPage4.Text = "制图输出";
             // 
             // axPageLayoutControl1
@@ -524,7 +499,7 @@
             this.axPageLayoutControl1.Location = new System.Drawing.Point(0, 0);
             this.axPageLayoutControl1.Name = "axPageLayoutControl1";
             this.axPageLayoutControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axPageLayoutControl1.OcxState")));
-            this.axPageLayoutControl1.Size = new System.Drawing.Size(750, 619);
+            this.axPageLayoutControl1.Size = new System.Drawing.Size(750, 599);
             this.axPageLayoutControl1.TabIndex = 0;
             // 
             // axLicenseControl1
@@ -544,19 +519,61 @@
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "帮助中心";
             // 
+            // contextMenuStrip_TOCControl
+            // 
+            this.contextMenuStrip_TOCControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_ZoomToLayer,
+            this.tsmi_RemoveLayer,
+            this.tsmi_ProjectToWGS1984});
+            this.contextMenuStrip_TOCControl.Name = "contextMenuStrip_TOCControl";
+            this.contextMenuStrip_TOCControl.Size = new System.Drawing.Size(149, 70);
+            this.contextMenuStrip_TOCControl.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip_TOCControl_ItemClicked);
+            // 
+            // tsmi_ZoomToLayer
+            // 
+            this.tsmi_ZoomToLayer.Name = "tsmi_ZoomToLayer";
+            this.tsmi_ZoomToLayer.Size = new System.Drawing.Size(148, 22);
+            this.tsmi_ZoomToLayer.Text = "缩放到此图层";
+            // 
+            // tsmi_RemoveLayer
+            // 
+            this.tsmi_RemoveLayer.Name = "tsmi_RemoveLayer";
+            this.tsmi_RemoveLayer.Size = new System.Drawing.Size(148, 22);
+            this.tsmi_RemoveLayer.Text = "移除图层";
+            // 
+            // tsmi_ProjectToWGS1984
+            // 
+            this.tsmi_ProjectToWGS1984.Name = "tsmi_ProjectToWGS1984";
+            this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(148, 22);
+            this.tsmi_ProjectToWGS1984.Text = "坐标转换";
+            // 
+            // ribbonPageGroup8
+            // 
+            this.ribbonPageGroup8.ItemLinks.Add(this.btn_ExcelStatistic);
+            this.ribbonPageGroup8.Name = "ribbonPageGroup8";
+            this.ribbonPageGroup8.Text = "表格汇总";
+            // 
+            // btn_ExcelStatistic
+            // 
+            this.btn_ExcelStatistic.Caption = "Excel汇总处理";
+            this.btn_ExcelStatistic.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.btn_ExcelStatistic.Id = 31;
+            this.btn_ExcelStatistic.Name = "btn_ExcelStatistic";
+            this.btn_ExcelStatistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_ExcelStatistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ExcelStatistic_ItemClick);
+            // 
             // MainForm
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 783);
+            this.ClientSize = new System.Drawing.Size(990, 775);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "MainForm";
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "减灾中心 - 积雪覆盖分析";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
@@ -565,7 +582,6 @@
             this.xtraTabControl_Left.ResumeLayout(false);
             this.xtraTabPage_MapLayers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).EndInit();
-            this.contextMenuStrip_TOCControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_Center)).EndInit();
             this.xtraTabControl_Center.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
@@ -573,6 +589,7 @@
             this.xtraTabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axPageLayoutControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).EndInit();
+            this.contextMenuStrip_TOCControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -621,12 +638,14 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
+        private DevExpress.XtraBars.BarButtonItem btn_StatisticTable;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_TOCControl;
         private System.Windows.Forms.ToolStripMenuItem tsmi_ZoomToLayer;
         private System.Windows.Forms.ToolStripMenuItem tsmi_RemoveLayer;
         private System.Windows.Forms.ToolStripMenuItem tsmi_ProjectToWGS1984;
-        private DevExpress.XtraBars.BarButtonItem btn_logFile;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
+        private DevExpress.XtraBars.BarButtonItem btn_ExcelStatistic;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
     }
 }
 

@@ -15,6 +15,7 @@ using SystemBase;
 using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Carto;
 
+
 namespace SnowCover
 {
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm
@@ -35,27 +36,17 @@ namespace SnowCover
         }
 
         #region //GIS Map Tools
-
-        private void btn_OpenMapFile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        //图层右键功能
+        private void axTOCControl1_OnMouseUp(object sender, ESRI.ArcGIS.Controls.ITOCControlEvents_OnMouseUpEvent e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = false;    //单选
-            ofd.Title = "选择地图文件";
-            ofd.Filter = "mxd文件|*.mxd";
-            ofd.InitialDirectory = Environment.SpecialFolder.Desktop.ToString();
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
+            if (e.button == 2)
             {
-                FileInfo fi = new FileInfo(ofd.FileName);
-                if (fi.Exists)
-                {
-                    this.axMapControl1.LoadMxFile(fi.FullName);
-                    this.axMapControl1.ActiveView.Refresh();
-                }
+                Control control = (Control)sender;
+                Point pt = control.PointToScreen(new Point(e.x, e.y));
+                this.contextMenuStrip_TOCControl.Show(pt);
             }
         }
 
-
-        //图层右键菜单
         private void contextMenuStrip_TOCControl_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Name)
@@ -96,17 +87,24 @@ namespace SnowCover
             }
         }
 
-        private void axTOCControl1_OnMouseUp(object sender, ESRI.ArcGIS.Controls.ITOCControlEvents_OnMouseUpEvent e)
+        private void btn_OpenMapFile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (e.button == 2)
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = false;    //单选
+            ofd.Title = "选择地图文件";
+            ofd.Filter = "mxd文件|*.mxd";
+            ofd.InitialDirectory = Environment.SpecialFolder.Desktop.ToString();
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
             {
-                Control control = (Control)sender;
-                Point pt = control.PointToScreen(new Point(e.x, e.y));
-                this.contextMenuStrip_TOCControl.Show(pt);
+                FileInfo fi = new FileInfo(ofd.FileName);
+                if (fi.Exists)
+                {
+                    this.axMapControl1.LoadMxFile(fi.FullName);
+                    this.axMapControl1.ActiveView.Refresh();
+                }
             }
         }
 
-        //GIS工具
         private void btn_MapPointValuel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SystemBase.GISTools.IdentifyTool(this.axMapControl1);
@@ -145,6 +143,14 @@ namespace SnowCover
         private void btn_ScaleOut_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SystemBase.GISTools.ZoomOutFix(axMapControl1);
+        }
+        #endregion
+                
+        #region //GIS AnalysisTools
+        private void btn_StatisticTable_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            frmSetSnowCoverDateForStatisticByBoundary statisticSnowCoverByBoundary = new frmSetSnowCoverDateForStatisticByBoundary(this.axMapControl1);
+            statisticSnowCoverByBoundary.ShowDialog();
         }
         #endregion
 
@@ -237,12 +243,6 @@ namespace SnowCover
             settingForm.Show();
         }
 
-        private void btn_logFile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            string logPath = Application.StartupPath + "\\log.txt";
-            System.Diagnostics.Process.Start(logPath);
-        }
-
         private void btn_HelpDocument_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
@@ -252,11 +252,14 @@ namespace SnowCover
         {
 
         }
-        #endregion 
+        #endregion
 
-        
-
-       
-
+        #region //Excel表格灾害数据汇总
+        private void btn_ExcelStatistic_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            frmDisasterStatisticsFromExcel disasterStatisticsFromExcel = new frmDisasterStatisticsFromExcel();
+            disasterStatisticsFromExcel.Show();
+        }
+        #endregion
     }
 }

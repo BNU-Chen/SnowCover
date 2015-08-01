@@ -13,13 +13,13 @@ namespace SystemBase
         private string iniFilePath = "";
         private INIFile iniFile = null;
 
-
         //配置信息字符串
         private string iniDataCenter = "DataCenter";
         private string iniDataCenterFolder = "DataCenter";
         private string iniOrigionDataFolder = "OrigionData";
         private string iniBoundaryFile = "BoundaryFile";
         private string iniBoundaryFileName = "bou1_4p_.evf";
+        private string iniCountyBoundaryFileName = "400W_DLG_WGS84_BOCA_20120920.shp";
         private string iniPreprocessingSnowCoverFolder = "PreprocessingSnowCover";
         private string iniEverydaySnowCoverFolder = "EverydaySnowCover";
         private string iniStatisticSnowCoverFolder = "StatisticSnowCover";
@@ -35,6 +35,7 @@ namespace SystemBase
         private string dataCenterFolderPath = "";
         private string origionDataFolderPath = "";
         private string boundaryFilePath = "";
+        private string countyBoundaryFilePath = "";
         private string preprocessingSnowCoverFolderPath = "";
         private string everydaySnowCoverFolderPath = "";
         private string statisticSnowCoverFolderPath = "";
@@ -98,6 +99,13 @@ namespace SystemBase
             get { return iniBoundaryFileName; }
             //set { iniBoundaryFileName = value; }
         }
+
+        public string IniCountyBoundaryFileName
+        {
+            get { return iniCountyBoundaryFileName; }
+            //set { iniBoundaryFileName = value; }
+        }
+
         public string IniPreprocessingSnowCoverFolder
         {
             get { return iniPreprocessingSnowCoverFolder; }
@@ -156,6 +164,20 @@ namespace SystemBase
             set { 
                 boundaryFilePath = value;
                 IniFile.IniWriteValue(iniDataCenter, iniBoundaryFile, boundaryFilePath);
+            }
+        }
+
+        public string CountyBoundaryFilePath
+        {
+            get
+            {
+                countyBoundaryFilePath = IniFile.IniReadValue(iniDataCenter, iniOrigionDataFolder) + "\\" + iniCountyBoundaryFileName;
+                return countyBoundaryFilePath;
+            }
+            set
+            {
+                countyBoundaryFilePath = value;
+                //IniFile.IniWriteValue(iniDataCenter, iniOrigionDataFolder, countyBoundaryFilePath);
             }
         }
 
@@ -253,13 +275,6 @@ namespace SystemBase
                 IniFile.IniWriteValue(iniDatabaseConnnection, iniDatabasePassword, databasePassword);
             }
         }
-
-
-
-
-        
-        
-
 
     }
 }

@@ -44,11 +44,11 @@ namespace SystemBase
             set { serverName = value; }
         }
         
-
         private MySQL()
         {
 
         }
+
         private MySQL(string server, string catalog, string username, string password)
         {
             this.serverName = server;
@@ -66,7 +66,7 @@ namespace SystemBase
             }
             catch { }
         }
-
+        //测试连接数据库
         public static void TestConnection(string server,string catalog,string username,string password)
         {
 
@@ -208,7 +208,6 @@ namespace SystemBase
 
             return list;
         }
-
 
         //Insert statement
         public void Insert(string query)
@@ -385,6 +384,7 @@ namespace SystemBase
                 MessageBox.Show("Error , unable to Restore!\n"+ex.Message);
             }
         }
+
         
     }
 }
