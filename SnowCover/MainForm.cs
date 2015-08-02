@@ -36,7 +36,7 @@ namespace SnowCover
         }
 
         #region //GIS Map Tools
-        //图层右键功能
+        //图层右键功能 
         private void axTOCControl1_OnMouseUp(object sender, ESRI.ArcGIS.Controls.ITOCControlEvents_OnMouseUpEvent e)
         {
             if (e.button == 2)
