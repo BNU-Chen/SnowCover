@@ -63,7 +63,7 @@ namespace SystemBase
 
 
         //Close connection
-        private static bool CloseConnection(MySqlConnection connection)
+        public static bool CloseConnection(MySqlConnection connection)
         {
             try
             {
