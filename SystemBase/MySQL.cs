@@ -12,49 +12,13 @@ namespace SystemBase
 {
     public class MySQL
     {
-        private string serverName = "";
-        private string catalog = "";
-        private string userName = "";
-        private string password = "";
-
-        private MySqlConnection connection;
-        
-
-        public string Password
+        public static MySqlConnection GetMySQLConnection(string server, string catalog, string username, string password)
         {
-            get { return password; }
-            set { password = value; }
-        }
-
-        public string UserName
-        {
-            get { return userName; }
-            set { userName = value; }
-        }
-
-        public string Catalog
-        {
-            get { return catalog; }
-            set { catalog = value; }
-        }
-
-        public string ServerName
-        {
-            get { return serverName; }
-            set { serverName = value; }
-        }
-        
-        private MySQL()
-        {
-
-        }
-
-        private MySQL(string server, string catalog, string username, string password)
-        {
-            this.serverName = server;
-            this.catalog = catalog;
-            this.userName = username;
-            this.password = password;
+            MySqlConnection connection = null;
+            //this.serverName = server;
+            //this.catalog = catalog;
+            //this.userName = username;
+            //this.password = password;
 
             string myConnectionString;
 
@@ -65,15 +29,16 @@ namespace SystemBase
                 connection = new MySql.Data.MySqlClient.MySqlConnection(myConnectionString);
             }
             catch { }
+            return connection;
         }
         //测试连接数据库
-        public static void TestConnection(string server,string catalog,string username,string password)
+        public static MySqlConnection TestConnection(string server, string catalog, string username, string password)
         {
 
-            MySql.Data.MySqlClient.MySqlConnection conn  = null;
+            MySql.Data.MySqlClient.MySqlConnection conn = null;
             string myConnectionString;
 
-            myConnectionString = "server="+server+";uid="+username+";" +"pwd="+password+";database="+catalog+";";
+            myConnectionString = "server=" + server + ";uid=" + username + ";" + "pwd=" + password + ";database=" + catalog + ";";
 
             try
             {
@@ -84,67 +49,21 @@ namespace SystemBase
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                MessageBox.Show("数据库连接失败！\n"+ex.Message,"提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("数据库连接失败！\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             finally
             {
                 if (conn != null)
                 {
                     conn.Close();
-                }                
-            }
-        }
-
-        private void SetConnectionInfo(string server,string catalog,string username,string password)
-        {
-            this.serverName = server;
-            this.catalog = catalog;
-            this.userName = username;
-            this.password = password;
-
-            string myConnectionString;
-
-            myConnectionString = "server="+server+";uid="+username+";" +"pwd="+password+";database="+catalog+";";
-
-            try
-            {
-                connection = new MySql.Data.MySqlClient.MySqlConnection();
-                connection.ConnectionString = myConnectionString;
-            }
-            catch { }
-        }
-
-        //open connection to database
-        private bool OpenConnection()
-        {
-            try
-            {
-                connection.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
-                switch (ex.Number)
-                {
-                    case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
-                        break;
-
-                    case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
-                        break;
                 }
-                return false;
             }
+            return conn;
         }
+
 
         //Close connection
-        private bool CloseConnection()
+        public static bool CloseConnection(MySqlConnection connection)
         {
             try
             {
@@ -159,9 +78,13 @@ namespace SystemBase
         }
 
         //Select statement
-        public List<string>[] Select(string query)
+        public static List<string>[] Select(string query, MySqlConnection connection)
         {
             if (query == "")
+            {
+                return null;
+            }
+            if (connection == null)
             {
                 return null;
             }
@@ -175,7 +98,7 @@ namespace SystemBase
             try
             {
                 //Open connection
-                if (this.OpenConnection() == true)
+                if (connection != null)
                 {
                     //Create Command
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -194,7 +117,7 @@ namespace SystemBase
                     dataReader.Close();
 
                     //close Connection
-                    this.CloseConnection();
+                    CloseConnection(connection);
 
                     //return list to be displayed
                     return list;
@@ -210,88 +133,88 @@ namespace SystemBase
         }
 
         //Insert statement
-        public void Insert(string query)
-        {            
-            if(query == "")
+        public static void Insert(string query, MySqlConnection connection)
+        {
+            if (query == "")
+            {
+                return;
+            }
+            if (connection == null)
             {
                 return;
             }
 
             try
             {
-                //open connection
-                if (this.OpenConnection() == true)
-                {
-                    //create command and assign the query and connection from the constructor
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                    //Execute command
-                    cmd.ExecuteNonQuery();
+                //Execute command
+                cmd.ExecuteNonQuery();
 
-                    //close connection
-                    this.CloseConnection();
-                }
+                //close connection
+                CloseConnection(connection);
             }
             catch { }
         }
 
         //Update statement
-        public void Update(string query)
+        public static void Update(string query, MySqlConnection connection)
         {
             if (query == "")
             {
                 return;
             }
-
+            if (connection == null)
+            {
+                return;
+            }
             try
             {
-                //Open connection
-                if (this.OpenConnection() == true)
-                {
-                    //create mysql command
-                    MySqlCommand cmd = new MySqlCommand();
-                    //Assign the query using CommandText
-                    cmd.CommandText = query;
-                    //Assign the connection using Connection
-                    cmd.Connection = connection;
+                //create mysql command
+                MySqlCommand cmd = new MySqlCommand();
+                //Assign the query using CommandText
+                cmd.CommandText = query;
+                //Assign the connection using Connection
+                cmd.Connection = connection;
 
-                    //Execute query
-                    cmd.ExecuteNonQuery();
+                //Execute query
+                cmd.ExecuteNonQuery();
 
-                    //close connection
-                    this.CloseConnection();
-                }
+                //close connection
+                CloseConnection(connection);
+
             }
             catch { }
         }
 
         //Delete statement
-        public void Delete(string query)
+        public static void Delete(string query, MySqlConnection connection)
         {
             if (query == "")
             {
                 return;
             }
+            if (connection == null)
+            {
+                return;
+            }
             try
             {
-                if (this.OpenConnection() == true)
-                {
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.ExecuteNonQuery();
-                    this.CloseConnection();
-                }
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                CloseConnection(connection);
             }
             catch { }
         }
 
-        //Count statement
-        public int Count()
+        //Count statement 
+        /* 注：这一块代码有点问题，待改 by:wucan */
+        public static int Count(MySqlConnection connection)
         {
             string query = "SELECT Count(*) FROM tableinfo";
             int Count = -1;
-
-            //Open Connection
-            if (this.OpenConnection() == true)
+            try
             {
                 //Create Mysql Command
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -300,18 +223,17 @@ namespace SystemBase
                 Count = int.Parse(cmd.ExecuteScalar() + "");
 
                 //close Connection
-                this.CloseConnection();
-
-                return Count;
+                CloseConnection(connection);
             }
-            else
+            catch
             {
-                return Count;
+                Count = -1;
             }
+            return Count;
         }
 
         //Backup
-        public void Backup()
+        public static void Backup(string folderPath, string server, string catalog, string username, string password)
         {
             try
             {
@@ -325,8 +247,12 @@ namespace SystemBase
                 int millisecond = Time.Millisecond;
 
                 //Save file to C:\ with the current date as a filename
+                if (!Directory.Exists(folderPath))
+                {
+                    return;
+                }
                 string path;
-                path = "C:\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
+                path = folderPath + "\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
                 StreamWriter file = new StreamWriter(path);
 
 
@@ -335,7 +261,7 @@ namespace SystemBase
                 psi.RedirectStandardInput = false;
                 psi.RedirectStandardOutput = true;
                 psi.Arguments = string.Format(@"-u{0} -p{1} -h{2} {3}",
-                    userName, password, serverName, catalog);
+                    username, password, server, catalog);
                 psi.UseShellExecute = false;
 
                 Process process = Process.Start(psi);
@@ -349,18 +275,20 @@ namespace SystemBase
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Error , unable to backup! \n"+ex.Message);
+                MessageBox.Show("Error , unable to backup! \n" + ex.Message);
             }
         }
 
         //Restore
-        public void Restore()
+        public static void Restore(string path, string server, string catalog, string username, string password)
         {
             try
             {
-                //Read file from C:\
-                string path;
-                path = "C:\\MySqlBackup.sql";
+                //Read file from 
+                if (!File.Exists(path))
+                {
+                    return;
+                }
                 StreamReader file = new StreamReader(path);
                 string input = file.ReadToEnd();
                 file.Close();
@@ -369,7 +297,7 @@ namespace SystemBase
                 psi.FileName = "mysql";
                 psi.RedirectStandardInput = true;
                 psi.RedirectStandardOutput = false;
-                psi.Arguments = string.Format(@"-u{0} -p{1} -h{2} {3}",userName, password, serverName, catalog);
+                psi.Arguments = string.Format(@"-u{0} -p{1} -h{2} {3}", username, password, server, catalog);
                 psi.UseShellExecute = false;
 
 
@@ -381,10 +309,8 @@ namespace SystemBase
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Error , unable to Restore!\n"+ex.Message);
+                MessageBox.Show("Error , unable to Restore!\n" + ex.Message);
             }
         }
-
-        
     }
 }
