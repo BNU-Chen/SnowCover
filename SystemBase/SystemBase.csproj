@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GISFeatures.cs" />
     <Compile Include="GISLayers.cs" />
     <Compile Include="GISTools.cs" />
     <Compile Include="INIFile.cs" />

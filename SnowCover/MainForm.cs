@@ -14,6 +14,8 @@ using SystemBase;
 
 using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Carto;
+using ESRI.ArcGIS.Geodatabase;
+using MySql.Data.MySqlClient;
 
 
 namespace SnowCover
@@ -21,7 +23,10 @@ namespace SnowCover
     public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         private SystemConfig config = null;
+        private bool isQueryStaInfoByMap = false;
         public Modules.ucFileNavPanel ucFileNavPanel = null;
+        private MySqlConnection sqlConnection = null;
+
         public MainForm()
         {
             InitializeComponent();
@@ -33,7 +38,36 @@ namespace SnowCover
                 return;
             }
             config = new SystemBase.SystemConfig();
+            //初始化MySQL Connection
+            sqlConnection = SystemBase.MySQL.TestConnection(config.DatabaseServerName, config.DatabaseCatalog, config.DatabaseUsername, config.DatabasePassword);
+
         }
+        #region //GIS控件事件
+        private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
+        {
+           
+        }
+
+
+        private void axMapControl1_OnMouseUp(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseUpEvent e)
+        {
+            if (e.button == 1)
+            {
+                if (isQueryStaInfoByMap)
+                {
+                    GetStaInfoByMap();
+                }
+            }
+            else if (e.button == 2)
+            {
+                MessageBox.Show("2");
+            }
+            else if (e.button == 3)
+            {
+                MessageBox.Show("3");
+            }
+        }
+        #endregion
 
         #region //GIS Map Tools
         //图层右键功能 
@@ -261,5 +295,56 @@ namespace SnowCover
             disasterStatisticsFromExcel.Show();
         }
         #endregion
+
+        #region //积雪统计信息查询
+        private void btn_QueryStaInfoByMap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            isQueryStaInfoByMap = !isQueryStaInfoByMap;
+            if (isQueryStaInfoByMap)
+            {
+                GISTools.SelectFeature(this.axMapControl1);
+                this.axMapControl1.MousePointer = ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerCrosshair;
+            }
+            else
+            {
+                GISTools.setNull(this.axMapControl1);
+                this.axMapControl1.MousePointer = ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerDefault;
+            }
+        }
+        private void GetStaInfoByMap()
+        {
+            IFeatureLayer layer = this.axMapControl1.get_Layer(0) as IFeatureLayer;
+            ICursor cursor = SystemBase.GISFeatures.GetSelectionFeature(layer);
+
+            IRow row = cursor.NextRow();
+            string value = "";
+            while (row != null)
+            {
+                IFeature feature = (IFeature)row;
+                ITable table = row.Table;
+                int nameIndex = table.FindField("PAC");
+                if (nameIndex > 0)
+                {
+                    value = (string)feature.get_Value(nameIndex);
+                    break;
+                }
+            }
+            string sqlStr = "SELECT * FROM countyboundarytable c WHERE c.PAC = '" + value + "'";
+            //string sqlStr = "SELECT * FROM countyboundarytable";
+            List<string>[] list = SystemBase.MySQL.Select(sqlStr, sqlConnection);
+            string msg = "";
+            foreach(List<string> li in list)
+            {
+                foreach (string s in li)
+                {
+                    msg += s + "\t";
+                }
+                msg += "\n";
+            }
+            MessageBox.Show(msg);
+        }
+        #endregion
+
+
     }
 }
