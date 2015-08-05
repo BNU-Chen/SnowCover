@@ -41,10 +41,10 @@ namespace SystemBase
         private string statisticSnowCoverFolderPath = "";
         private string publishDisasterDocPath = "";
                 
-        private string databaseServerName = "";
-        private string databaseCatalog = "";
-        private string databaseUsername = "";
-        private string databasePassword = "";
+        private string databaseServerName = "localhost";
+        private string databaseCatalog = "snowcover";
+        private string databaseUsername = "root";
+        private string databasePassword = "noroot";
 
         //INIFile
 

@@ -34,22 +34,21 @@ namespace SystemBase
         //测试连接数据库
         public static MySqlConnection TestConnection(string server, string catalog, string username, string password)
         {
-
             MySql.Data.MySqlClient.MySqlConnection conn = null;
             string myConnectionString;
 
-            myConnectionString = "server=" + server + ";uid=" + username + ";" + "pwd=" + password + ";database=" + catalog + ";";
+            myConnectionString = "server=" + server + ";user=" + username + ";" + "password=" + password + ";database=" + catalog + ";";
 
             try
             {
                 conn = new MySql.Data.MySqlClient.MySqlConnection();
                 conn.ConnectionString = myConnectionString;
                 conn.Open();
-                MessageBox.Show("数据库连接成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("数据库连接成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
+            catch //(MySql.Data.MySqlClient.MySqlException ex)
             {
-                MessageBox.Show("数据库连接失败！\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("数据库连接失败！\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             finally
             {
@@ -67,7 +66,11 @@ namespace SystemBase
         {
             try
             {
-                connection.Close();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 return true;
             }
             catch (MySqlException ex)
@@ -89,6 +92,15 @@ namespace SystemBase
                 return null;
             }
 
+            if (connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
             //Create a list to store the result
             List<string>[] list = new List<string>[3];
             list[0] = new List<string>();
@@ -106,11 +118,29 @@ namespace SystemBase
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
                     //Read the data and store them in the list
+                    int index = 0;
                     while (dataReader.Read())
                     {
-                        list[0].Add(dataReader["id"] + "");
-                        list[1].Add(dataReader["name"] + "");
-                        list[2].Add(dataReader["age"] + "");
+                        for (int c = 0; c < dataReader.FieldCount; c++)
+                        {
+                            object obj = dataReader[c];
+                            string str = "";
+                            if(obj is string )
+                            {
+                                str = (string)obj;
+                            }
+                            else if(obj is int)
+                            {
+                                str = obj.ToString();
+                            }
+                            else if(obj is double)
+                            {
+                                str = obj.ToString();
+                            }
+
+                            list[index].Add(str);
+                        }
+                        index++;
                     }
 
                     //close Data Reader
@@ -127,7 +157,9 @@ namespace SystemBase
                     return list;
                 }
             }
-            catch { }
+            catch(MySqlException ex) {
+                MessageBox.Show(ex.Message);
+            }
 
             return list;
         }
@@ -142,6 +174,10 @@ namespace SystemBase
             if (connection == null)
             {
                 return;
+            }
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
             }
 
             try
@@ -168,6 +204,10 @@ namespace SystemBase
             if (connection == null)
             {
                 return;
+            }
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
             }
             try
             {
@@ -199,6 +239,10 @@ namespace SystemBase
             {
                 return;
             }
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
             try
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -214,6 +258,10 @@ namespace SystemBase
         {
             string query = "SELECT Count(*) FROM tableinfo";
             int Count = -1;
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
             try
             {
                 //Create Mysql Command

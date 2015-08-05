@@ -53,9 +53,11 @@
             this.btn_Data_StatisticTables = new DevExpress.XtraBars.BarButtonItem();
             this.btn_PublishDisasterDoc = new DevExpress.XtraBars.BarButtonItem();
             this.btn_StatisticTable = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_ExcelStatistic = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -78,8 +80,8 @@
             this.tsmi_ZoomToLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_RemoveLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_ProjectToWGS1984 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btn_ExcelStatistic = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btn_QueryStaInfoByMap = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -124,10 +126,11 @@
             this.btn_Data_StatisticTables,
             this.btn_PublishDisasterDoc,
             this.btn_StatisticTable,
-            this.btn_ExcelStatistic});
+            this.btn_ExcelStatistic,
+            this.btn_QueryStaInfoByMap});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(5);
-            this.ribbonControl1.MaxItemId = 32;
+            this.ribbonControl1.MaxItemId = 33;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage3,
@@ -333,6 +336,15 @@
             this.btn_StatisticTable.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_StatisticTable.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_StatisticTable_ItemClick);
             // 
+            // btn_ExcelStatistic
+            // 
+            this.btn_ExcelStatistic.Caption = "Excel汇总处理";
+            this.btn_ExcelStatistic.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.btn_ExcelStatistic.Id = 31;
+            this.btn_ExcelStatistic.Name = "btn_ExcelStatistic";
+            this.btn_ExcelStatistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btn_ExcelStatistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ExcelStatistic_ItemClick);
+            // 
             // ribbonPage3
             // 
             this.ribbonPage3.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -364,12 +376,19 @@
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
             this.ribbonPageGroup5.Text = "数据中心";
             // 
+            // ribbonPageGroup8
+            // 
+            this.ribbonPageGroup8.ItemLinks.Add(this.btn_ExcelStatistic);
+            this.ribbonPageGroup8.Name = "ribbonPageGroup8";
+            this.ribbonPageGroup8.Text = "表格汇总";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup2,
             this.ribbonPageGroup4,
-            this.ribbonPageGroup7});
+            this.ribbonPageGroup7,
+            this.ribbonPageGroup9});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "积雪分析";
             // 
@@ -416,7 +435,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.xtraTabControl_Center);
             this.splitContainerControl1.Panel2.Controls.Add(this.axLicenseControl1);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(990, 628);
+            this.splitContainerControl1.Size = new System.Drawing.Size(990, 620);
             this.splitContainerControl1.SplitterPosition = 229;
             this.splitContainerControl1.TabIndex = 1;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -428,7 +447,7 @@
             this.xtraTabControl_Left.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl_Left.Name = "xtraTabControl_Left";
             this.xtraTabControl_Left.SelectedTabPage = this.xtraTabPage_MapLayers;
-            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 628);
+            this.xtraTabControl_Left.Size = new System.Drawing.Size(229, 620);
             this.xtraTabControl_Left.TabIndex = 0;
             this.xtraTabControl_Left.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage_MapLayers,
@@ -438,7 +457,7 @@
             // 
             this.xtraTabPage_MapLayers.Controls.Add(this.axTOCControl1);
             this.xtraTabPage_MapLayers.Name = "xtraTabPage_MapLayers";
-            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 599);
+            this.xtraTabPage_MapLayers.Size = new System.Drawing.Size(223, 591);
             this.xtraTabPage_MapLayers.Text = "图层";
             // 
             // axTOCControl1
@@ -447,7 +466,7 @@
             this.axTOCControl1.Location = new System.Drawing.Point(0, 0);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(223, 599);
+            this.axTOCControl1.Size = new System.Drawing.Size(223, 591);
             this.axTOCControl1.TabIndex = 0;
             this.axTOCControl1.OnMouseUp += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseUpEventHandler(this.axTOCControl1_OnMouseUp);
             // 
@@ -464,7 +483,7 @@
             this.xtraTabControl_Center.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl_Center.Name = "xtraTabControl_Center";
             this.xtraTabControl_Center.SelectedTabPage = this.xtraTabPage3;
-            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 628);
+            this.xtraTabControl_Center.Size = new System.Drawing.Size(756, 620);
             this.xtraTabControl_Center.TabIndex = 2;
             this.xtraTabControl_Center.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage3,
@@ -474,7 +493,7 @@
             // 
             this.xtraTabPage3.Controls.Add(this.axMapControl1);
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(750, 599);
+            this.xtraTabPage3.Size = new System.Drawing.Size(750, 591);
             this.xtraTabPage3.Text = "地图";
             // 
             // axMapControl1
@@ -483,8 +502,10 @@
             this.axMapControl1.Location = new System.Drawing.Point(0, 0);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(750, 599);
+            this.axMapControl1.Size = new System.Drawing.Size(750, 591);
             this.axMapControl1.TabIndex = 0;
+            this.axMapControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl1_OnMouseDown);
+            this.axMapControl1.OnMouseUp += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseUpEventHandler(this.axMapControl1_OnMouseUp);
             // 
             // xtraTabPage4
             // 
@@ -547,27 +568,25 @@
             this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(148, 22);
             this.tsmi_ProjectToWGS1984.Text = "坐标转换";
             // 
-            // ribbonPageGroup8
+            // ribbonPageGroup9
             // 
-            this.ribbonPageGroup8.ItemLinks.Add(this.btn_ExcelStatistic);
-            this.ribbonPageGroup8.Name = "ribbonPageGroup8";
-            this.ribbonPageGroup8.Text = "表格汇总";
+            this.ribbonPageGroup9.ItemLinks.Add(this.btn_QueryStaInfoByMap);
+            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
+            this.ribbonPageGroup9.Text = "统计查看";
             // 
-            // btn_ExcelStatistic
+            // btn_QueryStaInfoByMap
             // 
-            this.btn_ExcelStatistic.Caption = "Excel汇总处理";
-            this.btn_ExcelStatistic.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.btn_ExcelStatistic.Id = 31;
-            this.btn_ExcelStatistic.Name = "btn_ExcelStatistic";
-            this.btn_ExcelStatistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.btn_ExcelStatistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ExcelStatistic_ItemClick);
+            this.btn_QueryStaInfoByMap.Caption = "barButtonItem1";
+            this.btn_QueryStaInfoByMap.Id = 32;
+            this.btn_QueryStaInfoByMap.Name = "btn_QueryStaInfoByMap";
+            this.btn_QueryStaInfoByMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_QueryStaInfoByMap_ItemClick);
             // 
             // MainForm
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 775);
+            this.ClientSize = new System.Drawing.Size(990, 767);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "MainForm";
@@ -646,6 +665,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi_ProjectToWGS1984;
         private DevExpress.XtraBars.BarButtonItem btn_ExcelStatistic;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
+        private DevExpress.XtraBars.BarButtonItem btn_QueryStaInfoByMap;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
     }
 }
 
