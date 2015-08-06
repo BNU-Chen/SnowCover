@@ -40,8 +40,8 @@ namespace SnowCover
             config = new SystemBase.SystemConfig();
             //初始化MySQL Connection
             sqlConnection = SystemBase.MySQL.TestConnection(config.DatabaseServerName, config.DatabaseCatalog, config.DatabaseUsername, config.DatabasePassword);
-
         }
+
         #region //GIS控件事件
         private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
         {
@@ -331,19 +331,52 @@ namespace SnowCover
             }
             string sqlStr = "SELECT * FROM countyboundarytable c WHERE c.PAC = '" + value + "'";
             //string sqlStr = "SELECT * FROM countyboundarytable";
-            List<string>[] list = SystemBase.MySQL.Select(sqlStr, sqlConnection);
-            string msg = "";
-            foreach(List<string> li in list)
-            {
-                foreach (string s in li)
-                {
-                    msg += s + "\t";
-                }
-                msg += "\n";
-            }
-            MessageBox.Show(msg);
+            DataTable dt  = SystemBase.MySQL.Select(sqlStr, sqlConnection);
+            //string msg = "";
+            //foreach(List<string> li in list)
+            //{
+            //    foreach (string s in li)
+            //    {
+            //        msg += s + "\t";
+            //    }
+            //    msg += "\n";
+            //}
+            //MessageBox.Show(msg);
         }
+        
+        private void btn_renderStaInfo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            string staByCountyMapPath = config.MapDocsPath + "\\stacounty.mxd";
+            if (File.Exists(staByCountyMapPath))
+            {
+                this.axMapControl1.LoadMxFile(staByCountyMapPath);
+            }
+            else
+            {
+                if (MessageBox.Show("积雪覆盖统计地图未找到，请重新选择。是否现在选择？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+                {
+                    string mapPath = SystemBase.FormCommon.SelectSingleFile(config.DataCenterFolderPath, "mxd文件|*.mxd");
+                    if (File.Exists(mapPath))
+                    {
+                        this.axMapControl1.LoadMxFile(mapPath);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            frmSetStaMapDate frmSetMapDate = new frmSetStaMapDate(this.axMapControl1);
+            frmSetMapDate.ShowDialog();
+        }
+
         #endregion
+
+        
 
 
     }

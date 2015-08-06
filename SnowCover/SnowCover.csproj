@@ -158,11 +158,23 @@
     <Compile Include="frmDisasterStatisticsFromExcel.Designer.cs">
       <DependentUpon>frmDisasterStatisticsFromExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProgressBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgressBar.Designer.cs">
+      <DependentUpon>frmProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSetSnowCoverInitDate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSetSnowCoverInitDate.Designer.cs">
       <DependentUpon>frmSetSnowCoverInitDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSetStaMapDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetStaMapDate.Designer.cs">
+      <DependentUpon>frmSetStaMapDate.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSetStatisticSnowCoverDate.cs">
       <SubType>Form</SubType>
@@ -205,8 +217,14 @@
     <EmbeddedResource Include="frmDisasterStatisticsFromExcel.resx">
       <DependentUpon>frmDisasterStatisticsFromExcel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmProgressBar.resx">
+      <DependentUpon>frmProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSetSnowCoverInitDate.resx">
       <DependentUpon>frmSetSnowCoverInitDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSetStaMapDate.resx">
+      <DependentUpon>frmSetStaMapDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetStatisticSnowCoverDate.resx">
       <DependentUpon>frmSetStatisticSnowCoverDate.cs</DependentUpon>
@@ -320,6 +338,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\log.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

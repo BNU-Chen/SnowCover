@@ -54,6 +54,7 @@
             this.btn_PublishDisasterDoc = new DevExpress.XtraBars.BarButtonItem();
             this.btn_StatisticTable = new DevExpress.XtraBars.BarButtonItem();
             this.btn_ExcelStatistic = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_QueryStaInfoByMap = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -62,6 +63,7 @@
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
@@ -80,8 +82,7 @@
             this.tsmi_ZoomToLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_RemoveLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_ProjectToWGS1984 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btn_QueryStaInfoByMap = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_renderStaInfo = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -127,10 +128,11 @@
             this.btn_PublishDisasterDoc,
             this.btn_StatisticTable,
             this.btn_ExcelStatistic,
-            this.btn_QueryStaInfoByMap});
+            this.btn_QueryStaInfoByMap,
+            this.btn_renderStaInfo});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(5);
-            this.ribbonControl1.MaxItemId = 33;
+            this.ribbonControl1.MaxItemId = 34;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage3,
@@ -345,6 +347,13 @@
             this.btn_ExcelStatistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_ExcelStatistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ExcelStatistic_ItemClick);
             // 
+            // btn_QueryStaInfoByMap
+            // 
+            this.btn_QueryStaInfoByMap.Caption = "barButtonItem1";
+            this.btn_QueryStaInfoByMap.Id = 32;
+            this.btn_QueryStaInfoByMap.Name = "btn_QueryStaInfoByMap";
+            this.btn_QueryStaInfoByMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_QueryStaInfoByMap_ItemClick);
+            // 
             // ribbonPage3
             // 
             this.ribbonPage3.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -407,8 +416,15 @@
             // ribbonPageGroup7
             // 
             this.ribbonPageGroup7.ItemLinks.Add(this.btn_StatisticTable);
+            this.ribbonPageGroup7.ItemLinks.Add(this.btn_renderStaInfo);
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
             this.ribbonPageGroup7.Text = "分区统计";
+            // 
+            // ribbonPageGroup9
+            // 
+            this.ribbonPageGroup9.ItemLinks.Add(this.btn_QueryStaInfoByMap);
+            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
+            this.ribbonPageGroup9.Text = "统计查看";
             // 
             // ribbonPage2
             // 
@@ -473,7 +489,7 @@
             // xtraTabPage_DataNav
             // 
             this.xtraTabPage_DataNav.Name = "xtraTabPage_DataNav";
-            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(223, 599);
+            this.xtraTabPage_DataNav.Size = new System.Drawing.Size(223, 591);
             this.xtraTabPage_DataNav.Text = "数据";
             // 
             // xtraTabControl_Center
@@ -511,7 +527,7 @@
             // 
             this.xtraTabPage4.Controls.Add(this.axPageLayoutControl1);
             this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(750, 599);
+            this.xtraTabPage4.Size = new System.Drawing.Size(750, 591);
             this.xtraTabPage4.Text = "制图输出";
             // 
             // axPageLayoutControl1
@@ -520,7 +536,7 @@
             this.axPageLayoutControl1.Location = new System.Drawing.Point(0, 0);
             this.axPageLayoutControl1.Name = "axPageLayoutControl1";
             this.axPageLayoutControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axPageLayoutControl1.OcxState")));
-            this.axPageLayoutControl1.Size = new System.Drawing.Size(750, 599);
+            this.axPageLayoutControl1.Size = new System.Drawing.Size(750, 591);
             this.axPageLayoutControl1.TabIndex = 0;
             // 
             // axLicenseControl1
@@ -568,18 +584,12 @@
             this.tsmi_ProjectToWGS1984.Size = new System.Drawing.Size(148, 22);
             this.tsmi_ProjectToWGS1984.Text = "坐标转换";
             // 
-            // ribbonPageGroup9
+            // btn_renderStaInfo
             // 
-            this.ribbonPageGroup9.ItemLinks.Add(this.btn_QueryStaInfoByMap);
-            this.ribbonPageGroup9.Name = "ribbonPageGroup9";
-            this.ribbonPageGroup9.Text = "统计查看";
-            // 
-            // btn_QueryStaInfoByMap
-            // 
-            this.btn_QueryStaInfoByMap.Caption = "barButtonItem1";
-            this.btn_QueryStaInfoByMap.Id = 32;
-            this.btn_QueryStaInfoByMap.Name = "btn_QueryStaInfoByMap";
-            this.btn_QueryStaInfoByMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_QueryStaInfoByMap_ItemClick);
+            this.btn_renderStaInfo.Caption = "统计查看";
+            this.btn_renderStaInfo.Id = 33;
+            this.btn_renderStaInfo.Name = "btn_renderStaInfo";
+            this.btn_renderStaInfo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_renderStaInfo_ItemClick);
             // 
             // MainForm
             // 
@@ -593,6 +603,7 @@
             this.Ribbon = this.ribbonControl1;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "减灾中心 - 积雪覆盖分析";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
@@ -667,6 +678,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
         private DevExpress.XtraBars.BarButtonItem btn_QueryStaInfoByMap;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
+        private DevExpress.XtraBars.BarButtonItem btn_renderStaInfo;
     }
 }
 

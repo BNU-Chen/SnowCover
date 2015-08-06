@@ -79,6 +79,8 @@ namespace SnowCover
                 string EverydaySnowCoverFolder = config.EverydaySnowCoverFolderPath;
                 string StatisticSnowCoverFolder = config.StatisticSnowCoverFolderPath;
                 string PublishDisasterDoc = config.PublishDisasterDocPath;
+                string MapDocs = config.MapDocsPath;
+                
 
                 string DatabaseServerName = config.DatabaseServerName;
                 string DatabaseCatalog = config.DatabaseCatalog;
@@ -93,11 +95,13 @@ namespace SnowCover
                 this.txt_EverydaySnowCoverFolder.Text = EverydaySnowCoverFolder;
                 this.txt_StatisticSnowCoverFolder.Text = StatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = PublishDisasterDoc;
+                this.txt_MapDocs.Text = MapDocs;
 
                 this.txt_DatabaseServerName.Text = DatabaseServerName;
                 this.txt_DatabaseCatalog.Text = DatabaseCatalog;
                 this.txt_DatabaseUsername.Text = DatabaseUsername;
                 this.txt_DatabasePassword.Text = DatabasePassword;
+
             }
             catch
             { }
@@ -119,6 +123,7 @@ namespace SnowCover
                 string EverydaySnowCoverFolder = this.txt_EverydaySnowCoverFolder.Text.Trim();
                 string StatisticSnowCoverFolder = this.txt_StatisticSnowCoverFolder.Text.Trim();
                 string PublishDisasterDoc = this.txt_PublishDisasterDoc.Text.Trim();
+                string MapDocs = this.txt_MapDocs.Text.Trim();
 
                 string DatabaseServerName = this.txt_DatabaseServerName.Text.Trim();
                 string DatabaseCatalog = this.txt_DatabaseCatalog.Text.Trim();
@@ -132,6 +137,7 @@ namespace SnowCover
                 config.EverydaySnowCoverFolderPath = EverydaySnowCoverFolder;
                 config.StatisticSnowCoverFolderPath = StatisticSnowCoverFolder;
                 config.PublishDisasterDocPath = PublishDisasterDoc;
+                config.MapDocsPath = MapDocs;
 
                 config.DatabaseServerName = DatabaseServerName;
                 config.DatabaseCatalog = DatabaseCatalog;
@@ -169,6 +175,11 @@ namespace SnowCover
                     MessageBox.Show("公报灾情文档目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false; ;
                 }
+                if (!CreateFolder(MapDocs))
+                {
+                    MessageBox.Show("地图文档目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false; ;
+                }
             }
             catch
             { }
@@ -185,6 +196,7 @@ namespace SnowCover
                 this.txt_EverydaySnowCoverFolder.Text = startPath + "\\"+config.IniEverydaySnowCoverFolder;
                 this.txt_StatisticSnowCoverFolder.Text = startPath + "\\"+config.IniStatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = startPath + "\\"+config.IniPublishDisasterDoc;
+                this.txt_MapDocs.Text = startPath + "\\" + config.MapDocsPath;
             }
             catch
             { }
@@ -254,12 +266,12 @@ namespace SnowCover
                     this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniEverydaySnowCoverFolder;
                     this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniStatisticSnowCoverFolder;
                     this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\" + config.IniPublishDisasterDoc;
+                    this.txt_MapDocs.Text = dataCenterFolder + "\\" + config.MapDocsPath;
                 }
             }
             catch
             { }
         }
-
         private void btn_OpenDataCenterFolder_Click(object sender, EventArgs e)
         {
             OpenTextBoxPath(this.txt_DataCenterFolder);
@@ -460,6 +472,34 @@ namespace SnowCover
             OpenTextBoxPath(this.txt_PublishDisasterDoc);
         }
 
+        //地图文档
+        private void btn_OpenMapDocs_Click(object sender, EventArgs e)
+        {
+            OpenTextBoxPath(this.txt_MapDocs);
+        }
+
+        private void btn_SetMapDocs_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                fbd.Description = "设置地图文档目录";
+                fbd.ShowNewFolderButton = true;
+                if (Directory.Exists(dataCenter))
+                {
+                    fbd.SelectedPath = dataCenter;
+                }
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string selectFolder = fbd.SelectedPath;
+                    this.txt_MapDocs.Text = selectFolder;
+                }
+            }
+            catch
+            { }
+        }
+        //通用函数
         private void OpenTextBoxPath(TextBox _textBox)
         {
             string path = _textBox.Text.Trim();
@@ -495,7 +535,7 @@ namespace SnowCover
         #endregion
 
         #region //数据库连接
-        private void txt_DatabaseTestConn_Click(object sender, EventArgs e)
+        private void btn_DatabaseTestConnection_Click(object sender, EventArgs e)
         {
             string server = this.txt_DatabaseServerName.Text.Trim();
             string catalog = this.txt_DatabaseCatalog.Text.Trim();
@@ -515,6 +555,8 @@ namespace SnowCover
             { }
         }
         #endregion
+
+        
 
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace SystemBase
 {
@@ -24,6 +25,7 @@ namespace SystemBase
         private string iniEverydaySnowCoverFolder = "EverydaySnowCover";
         private string iniStatisticSnowCoverFolder = "StatisticSnowCover";
         private string iniPublishDisasterDoc = "PublishDisasterDoc";
+        private string iniMapDocs = "MapDocs";
 
         private string iniDatabaseConnnection = "DatabaseConn";
         private string iniDatabaseServerName = "DatabaseServerName";
@@ -40,6 +42,7 @@ namespace SystemBase
         private string everydaySnowCoverFolderPath = "";
         private string statisticSnowCoverFolderPath = "";
         private string publishDisasterDocPath = "";
+        private string mapDocsPath = "";
                 
         private string databaseServerName = "localhost";
         private string databaseCatalog = "snowcover";
@@ -125,6 +128,11 @@ namespace SystemBase
         public string IniPublishDisasterDoc
         {
             get { return iniPublishDisasterDoc; }
+            //set { iniPublishDisasterDoc = value; }
+        }
+        public string IniMapDocs
+        {
+            get { return iniMapDocs; }
             //set { iniPublishDisasterDoc = value; }
         }
 
@@ -228,6 +236,19 @@ namespace SystemBase
                 IniFile.IniWriteValue(iniDataCenter, iniPublishDisasterDoc, publishDisasterDocPath);
             }
         }
+        public string MapDocsPath
+        {
+            get
+            {
+                mapDocsPath = IniFile.IniReadValue(iniDataCenter, iniMapDocs);
+                return mapDocsPath;
+            }
+            set
+            {
+                mapDocsPath = value;
+                IniFile.IniWriteValue(iniDataCenter, iniMapDocs, mapDocsPath);
+            }
+        }
         
 
         public string DatabaseServerName
@@ -274,6 +295,12 @@ namespace SystemBase
                 databasePassword = value;
                 IniFile.IniWriteValue(iniDatabaseConnnection, iniDatabasePassword, databasePassword);
             }
+        }
+
+        //获取数据库连接
+        public MySqlConnection GetMySQLConnection()
+        {
+            return MySQL.GetMySQLConnection(this.databaseServerName, this.databaseCatalog, this.databaseUsername, this.databasePassword);
         }
 
     }

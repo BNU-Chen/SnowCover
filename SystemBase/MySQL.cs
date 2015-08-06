@@ -5,6 +5,7 @@ using System.Text;
 
 using System.Windows.Forms;
 using System.IO;
+using System.Data;
 using System.Diagnostics;
 using MySql.Data.MySqlClient;
 
@@ -81,7 +82,7 @@ namespace SystemBase
         }
 
         //Select statement
-        public static List<string>[] Select(string query, MySqlConnection connection)
+        public static DataTable Select(string query, MySqlConnection connection)
         {
             if (query == "")
             {
@@ -101,11 +102,7 @@ namespace SystemBase
                 connection.Open();
             }
 
-            //Create a list to store the result
-            List<string>[] list = new List<string>[3];
-            list[0] = new List<string>();
-            list[1] = new List<string>();
-            list[2] = new List<string>();
+            DataTable dt = new DataTable();
 
             try
             {
@@ -117,31 +114,34 @@ namespace SystemBase
                     //Create a data reader and Execute the command
                     MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                    //Read the data and store them in the list
-                    int index = 0;
-                    while (dataReader.Read())
-                    {
-                        for (int c = 0; c < dataReader.FieldCount; c++)
-                        {
-                            object obj = dataReader[c];
-                            string str = "";
-                            if(obj is string )
-                            {
-                                str = (string)obj;
-                            }
-                            else if(obj is int)
-                            {
-                                str = obj.ToString();
-                            }
-                            else if(obj is double)
-                            {
-                                str = obj.ToString();
-                            }
+                    dt.Load(dataReader);
 
-                            list[index].Add(str);
-                        }
-                        index++;
-                    }
+                    ////Read the data and store them in the list
+                    //int index = 0;
+                    
+                    //while (dataReader.Read())
+                    //{
+                    //    for (int c = 0; c < dataReader.FieldCount; c++)
+                    //    {
+                    //        object obj = dataReader[c];
+                    //        string str = "";
+                    //        if(obj is string )
+                    //        {
+                    //            str = (string)obj;
+                    //        }
+                    //        else if(obj is int)
+                    //        {
+                    //            str = obj.ToString();
+                    //        }
+                    //        else if(obj is double)
+                    //        {
+                    //            str = obj.ToString();
+                    //        }
+
+                    //        list[index].Add(str);
+                    //    }
+                    //    index++;
+                    //}
 
                     //close Data Reader
                     dataReader.Close();
@@ -150,18 +150,14 @@ namespace SystemBase
                     CloseConnection(connection);
 
                     //return list to be displayed
-                    return list;
-                }
-                else
-                {
-                    return list;
+                    return dt;
                 }
             }
             catch(MySqlException ex) {
                 MessageBox.Show(ex.Message);
             }
 
-            return list;
+            return dt;
         }
 
         //Insert statement
