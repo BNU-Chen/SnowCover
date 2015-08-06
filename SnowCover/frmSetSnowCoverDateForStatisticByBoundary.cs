@@ -99,8 +99,9 @@ namespace SnowCover
                             DataTable dt = new DataTable();
                             TDbfTable tdb = new TDbfTable(outputPath_temp);
                             dt = tdb.Table.Copy();
-                            dt.TableName = "D" + GetYearDayStr(dateIndex) + "_SC_StByBdy";
-                            storeTableToMySQL(dt);
+                            //dt.TableName = "D" + GetYearDayStr(dateIndex) + "_SC_StByBdy";
+                            dt.TableName = "SnowCover_StatisticByBoundary";
+                            storeTableToMySQL(dt, dateIndex);
                         }
                         catch (Exception ex)
                         {
@@ -153,9 +154,9 @@ namespace SnowCover
                     DataTable dt = new DataTable();
                     TDbfTable tdb = new TDbfTable(outputPath_All);
                     dt = tdb.Table.Copy();
-                    dt.TableName = "D" + GetYearDayStr(date) + "_SC_StByBdy";
-                    
-                    storeTableToMySQL(dt);
+                    //dt.TableName = "D" + GetYearDayStr(date) + "_SC_StByBdy";
+                    dt.TableName = "SnowCover_StatisticByBoundary";
+                    storeTableToMySQL(dt,date);
                 }
                 catch (Exception ex)
                 {
@@ -383,22 +384,27 @@ namespace SnowCover
         }
 
         //分区统计结果导入数据库
-        private void storeTableToMySQL(DataTable dt)
+        private void storeTableToMySQL(DataTable dt,DateTime _datetime)
         {
-            if (CheckExistsTable(dt.TableName) == true)
+            if (CheckExistsTable(dt.TableName) == false)
             {
-                dropTableInMySQL(dt.TableName);
+                //dropTableInMySQL(dt.TableName);
+                creatTableInMySQL(dt.TableName);
             }
-            creatTableInMySQL(dt.TableName);
-
+            //creatTableInMySQL(dt.TableName);
+            
+            string _date = _datetime.Year.ToString() + "/" + _datetime.Month.ToString() + "/" + _datetime.Day.ToString();
+            //删除重复记录
+            DeleteRecordInMySQL(dt.TableName, "Date",_date);
+            
             //创建插入语句列表
             List<string> SQLInsertStringList = new List<string>();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
                 DataColumn dc = dt.Columns[4];
-                string _insertStr = "INSERT INTO " + dt.TableName + " (Code, COUNT, SUM) VALUES ('" + dt.Rows[i][0].ToString() + "', "
-                    + dt.Rows[i][2].ToString() + ", " + dt.Rows[i][4].ToString() + ")";
+                string _insertStr = "INSERT INTO " + dt.TableName + " (Code, COUNT, SUM, Date) VALUES ('" + dt.Rows[i][0].ToString() + "', "
+                    + dt.Rows[i][2].ToString() + ", " + dt.Rows[i][4].ToString() + ", '" + _date + "')";
                 SQLInsertStringList.Add(_insertStr);
             }
 
@@ -449,7 +455,7 @@ namespace SnowCover
         //创建表
         private void creatTableInMySQL(string _TableName)
         {
-            string creatStByBdyTable = "create table " + _TableName + " (Code VarChar(255) not null, COUNT Integer, SUM Integer, foreign key(Code) references countyboundarytable(Code) on delete cascade on update cascade)engine=innodb default charset=utf8 auto_increment=1;";
+            string creatStByBdyTable = "create table " + _TableName + " (id int(11) primary key not null auto_increment, Code VarChar(255) not null, COUNT Integer, SUM Integer, Date Date, foreign key(Code) references countyboundarytable(Code) on delete cascade on update cascade)engine=innodb default charset=utf8 auto_increment=1;";
            
             using (MySqlConnection conn = getMySqlConnection())
             {
@@ -496,6 +502,26 @@ namespace SnowCover
         public bool CheckExistsTable(string tablename)
         {
             String tableNameStr = "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_NAME='" + tablename + "'";
+            using (MySqlConnection conn = getMySqlConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(tableNameStr, conn);
+                int result = Convert.ToInt32(cmd.ExecuteScalar());
+                if (result == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        //删除记录
+        public bool DeleteRecordInMySQL(string tablename,string FieldName,string Value)
+        {
+            String tableNameStr = "DELETE FROM " + tablename + " WHERE " + FieldName + "='" + Value + "'";
             using (MySqlConnection conn = getMySqlConnection())
             {
                 conn.Open();
