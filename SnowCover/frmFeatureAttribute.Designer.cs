@@ -49,7 +49,9 @@
             this.Controls.Add(this.propertyGrid1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmFeatureAttribute";
+            this.ShowInTaskbar = false;
             this.Text = "要素属性";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.frmFeatureAttribute_Load);
             this.ResumeLayout(false);
 
