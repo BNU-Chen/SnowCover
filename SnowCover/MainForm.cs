@@ -377,7 +377,7 @@ namespace SnowCover
                     DataTable table = SystemBase.MySQL.Select(sqlStr, conn);
                     if (table.Rows.Count < 1)
                     {
-                        MessageBox.Show("数据库中为找到该行政区积雪覆盖数据。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("数据库中未找到该行政区积雪覆盖数据。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     }
                     DataRow trow = table.Rows[0];
