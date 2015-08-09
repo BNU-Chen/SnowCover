@@ -60,6 +60,9 @@ namespace SnowCover
         {
             ApplicateSetting();
         }
+        #endregion
+
+        #region //加载设置 应用设置
         //加载设置
         private void LoadSetting()
         {
@@ -79,6 +82,10 @@ namespace SnowCover
                 string EverydaySnowCoverFolder = config.EverydaySnowCoverFolderPath;
                 string StatisticSnowCoverFolder = config.StatisticSnowCoverFolderPath;
                 string PublishDisasterDoc = config.PublishDisasterDocPath;
+                string MapDocs = config.MapDocsPath;
+                string CountyMapPath = config.CountyMapPath;
+                string CountyMapJoinTable = config.CountyMapJoinTablePath;
+                
 
                 string DatabaseServerName = config.DatabaseServerName;
                 string DatabaseCatalog = config.DatabaseCatalog;
@@ -93,11 +100,15 @@ namespace SnowCover
                 this.txt_EverydaySnowCoverFolder.Text = EverydaySnowCoverFolder;
                 this.txt_StatisticSnowCoverFolder.Text = StatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = PublishDisasterDoc;
+                this.txt_MapDocs.Text = MapDocs;
+                this.txt_CountyMapPath.Text = CountyMapPath;
+                this.txt_CountyMapJoinMapName.Text = CountyMapJoinTable;
 
                 this.txt_DatabaseServerName.Text = DatabaseServerName;
                 this.txt_DatabaseCatalog.Text = DatabaseCatalog;
                 this.txt_DatabaseUsername.Text = DatabaseUsername;
                 this.txt_DatabasePassword.Text = DatabasePassword;
+
             }
             catch
             { }
@@ -119,6 +130,9 @@ namespace SnowCover
                 string EverydaySnowCoverFolder = this.txt_EverydaySnowCoverFolder.Text.Trim();
                 string StatisticSnowCoverFolder = this.txt_StatisticSnowCoverFolder.Text.Trim();
                 string PublishDisasterDoc = this.txt_PublishDisasterDoc.Text.Trim();
+                string MapDocs = this.txt_MapDocs.Text.Trim();
+                string CountyMapPath = this.txt_CountyMapPath.Text.Trim();
+                string CountyMapJoinTablePath = this.txt_CountyMapJoinMapName.Text.Trim();
 
                 string DatabaseServerName = this.txt_DatabaseServerName.Text.Trim();
                 string DatabaseCatalog = this.txt_DatabaseCatalog.Text.Trim();
@@ -132,6 +146,10 @@ namespace SnowCover
                 config.EverydaySnowCoverFolderPath = EverydaySnowCoverFolder;
                 config.StatisticSnowCoverFolderPath = StatisticSnowCoverFolder;
                 config.PublishDisasterDocPath = PublishDisasterDoc;
+                config.MapDocsPath = MapDocs;
+                config.CountyMapPath = CountyMapPath;
+                config.CountyMapJoinTablePath = CountyMapJoinTablePath;
+                
 
                 config.DatabaseServerName = DatabaseServerName;
                 config.DatabaseCatalog = DatabaseCatalog;
@@ -169,6 +187,11 @@ namespace SnowCover
                     MessageBox.Show("公报灾情文档目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false; ;
                 }
+                if (!CreateFolder(MapDocs))
+                {
+                    MessageBox.Show("地图文档目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false; ;
+                }
             }
             catch
             { }
@@ -185,6 +208,7 @@ namespace SnowCover
                 this.txt_EverydaySnowCoverFolder.Text = startPath + "\\"+config.IniEverydaySnowCoverFolder;
                 this.txt_StatisticSnowCoverFolder.Text = startPath + "\\"+config.IniStatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = startPath + "\\"+config.IniPublishDisasterDoc;
+                this.txt_MapDocs.Text = startPath + "\\" + config.MapDocsPath;
             }
             catch
             { }
@@ -254,64 +278,31 @@ namespace SnowCover
                     this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniEverydaySnowCoverFolder;
                     this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniStatisticSnowCoverFolder;
                     this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\" + config.IniPublishDisasterDoc;
+                    this.txt_MapDocs.Text = dataCenterFolder + "\\" + config.MapDocsPath;
                 }
             }
             catch
             { }
         }
-
         private void btn_OpenDataCenterFolder_Click(object sender, EventArgs e)
         {
-            OpenTextBoxPath(this.txt_DataCenterFolder);
+            OpenTextBoxPath(this.txt_DataCenterFolder, true);
         }
         //原始数据
         private void btn_SetOrigionDataFolder_Click(object sender, EventArgs e)
         {
-            try
-            {                
-                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "设置原始影像目录";
-                fbd.ShowNewFolderButton = true;
-                if (Directory.Exists(dataCenter))
-                {
-                    fbd.SelectedPath = dataCenter;
-                }
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string selectFolder = fbd.SelectedPath;
-                    this.txt_OrigionDataFolder.Text = selectFolder;
-                }
-            }
-            catch
-            { }
+            SetFolderPathInTextBox(this.txt_OrigionDataFolder, "设置原始影像目录");
         }
 
         private void btn_OpenOrigionDataFolder_Click(object sender, EventArgs e)
         {
-            OpenTextBoxPath(this.txt_OrigionDataFolder);
+            OpenTextBoxPath(this.txt_OrigionDataFolder, true);
         }
         //边界文件
         private void btn_SetBoundaryFilePath_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string textPath = this.txt_OrigionDataFolder.Text.Trim();
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Filter = "所有文件(*.*) |*.*";
-                ofd.Multiselect = false;
-                if (Directory.Exists(textPath))
-                {
-                    ofd.InitialDirectory = textPath;
-                }
-                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string selectPath = ofd.FileName;
-                    this.txt_BoundaryFilePath.Text = selectPath;
-                }
-            }
-            catch
-            { }
+            SetFilePath(this.txt_BoundaryFilePath);
+            
         }
 
         private void btn_OpenBoundaryFilePath_Click(object sender, EventArgs e)
@@ -353,149 +344,196 @@ namespace SnowCover
         //影像预处理目录
         private void btn_SetPreprocessingSnowCoverFolder_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "设置影像预处理数据目录";
-                fbd.ShowNewFolderButton = true;
-                if (Directory.Exists(dataCenter))
-                {
-                    fbd.SelectedPath = dataCenter;
-                }
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string selectFolder = fbd.SelectedPath;
-                    this.txt_PreprocessingSnowCoverFolder.Text = selectFolder;
-                }
-            }
-            catch
-            { }
+            SetFolderPathInTextBox(this.txt_PreprocessingSnowCoverFolder, "设置影像预处理数据目录");
         }
 
         private void btn_OpenPreprocessingSnowCoverFolder_Click(object sender, EventArgs e)
         {
-            OpenTextBoxPath(this.txt_PreprocessingSnowCoverFolder);
+            OpenTextBoxPath(this.txt_PreprocessingSnowCoverFolder, true);
         }
 
         //每日积雪
         private void btn_SetEverydaySnowCoverFolder_Click(object sender, EventArgs e)
         {
-            try
-            {                
-                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "设置每日积雪数据目录";
-                fbd.ShowNewFolderButton = true;
-                if (Directory.Exists(dataCenter))
-                {
-                    fbd.SelectedPath = dataCenter;
-                }
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string selectFolder = fbd.SelectedPath;
-                    this.txt_EverydaySnowCoverFolder.Text = selectFolder;
-                }
-            }
-            catch
-            { }
+            SetFolderPathInTextBox(this.txt_EverydaySnowCoverFolder, "设置每日积雪数据目录");
         }
 
         private void btn_OpenEverydaySnowCoverFolder_Click(object sender, EventArgs e)
         {
-            OpenTextBoxPath(this.txt_EverydaySnowCoverFolder);
+            OpenTextBoxPath(this.txt_EverydaySnowCoverFolder, true);
         }
         //统计积雪
         private void btn_SetStatisticSnowCoverFolder_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "设置统计积雪数据目录";
-                fbd.ShowNewFolderButton = true;
-                if (Directory.Exists(dataCenter))
-                {
-                    fbd.SelectedPath = dataCenter;
-                }
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string selectFolder = fbd.SelectedPath;
-                    this.txt_StatisticSnowCoverFolder.Text = selectFolder;
-                }
-            }
-            catch
-            { }
+            SetFolderPathInTextBox(this.txt_StatisticSnowCoverFolder, "设置统计积雪数据目录");
         }
 
         private void btn_OpenStatisticSnowCoverFolder_Click(object sender, EventArgs e)
         {
-            OpenTextBoxPath(this.txt_StatisticSnowCoverFolder);
+            OpenTextBoxPath(this.txt_StatisticSnowCoverFolder, true);
         }
         //公报灾情
         private void btn_SetPublishDisaster_Click(object sender, EventArgs e)
         {
+            SetFolderPathInTextBox(this.txt_PublishDisasterDoc, "设置原始影像目录");
+        }
+
+        private void btn_OpenPublishDisaster_Click(object sender, EventArgs e)
+        {
+            OpenTextBoxPath(this.txt_PublishDisasterDoc, true);
+        }
+
+        //地图文档
+        private void btn_OpenMapDocs_Click(object sender, EventArgs e)
+        {
+            OpenTextBoxPath(this.txt_MapDocs, true);
+        }
+
+        private void btn_SetMapDocs_Click(object sender, EventArgs e)
+        {
+            SetFolderPathInTextBox(this.txt_MapDocs, "设置地图文档目录");
+        }
+        //积雪覆盖统计地图
+        private void btn_SetCountyMap_Click(object sender, EventArgs e)
+        {
+            SetFilePath(this.txt_CountyMapPath);
+        }
+
+        private void btn_OpenCountyMap_Click(object sender, EventArgs e)
+        {
+            OpenTextBoxPath(this.txt_CountyMapPath, false);
+        }
+
+        private void btn_SetCountyMapJoinTable_Click(object sender, EventArgs e)
+        {
+            SetFilePath(this.txt_CountyMapJoinMapName);
+        }
+
+        private void btn_OpenCountyMapJoinTable_Click(object sender, EventArgs e)
+        {
+            string path = this.txt_CountyMapPath.Text.Trim()+"\\" +this.txt_CountyMapJoinMapName.Text.Trim();           
             try
             {
-                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "设置原始影像目录";
-                fbd.ShowNewFolderButton = true;
-                if (Directory.Exists(dataCenter))
+                if (!File.Exists(path))
                 {
-                    fbd.SelectedPath = dataCenter;
+                    MessageBox.Show("文件不存在，请检查。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string selectFolder = fbd.SelectedPath;
-                    this.txt_PublishDisasterDoc.Text = selectFolder;
-                }
+                System.Diagnostics.Process.Start("explorer.exe", path);
             }
             catch
             { }
         }
 
-        private void btn_OpenPublishDisaster_Click(object sender, EventArgs e)
-        {
-            OpenTextBoxPath(this.txt_PublishDisasterDoc);
-        }
 
-        private void OpenTextBoxPath(TextBox _textBox)
+        //通用函数
+        //打开TextBox中的文件夹
+        private void OpenTextBoxPath(TextBox _textBox,bool isDirectory)
         {
             string path = _textBox.Text.Trim();
             if (path == "")
             {
                 MessageBox.Show("请先设置数据目录。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            else if (!Directory.Exists(path))
+            if (isDirectory)
             {
-                if (MessageBox.Show("设置的数据目录不存在，请检查，是否现在创建？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                if (!Directory.Exists(path))
+                {
+                    if (MessageBox.Show("设置的数据目录不存在，请检查，是否现在创建？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(path);
+                            System.Diagnostics.Process.Start("explorer.exe", path);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("创建目录失败，请检查安全权限和路径后重试。\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
                 {
                     try
                     {
-                        Directory.CreateDirectory(path);
                         System.Diagnostics.Process.Start("explorer.exe", path);
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("创建目录失败，请检查安全权限和路径后重试。\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    catch
+                    { }
                 }
             }
             else
             {
                 try
                 {
+                    if (!File.Exists(path))
+                    {
+                        MessageBox.Show("文件不存在，请检查。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
                     System.Diagnostics.Process.Start("explorer.exe", path);
                 }
                 catch
                 { }
             }
         }
+
+        private void SetFilePath(TextBox setTextBox)
+        {
+            try
+            {
+                string originPath = setTextBox.Text.Trim();
+                string textPath = "";
+                if (File.Exists(originPath))
+                {
+                    textPath = Path.GetDirectoryName(originPath);
+                }
+                else
+                {
+                    textPath = this.txt_DataCenterFolder.Text.Trim();
+                }
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "所有文件(*.*) |*.*";
+                ofd.Multiselect = false;
+                if (textPath != "")
+                {
+                    ofd.InitialDirectory = textPath;
+                }
+                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string selectPath = ofd.FileName;
+                    setTextBox.Text = selectPath;
+                }
+            }
+            catch
+            { }
+        }
+        private void SetFolderPathInTextBox(TextBox txtBox,string title)
+        {
+            try
+            {
+                string dataCenter = this.txt_DataCenterFolder.Text.Trim();
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                fbd.Description = title;
+                fbd.ShowNewFolderButton = true;
+                if (Directory.Exists(dataCenter))
+                {
+                    fbd.SelectedPath = dataCenter;
+                }
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string selectFolder = fbd.SelectedPath;
+                    txtBox.Text = selectFolder;
+                }
+            }
+            catch
+            { }
+        }
         #endregion
 
         #region //数据库连接
-        private void txt_DatabaseTestConn_Click(object sender, EventArgs e)
+        private void btn_DatabaseTestConnection_Click(object sender, EventArgs e)
         {
             string server = this.txt_DatabaseServerName.Text.Trim();
             string catalog = this.txt_DatabaseCatalog.Text.Trim();
@@ -509,14 +547,20 @@ namespace SnowCover
                     MessageBox.Show("请将数据库信息填写完整,", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                SystemBase.MySQL.TestConnection(server, catalog, username, password);
+                MySql.Data.MySqlClient.MySqlConnection mysqlConn =  SystemBase.MySQL.TestConnection(server, catalog, username, password);
+                if (mysqlConn != null)
+                {
+                    MessageBox.Show("数据库连接成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("数据库连接失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch
             { }
         }
         #endregion
-
-
-
+        
     }
 }

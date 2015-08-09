@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace SystemBase
 {
@@ -24,12 +25,20 @@ namespace SystemBase
         private string iniEverydaySnowCoverFolder = "EverydaySnowCover";
         private string iniStatisticSnowCoverFolder = "StatisticSnowCover";
         private string iniPublishDisasterDoc = "PublishDisasterDoc";
-
+        private string iniMapDocs = "MapDocs";
+        //统计积雪覆盖
+        private string iniCountyMapPath = "CountyMap";
+        private string iniCountyMapJoinTable = "CountyMapTable";
+        //数据库
         private string iniDatabaseConnnection = "DatabaseConn";
         private string iniDatabaseServerName = "DatabaseServerName";
         private string iniDatabaseCatalog = "snowcover";
         private string iniDatabaseUsername = "DatabaseUsername";
         private string iniDatabasePassword = "DatabasePassword";
+        //个性化、初始化项
+        private string iniHumanize = "Humanize";
+        private string iniLastHandleDate = "LastHandleDate";
+
 
         //配置路径
         private string dataCenterFolderPath = "";
@@ -40,11 +49,17 @@ namespace SystemBase
         private string everydaySnowCoverFolderPath = "";
         private string statisticSnowCoverFolderPath = "";
         private string publishDisasterDocPath = "";
-                
+        private string mapDocsPath = "";
+        //积雪统计地图
+        private string countyMapPath = "";
+        private string countyMapJoinTable = "";
+        //数据库                
         private string databaseServerName = "localhost";
         private string databaseCatalog = "snowcover";
         private string databaseUsername = "root";
         private string databasePassword = "noroot";
+        //个性化初始化项
+        private DateTime lastHandleDate = DateTime.Now;
 
         //INIFile
 
@@ -72,7 +87,7 @@ namespace SystemBase
             set { iniFile = value; }
         }
 
-        //配置文件夹名称
+        #region //配置文件夹名称 （可以不配置）
         public string IniDataCenter
         {
             get { return iniDataCenter; }
@@ -127,10 +142,22 @@ namespace SystemBase
             get { return iniPublishDisasterDoc; }
             //set { iniPublishDisasterDoc = value; }
         }
+        public string IniMapDocs
+        {
+            get { return iniMapDocs; }
+            //set { iniPublishDisasterDoc = value; }
+        }
+        public string IniCountyMap
+        {
+            get { return IniCountyMap; }
+        }
+        public string IniCountyMapJoinTable
+        {
+            get { return iniCountyMapJoinTable; }
+        }
+        #endregion
 
-
-        //设置、获取文件夹路径
-        
+        //设置、获取文件夹路径        
         public string DataCenterFolderPath
         {
             get { 
@@ -177,7 +204,7 @@ namespace SystemBase
             set
             {
                 countyBoundaryFilePath = value;
-                //IniFile.IniWriteValue(iniDataCenter, iniOrigionDataFolder, countyBoundaryFilePath);
+                IniFile.IniWriteValue(iniDataCenter, iniOrigionDataFolder, countyBoundaryFilePath);
             }
         }
 
@@ -228,8 +255,48 @@ namespace SystemBase
                 IniFile.IniWriteValue(iniDataCenter, iniPublishDisasterDoc, publishDisasterDocPath);
             }
         }
+        public string MapDocsPath
+        {
+            get
+            {
+                mapDocsPath = IniFile.IniReadValue(iniDataCenter, iniMapDocs);
+                return mapDocsPath;
+            }
+            set
+            {
+                mapDocsPath = value;
+                IniFile.IniWriteValue(iniDataCenter, iniMapDocs, mapDocsPath);
+            }
+        }
+        //积雪覆盖统计
+        public string CountyMapPath
+        {
+            get
+            {
+                countyMapPath = IniFile.IniReadValue(iniDataCenter,iniCountyMapPath);
+                return countyMapPath;
+            }
+            set
+            {
+                countyMapPath = value;
+                IniFile.IniWriteValue(iniDataCenter, iniCountyMapPath, countyMapPath);
+            }
+        }
+        public string CountyMapJoinTablePath
+        {
+            get
+            {
+                countyMapJoinTable = IniFile.IniReadValue(iniDataCenter, iniCountyMapJoinTable);
+                return countyMapJoinTable;
+            }
+            set
+            {
+                countyMapJoinTable = value;
+                IniFile.IniWriteValue(iniDataCenter, iniCountyMapJoinTable, countyMapJoinTable);
+            }
+        }
         
-
+        //数据库连接
         public string DatabaseServerName
         {
             get {
@@ -275,6 +342,37 @@ namespace SystemBase
                 IniFile.IniWriteValue(iniDatabaseConnnection, iniDatabasePassword, databasePassword);
             }
         }
+        //个性化项
+        public DateTime LastHandleDate
+        {
+            get
+            {
+                string dateStr = IniFile.IniReadValue(iniHumanize, iniLastHandleDate);
+                DateTime date = DateTime.Now;
+                if (dateStr != "" && dateStr.Length==10 && dateStr.Contains("-"))
+                {
+                    date = Convert.ToDateTime(dateStr);
+                }
+                return date;
+            }
+            set
+            {
+                DateTime date = value;
+                string dateStr = date.ToString("yyyy-MM-dd");
+                IniFile.IniWriteValue(iniHumanize, iniLastHandleDate, dateStr);
+            }
+        }
+
+
+
+
+        #region //实用函数
+        //获取数据库连接
+        public MySqlConnection GetMySQLConnection()
+        {
+            return MySQL.GetMySQLConnection(this.databaseServerName, this.databaseCatalog, this.databaseUsername, this.databasePassword);
+        }
+        #endregion 
 
     }
 }

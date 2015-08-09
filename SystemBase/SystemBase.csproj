@@ -70,6 +70,10 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\SnowCover\bin\Debug\MySql.Data.DLL</HintPath>
     </Reference>
@@ -79,6 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelHandler.cs" />
+    <Compile Include="FormCommon.cs" />
     <Compile Include="GISFeatures.cs" />
     <Compile Include="GISLayers.cs" />
     <Compile Include="GISTools.cs" />

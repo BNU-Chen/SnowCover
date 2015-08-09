@@ -33,7 +33,7 @@ namespace SnowCover
 
         private void frmSetStatisticSnowCoverDate_Load(object sender, EventArgs e)
         {
-            DateTime today = DateTime.Now;
+            DateTime today = config.LastHandleDate;
             DateTime firstDayOfYear = Convert.ToDateTime(today.Year.ToString() + "-01-01");//DateTime.Now;
             this.dateNavigator1.DateTime = firstDayOfYear;
 
@@ -54,6 +54,7 @@ namespace SnowCover
                 MessageBox.Show("截止日期小于起始日期，请重新选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            config.LastHandleDate = startDate;
             ExeInitSnowCover(startDate, endDate);
         }
 

@@ -30,6 +30,7 @@ namespace SystemBase
             }
             IMapControl2 mapControl = (IMapControl2)axMapControl.Object;
             mapControl.CurrentTool = null;
+            mapControl.MousePointer = esriControlsMousePointer.esriPointerArrow;
         }
         /// <summary>
         /// 添加数据

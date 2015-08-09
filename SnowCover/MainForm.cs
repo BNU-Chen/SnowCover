@@ -26,6 +26,10 @@ namespace SnowCover
         private bool isQueryStaInfoByMap = false;
         public Modules.ucFileNavPanel ucFileNavPanel = null;
         private MySqlConnection sqlConnection = null;
+        private frmFeatureAttribute frmFeatureAttr = null;
+
+        //esri
+        private IActiveView activeView = null;
 
         public MainForm()
         {
@@ -40,12 +44,19 @@ namespace SnowCover
             config = new SystemBase.SystemConfig();
             //初始化MySQL Connection
             sqlConnection = SystemBase.MySQL.TestConnection(config.DatabaseServerName, config.DatabaseCatalog, config.DatabaseUsername, config.DatabasePassword);
-
         }
+
         #region //GIS控件事件
         private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
         {
-           
+            if (e.button == 4)
+            {
+                //MapControl map = (MapControl)((ToolbarControl)hookHelper.getHook()).getBuddy();
+                activeView = axMapControl1.ActiveView;
+
+                activeView.ScreenDisplay.PanStart(activeView.ScreenDisplay.DisplayTransformation.ToMapPoint(e.x, e.y));
+
+            }
         }
 
 
@@ -53,18 +64,32 @@ namespace SnowCover
         {
             if (e.button == 1)
             {
-                if (isQueryStaInfoByMap)
+                if (isQueryStaInfoByMap && this.axMapControl1.MousePointer == ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerCrosshair)
                 {
                     GetStaInfoByMap();
                 }
             }
             else if (e.button == 2)
             {
-                MessageBox.Show("2");
+                //MessageBox.Show("2");
             }
             else if (e.button == 3)
             {
-                MessageBox.Show("3");
+                //MessageBox.Show("3");
+            }
+            else if (e.button == 4 && activeView != null)
+            {
+                activeView.ScreenDisplay.PanStop();
+                axMapControl1.ActiveView.Refresh();
+
+            }
+        }
+
+        private void axMapControl1_OnMouseMove(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseMoveEvent e)
+        {
+            if (e.button == 4 && activeView != null)
+            {
+                activeView.ScreenDisplay.PanMoveTo(activeView.ScreenDisplay.DisplayTransformation.ToMapPoint(e.x, e.y));
             }
         }
         #endregion
@@ -156,6 +181,7 @@ namespace SnowCover
 
         private void btn_Pan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            SystemBase.GISTools.setNull(this.axMapControl1);
             SystemBase.GISTools.Pan(this.axMapControl1);
         }
 
@@ -177,6 +203,16 @@ namespace SnowCover
         private void btn_ScaleOut_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SystemBase.GISTools.ZoomOutFix(axMapControl1);
+        }
+        private void btn_FullExtent_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SystemBase.GISTools.FullExtend(this.axMapControl1);
+        }
+
+        private void btn_SetMouseNull_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SystemBase.GISTools.setNull(this.axMapControl1);
+            isQueryStaInfoByMap = false;
         }
         #endregion
                 
@@ -297,54 +333,134 @@ namespace SnowCover
         #endregion
 
         #region //积雪统计信息查询
-        private void btn_QueryStaInfoByMap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            isQueryStaInfoByMap = !isQueryStaInfoByMap;
-            if (isQueryStaInfoByMap)
-            {
-                GISTools.SelectFeature(this.axMapControl1);
-                this.axMapControl1.MousePointer = ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerCrosshair;
-            }
-            else
-            {
-                GISTools.setNull(this.axMapControl1);
-                this.axMapControl1.MousePointer = ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerDefault;
-            }
-        }
         private void GetStaInfoByMap()
         {
             IFeatureLayer layer = this.axMapControl1.get_Layer(0) as IFeatureLayer;
             ICursor cursor = SystemBase.GISFeatures.GetSelectionFeature(layer);
 
             IRow row = cursor.NextRow();
-            string value = "";
+            string sValue = "";
+            double dValue = 0.0;
+            int iValue = 0;
+            StaCountyProperty pro = new StaCountyProperty();
             while (row != null)
             {
-                IFeature feature = (IFeature)row;
-                ITable table = row.Table;
-                int nameIndex = table.FindField("PAC");
+                //行政区名称
+                int nameIndex = row.Fields.FindField("name");
                 if (nameIndex > 0)
                 {
-                    value = (string)feature.get_Value(nameIndex);
-                    break;
+                    sValue = Convert.ToString(row.get_Value(nameIndex));
+                    pro.区域名称 = sValue;
                 }
-            }
-            string sqlStr = "SELECT * FROM countyboundarytable c WHERE c.PAC = '" + value + "'";
-            //string sqlStr = "SELECT * FROM countyboundarytable";
-            List<string>[] list = SystemBase.MySQL.Select(sqlStr, sqlConnection);
-            string msg = "";
-            foreach(List<string> li in list)
-            {
-                foreach (string s in li)
+                //行政区代码
+                int codeIndex = row.Fields.FindField("scode");
+                if (codeIndex > 0)
                 {
-                    msg += s + "\t";
+                    sValue = Convert.ToString(row.get_Value(codeIndex));
+                    pro.行政区代码 = sValue;
                 }
-                msg += "\n";
+                //区域总面积
+                int areaIndex = row.Fields.FindField("area");
+                if (areaIndex > 0)
+                {
+                    dValue = Convert.ToDouble(row.get_Value(areaIndex));
+                    pro.区域总面积 = dValue;
+                }
+
+                //从数据库读取
+                string sqlStr = "SELECT  sn.COUNT AS scount,sn.SUM AS ssum,sn.Date AS sdate "
+                        + "FROM snowcover_statisticbyboundary AS sn "
+                        + "WHERE sn.Code = '" + pro.行政区代码 + "' AND sn.Date = '" + config.LastHandleDate + "'";
+                MySqlConnection conn = config.GetMySQLConnection();
+                if (conn != null)
+                {
+                    DataTable table = SystemBase.MySQL.Select(sqlStr, conn);
+                    if (table.Rows.Count < 1)
+                    {
+                        MessageBox.Show("数据库中为找到该行政区积雪覆盖数据。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    }
+                    DataRow trow = table.Rows[0];
+                    //总像元数
+                    iValue = Convert.ToInt32(trow["scount"]);
+                    pro.总像元数 = iValue;
+                    //积雪像元数
+                    iValue = Convert.ToInt32(trow["ssum"]);
+                    pro.积雪像元数 = iValue;
+                    //统计日期
+                    sValue = Convert.ToString(trow["sdate"]);
+                    pro.统计日期 = sValue;
+                }
+                else
+                {
+                    MessageBox.Show("数据库连接失败，请更改数据库配置。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+                break;
             }
-            MessageBox.Show(msg);
+            if (frmFeatureAttr != null)
+            {
+                frmFeatureAttr.setData(pro);
+                frmFeatureAttr.BringToFront();
+            }
+            else
+            {
+                frmFeatureAttr = new frmFeatureAttribute();
+                frmFeatureAttr.setData(pro);
+                frmFeatureAttr.FormClosed += frmFeatureAttr_FormClosed;
+                frmFeatureAttr.Show();
+            }
         }
+
+        private void frmFeatureAttr_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmFeatureAttr = null;
+        }
+
+        private void btn_renderStaInfo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            string staByCountyMapPath = config.CountyMapPath;
+            if (File.Exists(staByCountyMapPath))
+            {
+                this.axMapControl1.LoadMxFile(staByCountyMapPath);
+            }
+            else
+            {
+                if (MessageBox.Show("积雪覆盖统计地图未找到，请重新选择。是否现在选择？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+                {
+                    string mapPath = SystemBase.FormCommon.SelectSingleFile(config.DataCenterFolderPath, "mxd文件|*.mxd");
+                    if (File.Exists(mapPath))
+                    {
+                        this.axMapControl1.LoadMxFile(mapPath);
+                        config.CountyMapPath = mapPath; //保存到设置文件
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            frmSetStaMapDate frmSetMapDate = new frmSetStaMapDate(this.axMapControl1, this.axTOCControl1);
+            frmSetMapDate.ShowDialog();
+
+            isQueryStaInfoByMap = true;
+            GISTools.SelectFeature(this.axMapControl1);
+            this.axMapControl1.MousePointer = ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerCrosshair;
+
+            //else
+            //{
+            //    GISTools.setNull(this.axMapControl1);
+            //    this.axMapControl1.MousePointer = ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerDefault;
+            //}
+        }
+
         #endregion
 
-
+        
     }
 }
