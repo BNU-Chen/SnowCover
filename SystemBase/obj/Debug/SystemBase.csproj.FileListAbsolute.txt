@@ -1,6 +1,0 @@
-D:\Develop\Git\SnowCover\SystemBase\bin\Debug\SystemBase.dll
-D:\Develop\Git\SnowCover\SystemBase\bin\Debug\SystemBase.pdb
-D:\Develop\Git\SnowCover\SystemBase\bin\Debug\MySql.Data.DLL
-D:\Develop\Git\SnowCover\SystemBase\obj\Debug\SystemBase.dll
-D:\Develop\Git\SnowCover\SystemBase\obj\Debug\SystemBase.pdb
-D:\Develop\Git\SnowCover\SystemBase\obj\Debug\SystemBase.csprojResolveAssemblyReference.cache
