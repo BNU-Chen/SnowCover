@@ -58,7 +58,6 @@ namespace SnowCover
             mapControl.ActiveView.Refresh();
             tocControl.Refresh();
             tocControl.Update();
-            //tocControl.ProductName
             this.Close();
         }
 
@@ -84,16 +83,6 @@ namespace SnowCover
                     return table;
                 }
                 table.TableName = "stacounty";
-                //foreach (DataRow row in snowDataTable.Rows)
-                //{
-                //    SnowData sd = new SnowData();
-                //    sd.code = (string)row[0];
-                //    sd.count = (int)row[1];
-                //    sd.sum = (int)row[2];
-                //    sd.date = dateStr;
-
-                //    snowDataKeyMap.Add(sd.code, sd);
-                //}                
             }
             catch (Exception ex)
             {
@@ -105,15 +94,6 @@ namespace SnowCover
         //修改图层属性的值
         private void EditRendererLayerAttr(ILayer layer, Dictionary<string, SnowData> snowDataKeyMap)
         {
-            //IFeatureLayer pFTLayer = layer as IFeatureLayer;
-            ////IFeatureClass pFTClass = pFTLayer.Search                ITable pTable = pFTClass as ITable;
-            //IQueryFilter queryFilter = new QueryFilterClass();
-            //queryFilter.WhereClause = "Code <> ''";
-            //IFeatureCursor pFTCursor = pFTLayer.Search(queryFilter, false);
-            ////pCursor = pTable.Search(null, false);
-            ////IRow row = pFTCursor.NextRow();
-            //IFeature feature = pFTCursor.NextFeature();
-
             IFeatureLayer pFTLayer = layer as IFeatureLayer;
             ITable pTbale = pFTLayer as ITable;
             IQueryFilter queryFilter = new QueryFilterClass();
