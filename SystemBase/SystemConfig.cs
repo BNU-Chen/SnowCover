@@ -27,8 +27,8 @@ namespace SystemBase
         private string iniPublishDisasterDoc = "PublishDisasterDoc";
         private string iniMapDocs = "MapDocs";
         //统计积雪覆盖
-        private string iniCountyMapPath = "CountyMap";
-        private string iniCountyMapJoinTable = "CountyMapTable";
+        private string iniCountyMapPath = "StaCountyMap";
+        private string iniCountyMapJoinTable = "StaCountyMapTable";
         //数据库
         private string iniDatabaseConnnection = "DatabaseConn";
         private string iniDatabaseServerName = "DatabaseServerName";
@@ -57,7 +57,7 @@ namespace SystemBase
         private string databaseServerName = "localhost";
         private string databaseCatalog = "snowcover";
         private string databaseUsername = "root";
-        private string databasePassword = "asd";
+        private string databasePassword = "root";
         //个性化初始化项
         private DateTime lastHandleDate = DateTime.Now;
 

@@ -208,8 +208,9 @@ namespace SnowCover
                 this.txt_StatisticSnowCoverFolder.Text = startPath + "\\"+config.IniStatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = startPath + "\\"+config.IniPublishDisasterDoc;
                 this.txt_MapDocs.Text = startPath + "\\" + config.IniMapDocs;
-                this.txt_CountyMapPath.Text = startPath + "\\" + config.IniCountyMap;
-                this.txt_CountyMapJoinMapName.Text = startPath + "\\" + config.IniCountyMapJoinTable;
+                this.txt_MapDocs.Text = startPath + "\\" + config.IniMapDocs;
+                this.txt_CountyMapPath.Text = startPath + "\\" + config.IniMapDocs + "\\" + config.IniCountyMap + ".mxd";
+                this.txt_CountyMapJoinMapName.Text = startPath + "\\" + config.IniMapDocs + "\\" + config.IniCountyMap + ".csv";
             }
             catch
             { }
@@ -280,8 +281,8 @@ namespace SnowCover
                     this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniStatisticSnowCoverFolder;
                     this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\" + config.IniPublishDisasterDoc;
                     this.txt_MapDocs.Text = dataCenterFolder + "\\" + config.IniMapDocs;
-                    this.txt_CountyMapPath.Text = dataCenterFolder + "\\" + config.IniCountyMap;
-                    this.txt_CountyMapJoinMapName.Text = dataCenterFolder + "\\" + config.IniCountyMapJoinTable;
+                    this.txt_CountyMapPath.Text = dataCenterFolder + "\\" + config.IniMapDocs+"\\"+config.IniCountyMap+".mxd";
+                    this.txt_CountyMapJoinMapName.Text = dataCenterFolder + "\\" + config.IniMapDocs + "\\" + config.IniCountyMap + ".csv";
                 }
             }
             catch
