@@ -57,12 +57,11 @@ namespace SystemBase
         private string databaseServerName = "localhost";
         private string databaseCatalog = "snowcover";
         private string databaseUsername = "root";
-        private string databasePassword = "noroot";
+        private string databasePassword = "asd";
         //个性化初始化项
         private DateTime lastHandleDate = DateTime.Now;
 
-        //INIFile
-
+        #region //操作INIFile文件
         public string IniFileName
         {
             get { return iniFileName; }
@@ -72,7 +71,6 @@ namespace SystemBase
         public string IniFilePath
         {
             get {
-
                 return Application.StartupPath + "\\" +iniFileName; 
             }
             set { iniFilePath = value; }
@@ -86,8 +84,9 @@ namespace SystemBase
             }
             set { iniFile = value; }
         }
+        #endregion
 
-        #region //配置文件夹名称 （可以不配置）
+        #region //配置文件夹名称
         public string IniDataCenter
         {
             get { return iniDataCenter; }
@@ -149,7 +148,7 @@ namespace SystemBase
         }
         public string IniCountyMap
         {
-            get { return IniCountyMap; }
+            get { return iniCountyMapPath; }
         }
         public string IniCountyMapJoinTable
         {
@@ -157,7 +156,7 @@ namespace SystemBase
         }
         #endregion
 
-        //设置、获取文件夹路径        
+        #region //设置、获取文件夹路径
         public string DataCenterFolderPath
         {
             get { 
@@ -267,8 +266,7 @@ namespace SystemBase
                 mapDocsPath = value;
                 IniFile.IniWriteValue(iniDataCenter, iniMapDocs, mapDocsPath);
             }
-        }
-        //积雪覆盖统计
+        }//积雪覆盖统计
         public string CountyMapPath
         {
             get
@@ -362,15 +360,13 @@ namespace SystemBase
                 IniFile.IniWriteValue(iniHumanize, iniLastHandleDate, dateStr);
             }
         }
-
-
-
+        #endregion
 
         #region //实用函数
         //获取数据库连接
         public MySqlConnection GetMySQLConnection()
         {
-            return MySQL.GetMySQLConnection(this.databaseServerName, this.databaseCatalog, this.databaseUsername, this.databasePassword);
+            return MySQL.GetMySQLConnection(DatabaseServerName, DatabaseCatalog, DatabaseUsername, DatabasePassword);
         }
         #endregion 
 

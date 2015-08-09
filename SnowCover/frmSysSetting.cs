@@ -50,10 +50,8 @@ namespace SnowCover
 
         private void btn_SubmitSetting_Click(object sender, EventArgs e)
         {
-            if(ApplicateSetting())
-            {
-                this.Close();
-            }            
+            ApplicateSetting();
+            this.Close();
         }
 
         private void btn_ApplicationSetting_Click(object sender, EventArgs e)
@@ -116,6 +114,7 @@ namespace SnowCover
         //应用设置
         private bool ApplicateSetting()
         {
+            bool flag = true;
             try
             {
                 if (config.IniFile == null)
@@ -160,42 +159,42 @@ namespace SnowCover
                 if (!CreateFolder(OrigionDataFolder))
                 {
                     MessageBox.Show("原始数据目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false;
+                    flag = false;
                 }
                 if (!File.Exists(BoundaryFilePath))
                 {
                     MessageBox.Show("边界文件不存在，请检查后重试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false; ;
+                    flag = false; ;
                 }
                 if (!CreateFolder(PreprocessingSnowCoverFolder))
                 {
                     MessageBox.Show("影像预处理目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false; ;
+                    flag = false; ;
                 }
                 if (!CreateFolder(EverydaySnowCoverFolder))
                 {
                     MessageBox.Show("每日积雪数据目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false; ;
+                    flag = false; ;
                 }
                 if (!CreateFolder(StatisticSnowCoverFolder))
                 {
                     MessageBox.Show("统计积雪数据目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false; ;
+                    flag = false; ;
                 }
                 if (!CreateFolder(PublishDisasterDoc))
                 {
                     MessageBox.Show("公报灾情文档目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false; ;
+                    flag = false; ;
                 }
                 if (!CreateFolder(MapDocs))
                 {
                     MessageBox.Show("地图文档目录创建失败，请检查权限及路径是否正确。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false; ;
+                    flag = false; ;
                 }
             }
             catch
             { }
-            return true;
+            return flag;
         }
         private void DefaultSetting()
         {
@@ -208,7 +207,9 @@ namespace SnowCover
                 this.txt_EverydaySnowCoverFolder.Text = startPath + "\\"+config.IniEverydaySnowCoverFolder;
                 this.txt_StatisticSnowCoverFolder.Text = startPath + "\\"+config.IniStatisticSnowCoverFolder;
                 this.txt_PublishDisasterDoc.Text = startPath + "\\"+config.IniPublishDisasterDoc;
-                this.txt_MapDocs.Text = startPath + "\\" + config.MapDocsPath;
+                this.txt_MapDocs.Text = startPath + "\\" + config.IniMapDocs;
+                this.txt_CountyMapPath.Text = startPath + "\\" + config.IniCountyMap;
+                this.txt_CountyMapJoinMapName.Text = startPath + "\\" + config.IniCountyMapJoinTable;
             }
             catch
             { }
@@ -278,7 +279,9 @@ namespace SnowCover
                     this.txt_EverydaySnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniEverydaySnowCoverFolder;
                     this.txt_StatisticSnowCoverFolder.Text = dataCenterFolder + "\\" + config.IniStatisticSnowCoverFolder;
                     this.txt_PublishDisasterDoc.Text = dataCenterFolder + "\\" + config.IniPublishDisasterDoc;
-                    this.txt_MapDocs.Text = dataCenterFolder + "\\" + config.MapDocsPath;
+                    this.txt_MapDocs.Text = dataCenterFolder + "\\" + config.IniMapDocs;
+                    this.txt_CountyMapPath.Text = dataCenterFolder + "\\" + config.IniCountyMap;
+                    this.txt_CountyMapJoinMapName.Text = dataCenterFolder + "\\" + config.IniCountyMapJoinTable;
                 }
             }
             catch
@@ -321,14 +324,12 @@ namespace SnowCover
                     if (Directory.Exists(DataCenterFolder))
                     {
                         System.Diagnostics.Process.Start("explorer.exe", DataCenterFolder);
-                    }
-                    
+                    }                    
                 }
                 catch
                 {
                     
                 }
-
             }
             else
             {
@@ -397,6 +398,14 @@ namespace SnowCover
         private void btn_SetCountyMap_Click(object sender, EventArgs e)
         {
             SetFilePath(this.txt_CountyMapPath);
+            //联动修改jointable的路径
+            string countyMapPath = this.txt_CountyMapPath.Text;
+            if(File.Exists(countyMapPath))
+            {
+                string parentFolder = Path.GetDirectoryName(countyMapPath);
+                string mxdName = Path.GetFileNameWithoutExtension(countyMapPath);
+                this.txt_CountyMapJoinMapName.Text = parentFolder + "\\" + mxdName + ".csv";
+            }
         }
 
         private void btn_OpenCountyMap_Click(object sender, EventArgs e)
@@ -547,15 +556,7 @@ namespace SnowCover
                     MessageBox.Show("请将数据库信息填写完整,", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                MySql.Data.MySqlClient.MySqlConnection mysqlConn =  SystemBase.MySQL.TestConnection(server, catalog, username, password);
-                if (mysqlConn != null)
-                {
-                    MessageBox.Show("数据库连接成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("数据库连接失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MySql.Data.MySqlClient.MySqlConnection mysqlConn =  SystemBase.MySQL.TestConnection(server, catalog, username, password);                
             }
             catch
             { }

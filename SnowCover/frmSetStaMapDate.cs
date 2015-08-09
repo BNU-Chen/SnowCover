@@ -228,7 +228,7 @@ namespace SnowCover
             + "WHERE sn.Date = '" + dateSt + "'";
             DataTable table = SystemBase.MySQL.Select(sqlStr, mysqlConn);
             string labelText = "否";
-            if (table.Rows.Count > 0)
+            if (table != null && table.Rows.Count > 0)
             {
                 labelText = "是";
             }

@@ -43,7 +43,7 @@ namespace SnowCover
             }
             config = new SystemBase.SystemConfig();
             //初始化MySQL Connection
-            sqlConnection = SystemBase.MySQL.TestConnection(config.DatabaseServerName, config.DatabaseCatalog, config.DatabaseUsername, config.DatabasePassword);
+            sqlConnection = SystemBase.MySQL.GetMySQLConnection(config.DatabaseServerName, config.DatabaseCatalog, config.DatabaseUsername, config.DatabasePassword);
         }
 
         #region //GIS控件事件

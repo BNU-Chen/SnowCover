@@ -14,6 +14,6 @@ namespace SnowCover
         public frmTest()
         {
             InitializeComponent();
-        }
+        } 
     }
 }

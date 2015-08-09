@@ -15,24 +15,31 @@ namespace SystemBase
     {
         public static MySqlConnection GetMySQLConnection(string server, string catalog, string username, string password)
         {
-            MySqlConnection connection = null;
-            //this.serverName = server;
-            //this.catalog = catalog;
-            //this.userName = username;
-            //this.password = password;
-
+            MySqlConnection conn = null;
             string myConnectionString;
 
             myConnectionString = "server=" + server + ";uid=" + username + ";" + "pwd=" + password + ";database=" + catalog + ";";
 
             try
             {
-                connection = new MySql.Data.MySqlClient.MySqlConnection(myConnectionString);
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = myConnectionString;
+                conn.Open();
             }
-            catch { }
-            return connection;
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                conn = null;
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return conn;
         }
-        //测试连接数据库
+        //测试连接数据库（test和get的区别是，test中连接成功失败都会对话框提示）
         public static MySqlConnection TestConnection(string server, string catalog, string username, string password)
         {
             MySql.Data.MySqlClient.MySqlConnection conn = null;
@@ -45,6 +52,7 @@ namespace SystemBase
                 conn = new MySql.Data.MySqlClient.MySqlConnection();
                 conn.ConnectionString = myConnectionString;
                 conn.Open();
+                MessageBox.Show("数据库连接成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
