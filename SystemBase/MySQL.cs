@@ -45,11 +45,10 @@ namespace SystemBase
                 conn = new MySql.Data.MySqlClient.MySqlConnection();
                 conn.ConnectionString = myConnectionString;
                 conn.Open();
-                //MessageBox.Show("数据库连接成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch //(MySql.Data.MySqlClient.MySqlException ex)
+            catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                //MessageBox.Show("数据库连接失败！\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("数据库连接失败！\n" + ex.Message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             finally
             {

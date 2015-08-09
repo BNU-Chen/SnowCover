@@ -65,7 +65,6 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_DatabaseTestConnection = new System.Windows.Forms.Button();
             this.txt_DatabasePassword = new System.Windows.Forms.TextBox();
@@ -81,12 +80,23 @@
             this.btn_ApplicationSetting = new System.Windows.Forms.Button();
             this.btn_DefaultSetting = new System.Windows.Forms.Button();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btn_OpenCountyMap = new System.Windows.Forms.Button();
+            this.btn_SetCountyMap = new System.Windows.Forms.Button();
+            this.txt_CountyMapPath = new System.Windows.Forms.TextBox();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.txt_CountyMapJoinMapName = new System.Windows.Forms.TextBox();
+            this.btn_OpenCountyMapJoinTable = new System.Windows.Forms.Button();
+            this.btn_SetCountyMapJoinTable = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.xtraTabPage2.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // xtraTabControl1
@@ -432,26 +442,17 @@
             // 
             // xtraTabPage2
             // 
+            this.xtraTabPage2.Controls.Add(this.groupBox4);
             this.xtraTabPage2.Name = "xtraTabPage2";
             this.xtraTabPage2.Size = new System.Drawing.Size(578, 375);
             this.xtraTabPage2.Text = "积雪覆盖分析";
             // 
             // xtraTabPage3
             // 
-            this.xtraTabPage3.Controls.Add(this.groupBox3);
             this.xtraTabPage3.Controls.Add(this.groupBox2);
             this.xtraTabPage3.Name = "xtraTabPage3";
             this.xtraTabPage3.Size = new System.Drawing.Size(578, 375);
             this.xtraTabPage3.Text = "数据库";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Location = new System.Drawing.Point(7, 105);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(560, 100);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "数据表名称设置";
             // 
             // groupBox2
             // 
@@ -590,6 +591,93 @@
             this.labelControl10.TabIndex = 8;
             this.labelControl10.Text = "有些设置需要重启软件以生效。";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.txt_CountyMapJoinMapName);
+            this.groupBox4.Controls.Add(this.labelControl15);
+            this.groupBox4.Controls.Add(this.btn_OpenCountyMapJoinTable);
+            this.groupBox4.Controls.Add(this.btn_OpenCountyMap);
+            this.groupBox4.Controls.Add(this.btn_SetCountyMapJoinTable);
+            this.groupBox4.Controls.Add(this.btn_SetCountyMap);
+            this.groupBox4.Controls.Add(this.txt_CountyMapPath);
+            this.groupBox4.Controls.Add(this.labelControl14);
+            this.groupBox4.Location = new System.Drawing.Point(11, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(556, 88);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "积雪覆盖统计";
+            // 
+            // btn_OpenCountyMap
+            // 
+            this.btn_OpenCountyMap.Location = new System.Drawing.Point(511, 19);
+            this.btn_OpenCountyMap.Name = "btn_OpenCountyMap";
+            this.btn_OpenCountyMap.Size = new System.Drawing.Size(38, 23);
+            this.btn_OpenCountyMap.TabIndex = 9;
+            this.btn_OpenCountyMap.Text = "打开";
+            this.btn_OpenCountyMap.UseVisualStyleBackColor = true;
+            this.btn_OpenCountyMap.Click += new System.EventHandler(this.btn_OpenCountyMap_Click);
+            // 
+            // btn_SetCountyMap
+            // 
+            this.btn_SetCountyMap.Location = new System.Drawing.Point(467, 19);
+            this.btn_SetCountyMap.Name = "btn_SetCountyMap";
+            this.btn_SetCountyMap.Size = new System.Drawing.Size(38, 23);
+            this.btn_SetCountyMap.TabIndex = 10;
+            this.btn_SetCountyMap.Text = "浏览";
+            this.btn_SetCountyMap.UseVisualStyleBackColor = true;
+            this.btn_SetCountyMap.Click += new System.EventHandler(this.btn_SetCountyMap_Click);
+            // 
+            // txt_CountyMapPath
+            // 
+            this.txt_CountyMapPath.Location = new System.Drawing.Point(101, 20);
+            this.txt_CountyMapPath.Name = "txt_CountyMapPath";
+            this.txt_CountyMapPath.Size = new System.Drawing.Size(360, 21);
+            this.txt_CountyMapPath.TabIndex = 8;
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Location = new System.Drawing.Point(13, 23);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(84, 14);
+            this.labelControl14.TabIndex = 7;
+            this.labelControl14.Text = "县界地图路径：";
+            // 
+            // labelControl15
+            // 
+            this.labelControl15.Location = new System.Drawing.Point(13, 53);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(84, 14);
+            this.labelControl15.TabIndex = 11;
+            this.labelControl15.Text = "关联表格路径：";
+            // 
+            // txt_CountyMapJoinMapName
+            // 
+            this.txt_CountyMapJoinMapName.Location = new System.Drawing.Point(101, 50);
+            this.txt_CountyMapJoinMapName.Name = "txt_CountyMapJoinMapName";
+            this.txt_CountyMapJoinMapName.Size = new System.Drawing.Size(360, 21);
+            this.txt_CountyMapJoinMapName.TabIndex = 12;
+            // 
+            // btn_OpenCountyMapJoinTable
+            // 
+            this.btn_OpenCountyMapJoinTable.Location = new System.Drawing.Point(511, 48);
+            this.btn_OpenCountyMapJoinTable.Name = "btn_OpenCountyMapJoinTable";
+            this.btn_OpenCountyMapJoinTable.Size = new System.Drawing.Size(38, 23);
+            this.btn_OpenCountyMapJoinTable.TabIndex = 9;
+            this.btn_OpenCountyMapJoinTable.Text = "打开";
+            this.btn_OpenCountyMapJoinTable.UseVisualStyleBackColor = true;
+            this.btn_OpenCountyMapJoinTable.Click += new System.EventHandler(this.btn_OpenCountyMapJoinTable_Click);
+            // 
+            // btn_SetCountyMapJoinTable
+            // 
+            this.btn_SetCountyMapJoinTable.Location = new System.Drawing.Point(467, 48);
+            this.btn_SetCountyMapJoinTable.Name = "btn_SetCountyMapJoinTable";
+            this.btn_SetCountyMapJoinTable.Size = new System.Drawing.Size(38, 23);
+            this.btn_SetCountyMapJoinTable.TabIndex = 10;
+            this.btn_SetCountyMapJoinTable.Text = "浏览";
+            this.btn_SetCountyMapJoinTable.UseVisualStyleBackColor = true;
+            this.btn_SetCountyMapJoinTable.Click += new System.EventHandler(this.btn_SetCountyMapJoinTable_Click);
+            // 
             // frmSysSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -612,9 +700,12 @@
             this.xtraTabPage1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.xtraTabPage2.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -670,10 +761,18 @@
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private System.Windows.Forms.TextBox txt_DatabaseServerName;
         private DevExpress.XtraEditors.LabelControl labelControl6;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btn_OpenMapDocs;
         private System.Windows.Forms.Button btn_SetMapDocs;
         private System.Windows.Forms.TextBox txt_MapDocs;
         private DevExpress.XtraEditors.LabelControl labelControl13;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btn_OpenCountyMap;
+        private System.Windows.Forms.Button btn_SetCountyMap;
+        private System.Windows.Forms.TextBox txt_CountyMapPath;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private System.Windows.Forms.TextBox txt_CountyMapJoinMapName;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private System.Windows.Forms.Button btn_OpenCountyMapJoinTable;
+        private System.Windows.Forms.Button btn_SetCountyMapJoinTable;
     }
 }

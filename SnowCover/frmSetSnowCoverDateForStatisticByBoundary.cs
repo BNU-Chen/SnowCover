@@ -39,7 +39,7 @@ namespace SnowCover
 
         private void frmSetSnowCoverDateForStatisticByBoundary_Load(object sender, EventArgs e)
         {
-            DateTime today = DateTime.Now;
+            DateTime today = config.LastHandleDate;
             DateTime firstDayOfYear = Convert.ToDateTime(today.Year.ToString()+"-01-01");//DateTime.Now;
             this.dateNavigator1.DateTime = firstDayOfYear;
 
@@ -127,7 +127,7 @@ namespace SnowCover
                 SystemBase.LogFile.Log(this.Text, "处理成功：" + handleSuccessDates);
                 SystemBase.LogFile.Log(this.Text, "处理失败：" + handleFailureDates);
                 MessageBox.Show("以下数据处理成功：\n" + handleSuccessDates + "\n以下数据处理失败：\n" + handleFailureDates, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+                config.LastHandleDate = date;
             }
             else
             {

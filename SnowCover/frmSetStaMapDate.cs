@@ -20,39 +20,45 @@ namespace SnowCover
     public partial class frmSetStaMapDate : Form
     {
         private IMapControl2 mapControl = null;
+        private AxTOCControl tocControl = null;
         private DateTime date = DateTime.Now;
         private SystemBase.SystemConfig config = null;
         private MySqlConnection mysqlConn = null;
         
 
-        public frmSetStaMapDate(AxMapControl _axMapControl)
+        public frmSetStaMapDate(AxMapControl _axMapControl,AxTOCControl _tocCtrl)
         {
             InitializeComponent();
             mapControl = (IMapControl2)_axMapControl.Object;
+            tocControl = _tocCtrl;
             config = new SystemBase.SystemConfig();
             mysqlConn = config.GetMySQLConnection();        //获取数据库连接
+        }
+        private void frmSetStaMapDate_Load(object sender, EventArgs e)
+        {
+            this.dateNavigator1.DateTime = config.LastHandleDate;    //初始化时实用上次的日期
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
             this.Hide();
-            //frmProgressBar frmPB = new frmProgressBar();
-            //frmPB.Show();
             date = this.dateNavigator1.DateTime;
+            config.LastHandleDate = date;
             string dateStr = date.ToString("yyyy-MM-dd");
             DataTable snowDataTable = getDataFromDatabase(dateStr);
             if (snowDataTable == null || snowDataTable.Rows.Count == 0)
             {
-                //frmPB.Close();
                 MessageBox.Show("未获取到[" + dateStr + "]的数据，请重试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Show();
                 return;
             }
-            ExportDataToExcel(snowDataTable, @"D:\Develop\data\SnowCover\maps\SnowCover_t.xls");
-            //ILayer layer = mapControl.Map.get_Layer(0);
-            //EditRendererLayerAttr(layer, snowStaDataKeyMap);
-            //frmPB.Close();
+            string excelPath = config.CountyMapJoinTablePath;
+            SystemBase.ExcelHandler.DataTableToCSV(snowDataTable, excelPath);
+            mapControl.Map.Name = dateStr;
             mapControl.ActiveView.Refresh();
+            tocControl.Refresh();
+            tocControl.Update();
+            //tocControl.ProductName
             this.Close();
         }
 
@@ -212,12 +218,23 @@ namespace SnowCover
             }
         }
 
-    }
-    public class SnowData
-    {
-        public string code;
-        public int count;
-        public int sum;
-        public string date;
+        private void dateNavigator1_EditDateModified(object sender, EventArgs e)
+        {
+            DateTime date = this.dateNavigator1.DateTime;
+            string dateSt = date.ToString("yyyy-MM-dd");
+
+            string sqlStr = "SELECT  DISTINCT sn.Date "
+            + "FROM snowcover_statisticbyboundary AS sn "
+            + "WHERE sn.Date = '" + dateSt + "'";
+            DataTable table = SystemBase.MySQL.Select(sqlStr, mysqlConn);
+            string labelText = "否";
+            if (table.Rows.Count > 0)
+            {
+                labelText = "是";
+            }
+            this.lbl_HasStaData.Text = labelText;
+        }
+
+
     }
 }

@@ -113,6 +113,16 @@ namespace SnowCover.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap excelsum {
+            get {
+                object obj = ResourceManager.GetObject("excelsum", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap exportMap_64 {
             get {
                 object obj = ResourceManager.GetObject("exportMap-64", resourceCulture);
@@ -236,6 +246,16 @@ namespace SnowCover.Properties {
         internal static System.Drawing.Bitmap scaleOut_32 {
             get {
                 object obj = ResourceManager.GetObject("scaleOut_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap stacounty {
+            get {
+                object obj = ResourceManager.GetObject("stacounty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

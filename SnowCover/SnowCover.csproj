@@ -77,6 +77,7 @@
     <Reference Include="DevExpress.XtraTreeList.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
@@ -158,6 +159,12 @@
     <Compile Include="frmDisasterStatisticsFromExcel.Designer.cs">
       <DependentUpon>frmDisasterStatisticsFromExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmFeatureAttribute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFeatureAttribute.Designer.cs">
+      <DependentUpon>frmFeatureAttribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmProgressBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,8 +221,12 @@
     <Compile Include="frmSetSnowCoverDateForStatisticByBoundary.Designer.cs">
       <DependentUpon>frmSetSnowCoverDateForStatisticByBoundary.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserDefineClasses.cs" />
     <EmbeddedResource Include="frmDisasterStatisticsFromExcel.resx">
       <DependentUpon>frmDisasterStatisticsFromExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFeatureAttribute.resx">
+      <DependentUpon>frmFeatureAttribute.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProgressBar.resx">
       <DependentUpon>frmProgressBar.cs</DependentUpon>
@@ -341,6 +352,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\excelsum.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stacounty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
