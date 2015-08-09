@@ -90,7 +90,6 @@ namespace SnowCover
             if (e.button == 4 && activeView != null)
             {
                 activeView.ScreenDisplay.PanMoveTo(activeView.ScreenDisplay.DisplayTransformation.ToMapPoint(e.x, e.y));
-
             }
         }
         #endregion
