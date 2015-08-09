@@ -35,9 +35,11 @@
             this.barButtonGroup2 = new DevExpress.XtraBars.BarButtonGroup();
             this.btn_ScaleIn = new DevExpress.XtraBars.BarButtonItem();
             this.btn_ScaleOut = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_FullExtent = new DevExpress.XtraBars.BarButtonItem();
             this.buttongroup = new DevExpress.XtraBars.BarButtonGroup();
             this.btn_ZoomIn = new DevExpress.XtraBars.BarButtonItem();
             this.btn_ZoomOut = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_SetMouseNull = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Settings = new DevExpress.XtraBars.BarButtonItem();
             this.btn_HelpDocument = new DevExpress.XtraBars.BarButtonItem();
             this.btn_About = new DevExpress.XtraBars.BarButtonItem();
@@ -54,8 +56,8 @@
             this.btn_PublishDisasterDoc = new DevExpress.XtraBars.BarButtonItem();
             this.btn_StatisticTable = new DevExpress.XtraBars.BarButtonItem();
             this.btn_ExcelStatistic = new DevExpress.XtraBars.BarButtonItem();
-            this.btn_QueryStaInfoByMap = new DevExpress.XtraBars.BarButtonItem();
             this.btn_renderStaInfo = new DevExpress.XtraBars.BarButtonItem();
+            this.barbuttongroup3 = new DevExpress.XtraBars.BarButtonGroup();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -127,11 +129,13 @@
             this.btn_PublishDisasterDoc,
             this.btn_StatisticTable,
             this.btn_ExcelStatistic,
-            this.btn_QueryStaInfoByMap,
-            this.btn_renderStaInfo});
+            this.btn_renderStaInfo,
+            this.barbuttongroup3,
+            this.btn_FullExtent,
+            this.btn_SetMouseNull});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(5);
-            this.ribbonControl1.MaxItemId = 34;
+            this.ribbonControl1.MaxItemId = 37;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage3,
@@ -155,6 +159,7 @@
             this.barButtonGroup2.Id = 8;
             this.barButtonGroup2.ItemLinks.Add(this.btn_ScaleIn);
             this.barButtonGroup2.ItemLinks.Add(this.btn_ScaleOut);
+            this.barButtonGroup2.ItemLinks.Add(this.btn_FullExtent);
             this.barButtonGroup2.Name = "barButtonGroup2";
             // 
             // btn_ScaleIn
@@ -175,12 +180,22 @@
             this.btn_ScaleOut.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.btn_ScaleOut.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ScaleOut_ItemClick);
             // 
+            // btn_FullExtent
+            // 
+            this.btn_FullExtent.Caption = "全图";
+            this.btn_FullExtent.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.btn_FullExtent.Glyph = global::SnowCover.Properties.Resources.globe;
+            this.btn_FullExtent.Id = 35;
+            this.btn_FullExtent.Name = "btn_FullExtent";
+            this.btn_FullExtent.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_FullExtent_ItemClick);
+            // 
             // buttongroup
             // 
             this.buttongroup.Caption = "缩放";
             this.buttongroup.Id = 13;
             this.buttongroup.ItemLinks.Add(this.btn_ZoomIn);
             this.buttongroup.ItemLinks.Add(this.btn_ZoomOut);
+            this.buttongroup.ItemLinks.Add(this.btn_SetMouseNull);
             this.buttongroup.Name = "buttongroup";
             // 
             // btn_ZoomIn
@@ -200,6 +215,15 @@
             this.btn_ZoomOut.Name = "btn_ZoomOut";
             this.btn_ZoomOut.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             this.btn_ZoomOut.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ZoomOut_ItemClick);
+            // 
+            // btn_SetMouseNull
+            // 
+            this.btn_SetMouseNull.Caption = "置空";
+            this.btn_SetMouseNull.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.btn_SetMouseNull.Glyph = global::SnowCover.Properties.Resources.mouse_cursor_64;
+            this.btn_SetMouseNull.Id = 36;
+            this.btn_SetMouseNull.Name = "btn_SetMouseNull";
+            this.btn_SetMouseNull.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_SetMouseNull_ItemClick);
             // 
             // btn_Settings
             // 
@@ -347,13 +371,6 @@
             this.btn_ExcelStatistic.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_ExcelStatistic.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_ExcelStatistic_ItemClick);
             // 
-            // btn_QueryStaInfoByMap
-            // 
-            this.btn_QueryStaInfoByMap.Caption = "barButtonItem1";
-            this.btn_QueryStaInfoByMap.Id = 32;
-            this.btn_QueryStaInfoByMap.Name = "btn_QueryStaInfoByMap";
-            this.btn_QueryStaInfoByMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_QueryStaInfoByMap_ItemClick);
-            // 
             // btn_renderStaInfo
             // 
             this.btn_renderStaInfo.Caption = "统计查看";
@@ -362,6 +379,13 @@
             this.btn_renderStaInfo.Name = "btn_renderStaInfo";
             this.btn_renderStaInfo.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btn_renderStaInfo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_renderStaInfo_ItemClick);
+            // 
+            // barbuttongroup3
+            // 
+            this.barbuttongroup3.Caption = "全图&置空";
+            this.barbuttongroup3.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.barbuttongroup3.Id = 34;
+            this.barbuttongroup3.Name = "barbuttongroup3";
             // 
             // ribbonPage3
             // 
@@ -524,6 +548,7 @@
             this.axMapControl1.TabIndex = 0;
             this.axMapControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl1_OnMouseDown);
             this.axMapControl1.OnMouseUp += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseUpEventHandler(this.axMapControl1_OnMouseUp);
+            this.axMapControl1.OnMouseMove += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseMoveEventHandler(this.axMapControl1_OnMouseMove);
             // 
             // xtraTabPage4
             // 
@@ -671,8 +696,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi_ProjectToWGS1984;
         private DevExpress.XtraBars.BarButtonItem btn_ExcelStatistic;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
-        private DevExpress.XtraBars.BarButtonItem btn_QueryStaInfoByMap;
         private DevExpress.XtraBars.BarButtonItem btn_renderStaInfo;
+        private DevExpress.XtraBars.BarButtonGroup barbuttongroup3;
+        private DevExpress.XtraBars.BarButtonItem btn_FullExtent;
+        private DevExpress.XtraBars.BarButtonItem btn_SetMouseNull;
     }
 }
 

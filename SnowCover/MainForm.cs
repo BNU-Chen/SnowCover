@@ -28,6 +28,9 @@ namespace SnowCover
         private MySqlConnection sqlConnection = null;
         private frmFeatureAttribute frmFeatureAttr = null;
 
+        //esri
+        private IActiveView activeView = null;
+
         public MainForm()
         {
             InitializeComponent();
@@ -46,7 +49,14 @@ namespace SnowCover
         #region //GIS控件事件
         private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
         {
-           
+            if (e.button == 4)
+            {
+                //MapControl map = (MapControl)((ToolbarControl)hookHelper.getHook()).getBuddy();
+                activeView = axMapControl1.ActiveView;
+
+                activeView.ScreenDisplay.PanStart(activeView.ScreenDisplay.DisplayTransformation.ToMapPoint(e.x, e.y));
+
+            }
         }
 
 
@@ -54,18 +64,33 @@ namespace SnowCover
         {
             if (e.button == 1)
             {
-                if (isQueryStaInfoByMap)
+                if (isQueryStaInfoByMap && this.axMapControl1.MousePointer == ESRI.ArcGIS.Controls.esriControlsMousePointer.esriPointerCrosshair)
                 {
                     GetStaInfoByMap();
                 }
             }
             else if (e.button == 2)
             {
-                MessageBox.Show("2");
+                //MessageBox.Show("2");
             }
             else if (e.button == 3)
             {
-                MessageBox.Show("3");
+                //MessageBox.Show("3");
+            }
+            else if (e.button == 4 && activeView != null)
+            {
+                activeView.ScreenDisplay.PanStop();
+                axMapControl1.ActiveView.Refresh();
+
+            }
+        }
+
+        private void axMapControl1_OnMouseMove(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseMoveEvent e)
+        {
+            if (e.button == 4 && activeView != null)
+            {
+                activeView.ScreenDisplay.PanMoveTo(activeView.ScreenDisplay.DisplayTransformation.ToMapPoint(e.x, e.y));
+
             }
         }
         #endregion
@@ -157,6 +182,7 @@ namespace SnowCover
 
         private void btn_Pan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            SystemBase.GISTools.setNull(this.axMapControl1);
             SystemBase.GISTools.Pan(this.axMapControl1);
         }
 
@@ -178,6 +204,16 @@ namespace SnowCover
         private void btn_ScaleOut_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SystemBase.GISTools.ZoomOutFix(axMapControl1);
+        }
+        private void btn_FullExtent_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SystemBase.GISTools.FullExtend(this.axMapControl1);
+        }
+
+        private void btn_SetMouseNull_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SystemBase.GISTools.setNull(this.axMapControl1);
+            isQueryStaInfoByMap = false;
         }
         #endregion
                 
@@ -298,10 +334,6 @@ namespace SnowCover
         #endregion
 
         #region //积雪统计信息查询
-        private void btn_QueryStaInfoByMap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-
-        }
         private void GetStaInfoByMap()
         {
             IFeatureLayer layer = this.axMapControl1.get_Layer(0) as IFeatureLayer;
@@ -431,7 +463,5 @@ namespace SnowCover
         #endregion
 
         
-
-
     }
 }
